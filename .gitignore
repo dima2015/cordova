@@ -117,7 +117,7 @@ node_modules/
 npm-debug.log
 public/css
 app/dist
-assets/css/generated
+www/assets/css/generated
 
 ### laravel ide helper ###
 .phpstorm.meta.php
@@ -127,12 +127,11 @@ _ide_helper.php
 ### DEPLOYING ###
 .git_utility
 
-#karma config
-karma.conf.js
 
 ### OTHER ###
  .package.json.swp
 
-######
+###CORDOVA###
 platforms
 plugins
+wwww/node_modules

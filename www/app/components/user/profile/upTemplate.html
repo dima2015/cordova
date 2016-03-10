@@ -1,0 +1,102 @@
+<div class="container-fluid navigation">
+    <div class="navigation-left">
+        <a href="/#/user">
+            <img src="assets/img/logoWhite.png" alt="Plunner"/>
+        </a>
+    </div>
+    <div class="navigation-right">
+        <ul class="list-inline list-unstyled">
+            <li class="user_section">
+                <a href="/#/user/profile" profile type="user">
+                    <img class="user_icon" src="assets/img/user_white.png" alt="Your profile"/>
+                    <span>{{profileName}}</span>
+
+                </a>
+            </li>
+            <li>
+                <img src="assets/img/sign_out.png" alt="Sign out" logout redirect="/"/>
+                <button type="button" class="navbar_button" logout redirect="/">SIGN OUT</button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid upC">
+    <div class="section_heading row">
+        <h1 class="text-center font_light">Your profile</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-push-2 col-sm-10 col-sm-push-1 col-xs-10 col-xs-push-1 media_adapt">
+            <div class=" section_action_bar" ng-class="{span : upC.editMode.flag}">
+                <a href="/#/user" class="link_top"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Back to dashboard</a>
+                <button class="main_button" ng-click="upC.update.submit()" ng-show="upC.editMode.flag">Save changes</button>
+                <button class="secondary_button" ng-show="upC.editMode.flag" ng-click="upC.editMode.exit()">Abort</button>
+                <button ng-show="!upC.editMode.flag" class="main_button" ng-click="upC.editMode.enter()"><i class="fa fa-wrench"></i>&nbsp;&nbsp;Edit profile
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <div class="row">
+        <div class="col-md-8 col-md-push-2 col-sm-10 col-sm-push-1 col-xs-10 col-xs-push-1 media_adapt">
+            <p class="error_tile" ng-repeat="error in upC.update.errors"><i class="fa fa-warning"></i>&nbsp;&nbsp;{{error}}</p>
+            <div class="row">
+                <div class="col-md-5">
+                    <form name="upC_profile_form">
+                        <table class="table">
+                            <thead>
+                            <th></th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="font_bold">Name:</td>
+                                <td>
+                                    <input placeholder="Name" name="name" type="text" ng-model="upC.dataCopy.name" ng-readonly="!upC.editMode.flag"
+                                           ng-class="{disabled : !upC.editMode.flag, error_bordering: upC.update.invalidFields.nameReq }" required>
+                                    <p class="error_msg" ng-show="upC.update.invalidFields.nameReq">Insert a name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font_bold">Email:</td>
+                                <td>
+                                    <p>{{upC.data.email}}</p>
+                                </td>
+                            </tr>
+                            <tr class="password_row">
+                                <td class="font_bold">Password:</td>
+                                <td>
+                                    <input placeholder="your password" name="password" ng-minlength="6" type="password" ng-model="upC.dataCopy.password" ng-readonly="!upC.editMode.flag"
+                                           ng-class="{disabled : !upC.editMode.flag, error_bordering: upC.update.invalidFields.passwordLength }">
+                                    <p class="error_msg" ng-show="upC.update.invalidFields.passwordLength">Insert a password at least 6 characters long</p>
+                                </td>
+                            </tr>
+                            <tr class="password_row" ng-show="upC.editMode.flag">
+                                <td class="font_bold">Confirm password</td>
+                                <td>
+                                    <input name="password_confirmation" type="password" ng-model="upC.dataCopy.password_confirmation"
+                                           ng-class="{error_bordering : upC.update.invalidFields.passwordMatch}" >
+                                    <p class="error_msg" ng-show="upC.update.invalidFields.passwordMatch">The passwords don't match</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="authorizationPopup" class="modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center">
+                <img src="assets/img/484.GIF" alt=""/>
+                <h2>&nbsp;&nbsp;Saving changes</h2>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>

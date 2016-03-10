@@ -1,0 +1,184 @@
+.tile
+
+  height: 141px
+  padding: 10px
+  border-bottom: 1px solid $gray_super_light
+
+  .tileIconLeft
+    img
+      width: 60px
+      margin-top: 24px
+
+    @media (max-width: 1440px) and (min-width: 993px)
+      width: 11%
+
+
+  .tileIconRight
+    svg
+      display: block
+      margin-left: auto
+      margin-right: 0
+      margin-top: 40px
+      cursor: pointer
+
+      &:hover
+        g
+          g
+            fill: darken($gray_light, 20%)
+
+  .tileBody
+    height: 130px
+    padding-left: 30px
+
+
+
+
+    .tileTitle
+      font-size: 20px
+      font-weight: 400
+
+    .tileDescription
+      height: 39px
+      margin-top: 10px
+      color: $washed_black
+      overflow: hidden
+
+
+    .tileBottomGroup
+      margin-top: 7px
+
+      ul
+        li
+          margin-right: 15px
+
+      i
+        color: $washed_black
+        font-size: 16px
+
+      .tileSynched
+        color: $main_blue
+
+      .fa-warning
+        color: $danger_red
+
+      .tooltip-inner
+        background-color: $danger_red
+
+      .tooltip-arrow
+        bottom: 0
+        left: 50%
+        margin-left: -5px
+        border-left: 5px solid transparent
+        border-right: 5px solid transparent
+        border-top: 5px solid $danger_red
+          
+      button
+        color: $washed_black
+        background-color: transparent
+        border: none
+        outline: none
+
+        &:hover
+          color: black
+          i
+            color: black
+
+    @media (max-width: 1440px) and (min-width: 993px)
+      margin-right: 5.66666667%
+
+
+
+
+.tile-small
+  height: 120px
+
+  .tileActiveInfo
+    color: #2ECC71
+    font-size: 14px
+
+  .tileNonActiveInfo
+    color: $gray_light
+    font-size: 14px
+
+  .tileSyncError
+    color: $danger_red
+    font-size: 14px
+
+  .tileIconLeft, .tileIconRight, .tileBody
+    height: 120px
+    margin-top: -11px
+
+    svg
+      margin-top: 44px
+
+  .tileBody
+    .tileTitle
+      margin-top: 30px
+      padding-bottom: 10px
+
+    .tileBottomGroup
+      margin-top: 10px
+
+
+
+@media (max-width: 600px)
+  .tile
+    height: 100px
+    font-size: 13px
+
+    .tileIconLeft
+      height: 100px
+      margin-top: -10px
+
+      img
+        width: 50px
+        margin-top: 22px
+
+    .tileBody
+      height: 100px
+      margin-top: -10px
+
+      .tileTitle
+        margin-top: 20px
+        font-size: 18px
+
+    .tileIconRight
+      height: 100px
+      margin-top: -10px
+
+      svg
+        width: 10px
+        height: 20px
+        margin-top: 34px
+
+@media (max-width: 400px)
+  .tile
+    font-size: 13px
+
+    .tileIconLeft
+
+    .tileBody
+      margin-top: -10px
+
+      .tileTitle
+        margin-top: 20px
+        font-size: 17px
+
+    .col-xs-9
+      width: 70%
+
+    .tileIconRight
+      svg
+        width: 10px
+        height: 20px
+        margin-top: 33px
+
+  .tile-small
+
+    .tileIconRight
+      svg
+        margin-top: 33px
+
+
+
+

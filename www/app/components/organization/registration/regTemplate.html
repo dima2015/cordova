@@ -1,0 +1,80 @@
+<div class="container-fluid navigation navigation--presentation backgroundLightBlue">
+    <div class="navigation-left">
+        <a href="/#/organization">
+            <img src="assets/img/logoWhite.png" alt=""/>
+        </a>
+    </div>
+    <div class="navigation-right">
+        <ul class="list-inline list-unstyled clearfix">
+            <li>
+                <a href="/#/signInHub">Sign In</a>
+            </li>
+            <li>
+                <a href="/#/signup">Sign Up</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid signUp">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <form name="regForm" ng-submit="regC.process()" novalidate>
+                <div class="text-center">
+                    <img width="180px" src="assets/img/plunner.png" alt=""/>
+                </div>
+                <div>
+                    <h2 class="font_light text-center">Sign Up</h2>
+                </div>
+                <p class="font_bold">Name</p>
+                <div>
+                    <input class="main_input" ng-class="{error_underline : regC.invalidFields.nameReq}" name="name" type="text" placeholder="Organization Name" required
+                           ng-model="regC.name">
+                    <p class="error_msg" ng-show="regC.invalidFields.nameReq">Insert a name</p>
+                </div>
+                <p class="font_bold">Email</p>
+                <div>
+                    <input class="main_input" name="email" required ng-model="regC.email"
+                           ng-class="{error_underline : regC.invalidFields.emailReq ||regC.invalidFields.emailVal }"
+                           type="email" placeholder="Email"/>
+
+                    <p class="error_msg" ng-show="regC.invalidFields.emailReq">Insert an email address</p>
+
+                    <p class="error_msg" ng-show="regC.invalidFields.emailVal">Insert a valid email
+                        address</p>
+                </div>
+                <p class="font_bold">Password</p>
+                <div>
+                    <input class="main_input" name="password" required ng-model="regC.password" type="password" placeholder="Password"
+                           ng-class="{error_underline : regC.invalidFields.passwordReq || regC.invalidFields.passwordLength}"/>
+                    <p class="error_msg" ng-show="regC.invalidFields.passwordReq">Insert a password</p>
+                    <p class="error_msg" ng-show="regC.invalidFields.passwordLength" class="text-danger">
+                        The password must be at least 6 characters long
+                    </p>
+                </div>
+                <p class="font_bold">Confirm password</p>
+                <div>
+                    <input ng-class="{error_underline : regC.invalidFields.passwordMatch}" class="main_input" name="passwordC" type="password" placeholder="Confirm Password" required
+                           ng-model="regC.passwordC">
+                    <p class="error_msg" ng-show="regC.invalidFields.passwordMatch" class="text-danger">
+                        The passwords do not match
+                    </p>
+                </div>
+                <p class="error_tile" ng-repeat="error in regC.errors"><i class="fa fa-warning"></i>&nbsp;&nbsp;{{error}}</p>
+                <button>SIGN UP</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="authorizationPopup" class="modal" role="dialog" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body text-center">
+                <img src="assets/img/484.GIF" alt=""/>
+                <h2>&nbsp;&nbsp;Registering</h2>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
