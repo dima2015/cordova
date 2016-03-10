@@ -1,3 +1,7 @@
+# cordova
+
+[see android app for more info](https://github.com/dima2015/android)
+
 # Hello World PhoneGap Application [![bitHound Score][bithound-img]][bithound-url]
 
 > A Hello World application built with PhoneGap
