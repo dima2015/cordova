@@ -2,6 +2,9 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var sync = require('browser-sync');
 var concat = require('gulp-concat');
+var clean = require('gulp-clean');
+var gulp  = require('gulp')
+var shell = require('gulp-shell')
 //var connect = require('gulp-connect');
 
 
@@ -73,10 +76,26 @@ gulp.task('concat_configuration', function () {
         .pipe(concat('angular_app_config.js'))
         .pipe(gulp.dest('www/app/dist'));
 });
+
+
+gulp.task('gz-remove', ['production'],  function (){
+    return gulp.src('www/node_modules/**/*.gz')
+    //return gulp.src('node_modules/gulp-sass/node_modules/node-sass/node_modules/cross-spawn/node_modules/spawn-sync/node_modules/try-thread-sleep/node_modules/thread-sleep/node_modules/node-pre-gyp/node_modules/tar-pack/test/fixtures/packed.tar.gz')
+        .pipe(clean());
+});
+
 gulp.task('concat', ['concat_configuration', 'concat_services_directives', 'concat_controllers_organization', 'concat_controllers_user', 'concat_presentation']);
 
 
 gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
+
+gulp.task('android-prepare', ['production', 'gz-remove']);
+
+gulp.task('run', shell.task([
+    'cordova run android',
+]))
+
+gulp.task('android-execute', ['android-prepare', 'run']);
 
 
 gulp.task('dev', ['watch', 'broswer-sync', 'sass_compile', 'concat']);

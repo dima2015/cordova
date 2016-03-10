@@ -58,11 +58,11 @@
     </head>
     <body>
         <div class="app">
-            <h1>PhoneGap</h1>
+<!--            <h1>PhoneGap</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
-            </div>
+            </div> -->
             <div class="wrapper">
                 <div ng-view></div>
                 <!-- TEMPLATE INJECTED -->
@@ -93,17 +93,17 @@
         <script type="text/javascript" src="app/dist/services_directives.js"></script>
         <script type="text/javascript" src="app/dist/controllers_org.js"></script>
         <script type="text/javascript" src="app/dist/controllers_user.js"></script>
-        <script>
+        <script type="text/javascript">
             angular.element(document).ready(function () {
                 if (window.cordova) {
                     console.log("Running in Cordova, will bootstrap AngularJS once 'deviceready' event fires.");
                     document.addEventListener('deviceready', function () {
                         console.log("Deviceready event has fired, bootstrapping AngularJS.");
-                        angular.bootstrap(document.body, ['app']);
+                        angular.bootstrap(document.body, ['Plunner']);
                     }, false);
                 } else {
                     console.log("Running in browser, bootstrapping AngularJS now.");
-                    angular.bootstrap(document.body, ['app']);
+                    angular.bootstrap(document.body, ['Plunner']);
                 }
             });
         </script>
