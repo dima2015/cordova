@@ -100,6 +100,10 @@ gulp.task('run', shell.task([
     'cordova run android',
 ]))
 
+gulp.task('release', shell.task([
+    'cordova build android --release',
+]))
+
 gulp.task('android-execute', ['android-prepare', 'run']);
 
 
