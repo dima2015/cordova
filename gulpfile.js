@@ -84,12 +84,17 @@ gulp.task('gz-remove', ['production'],  function (){
         .pipe(clean());
 });
 
+gulp.task('key-remove', ['production'],  function (){
+    return gulp.src('www/node_modules/**/*.key')
+        .pipe(clean());
+});
+
 gulp.task('concat', ['concat_configuration', 'concat_services_directives', 'concat_controllers_organization', 'concat_controllers_user', 'concat_presentation']);
 
 
 gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
 
-gulp.task('android-prepare', ['production', 'gz-remove']);
+gulp.task('android-prepare', ['production', 'gz-remove', 'key-remove']);
 
 gulp.task('run', shell.task([
     'cordova run android',
