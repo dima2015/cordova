@@ -45,7 +45,9 @@
                     controllerAs: 'orecC'
                 }).
                 when('/',{
-                    templateUrl: 'app/components/presentation/signInHub.html'
+                    templateUrl: 'app/components/presentation/signInHub.html',
+                    controller: 'signInHubController',
+                    controllerAs: 'sihC'
                 }).
                 when('/organization/users/:id',{
                     templateUrl: 'app/components/organization/user/userTemplate.html',

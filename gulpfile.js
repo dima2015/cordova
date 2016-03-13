@@ -37,11 +37,11 @@ gulp.task('copy_node_modules', function(){
 gulp.task('broswer-sync', function () {
     sync.init(["www/assets/css/generated/*.css",
         "www/app/*/*/*/*.html",
-        "*.html",
+        "www/*.html",
         "www/app/*/*/*.html",
         "www/app/dist/*.js"], {
         server: {
-            baseDir: "./"
+            baseDir: "./www"
         }
     });
 });
@@ -97,12 +97,12 @@ gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
 gulp.task('android-prepare', ['production', 'gz-remove', 'key-remove']);
 
 gulp.task('run', shell.task([
-    'cordova run android',
-]))
+    'cordova run android'
+]));
 
 gulp.task('release', shell.task([
-    'cordova build android --release',
-]))
+    'cordova build android --release'
+]));
 
 gulp.task('android-execute', ['android-prepare', 'run']);
 

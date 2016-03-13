@@ -1,14 +1,13 @@
-
-.navigation--signinhub
-  background: #457fca
+/*.navigation--signinhub
+  background: #457fca*/
   /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #457fca, #5691c8)
+ /*background: -webkit-linear-gradient(to left, #457fca, #5691c8)*/
   /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #457fca, #5691c8)
+ /*background: linear-gradient(to left, #457fca, #5691c8)*/
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 
-.presentation__content--signinhub
+/*.presentation__content--signinhub
   margin-top: 10em
 
   .row
@@ -35,5 +34,42 @@
         height: 150px
 
       a
-        font-size: 16px
+        font-size: 16px*/
 
+@import "../../global/colors"
+md-input-container > md-icon
+    color: rgba(0,0,0,0.12)
+
+.md-button.md-primary.md-raised
+    color: white
+
+#signinhub
+  padding: 2em
+
+.signinhub__title
+  text-align: center
+
+.signinhub__typeswitch
+  padding-top: 2em
+  padding-bottom: 2em
+
+.signinhub__typeswitch svg
+  margin-right: 2em
+  outline: none
+
+  &:last-child
+    margin-right: 0
+
+.signinhub__selectedtype
+  padding-bottom: 1em
+  color: $colorPrimary
+
+.signinhub__submit
+  width: 100%
+
+.input_errors__error
+  color: $errorColor
+
+
+.input_errors
+  margin-top: 2.5em

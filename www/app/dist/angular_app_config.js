@@ -87,6 +87,18 @@
         }]);
 }());
 
+/**
+ * Created by giorgiopea on 13/03/16.
+ */
+(function (){
+    var app = angular.module('Plunner');
+    app.config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+            .primaryPalette('light-blue')
+            .accentPalette('amber');
+    });
+}());
+
 (function(){
     var app = angular.module('Plunner');
     //Routing
@@ -134,7 +146,9 @@
                     controllerAs: 'orecC'
                 }).
                 when('/',{
-                    templateUrl: 'app/components/presentation/signInHub.html'
+                    templateUrl: 'app/components/presentation/signInHub.html',
+                    controller: 'signInHubController',
+                    controllerAs: 'sihC'
                 }).
                 when('/organization/users/:id',{
                     templateUrl: 'app/components/organization/user/userTemplate.html',

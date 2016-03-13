@@ -16,7 +16,11 @@
   ],
   "dependencies": {
     "angular": "^1.4.8",
+    "angular-animate": "^1.5.0",
+    "angular-aria": "^1.5.0",
     "angular-cookies": "^1.4.8",
+    "angular-material": "^1.0.6",
+    "angular-messages": "^1.5.0",
     "angular-resource": "^1.4.8",
     "angular-route": "^1.4.8",
     "bootstrap": "^3.3.5",
@@ -30,16 +34,17 @@
     "moment": "^2.10.6"
   },
   "devDependencies": {
-    "angular-mocks": "^1.4.8",
-    "browser-sync": "^2.10.0",
-    "jasmine-core": "^2.3.4",
-    "karma": "^0.13.15",
-    "karma-chrome-launcher": "^0.2.1",
-    "karma-jasmine": "^0.3.6",
-    "karma-phantomjs-launcher": "~0.1.4"
+    "browser-sync": "^2.10.0"
   },
   "bugs": {
     "url": "https://github.com/phonegap/phonegap-app-hello-world/issues"
   },
-  "homepage": "https://github.com/phonegap/phonegap-app-hello-world"
+  "homepage": "https://github.com/phonegap/phonegap-app-hello-world",
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    {
+      "platform": "android",
+      "locator": "browser"
+    }
+  ]
 }
