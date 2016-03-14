@@ -80,7 +80,6 @@ gulp.task('concat_configuration', function () {
 
 gulp.task('gz-remove', ['production'],  function (){
     return gulp.src('www/node_modules/**/*.gz')
-    //return gulp.src('node_modules/gulp-sass/node_modules/node-sass/node_modules/cross-spawn/node_modules/spawn-sync/node_modules/try-thread-sleep/node_modules/thread-sleep/node_modules/node-pre-gyp/node_modules/tar-pack/test/fixtures/packed.tar.gz')
         .pipe(clean());
 });
 
