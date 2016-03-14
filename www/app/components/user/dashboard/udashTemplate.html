@@ -1,3 +1,61 @@
+<div id="member_dashboard">
+    <md-toolbar class="member_dashboard__toolbar" layout="row" flex>
+        <div class="md-toolbar-tools">
+            <h1 class="md-headline"><span>Dashboard</span></h1>
+            <span flex></span>
+            <md-button class="md-icon-button">
+                <md-icon>search</md-icon>
+            </md-button>
+            <md-button class="md-icon-button">
+                <md-icon>more_vert</md-icon>
+            </md-button>
+        </div>
+
+    </md-toolbar>
+    <div layout="column" flex>
+        <md-content >
+            <md-tabs md-stretch-tabs="always" class="member_dashboard__tabs">
+                <md-tab label="MEETINGS">
+                    <md-content layout-padding>
+                       <div class="member_dashboard__tabs__input_search">
+                           <i class="material-icons">search</i>
+                           <input type="search">
+                       </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="SCHEDULES">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">Tab One</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus
+                            volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium
+                            ultrices.
+                            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-content>
+    </div>
+
+    <md-list flex>
+        <md-subheader class="md-no-sticky">3 line item</md-subheader>
+        <md-button>
+            <md-list-item class="md-3-line">
+                <md-icon>face</md-icon>
+                <div class="md-list-item-text" layout="column">
+                    <h3>Lorem </h3>
+                    <h4>sdsadas</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus, est fugit impedit ipsum
+                        perspiciatis quos rem tempore? Alias aspernatur assumenda consequuntur mollitia nam nesciunt
+                        quibusdam quidem quos, soluta velit.</p>
+                </div>
+            </md-list-item>
+        </md-button>
+
+    </md-list>
+
+</div>
+
+
 <div class="container-fluid navigation">
     <div class="navigation-left">
         <a href="/#/user">
@@ -276,8 +334,8 @@
                             <div class="col-md-9 col-sm-9 col-xs-9 tileBody">
                                 <h4 class="tileTitle">
                                     <span class="tileActiveInfo fa fa-circle"
-                                       ng-show="schedule.enabled === '1' && !schedule.caldav.sync_errors "
-                                       data-toggle="tooltip" data-placement="top" title="Schedule enabled">
+                                          ng-show="schedule.enabled === '1' && !schedule.caldav.sync_errors "
+                                          data-toggle="tooltip" data-placement="top" title="Schedule enabled">
                                             </span>
                                     <span class="tileNonActiveInfo fa fa-circle"
                                           ng-show="schedule.enabled !=='1' && !schedule.caldav.sync_errors "
@@ -368,7 +426,8 @@
                                                   ng-show="schedule.enabled === '1'">ACTIVE</span>
                                             <span class="tileNonActiveInfo" ng-show="schedule.enabled !=='1'"
                                                   class="fa fa-circle-o">INACTIVE</span></li>-->
-                                        <li><span class="fa fa-refresh tileSynched"></span>&nbsp;&nbsp;{{schedule.updated_at}}</li>
+                                        <li><span class="fa fa-refresh tileSynched"></span>&nbsp;&nbsp;{{schedule.updated_at}}
+                                        </li>
                                         <!--<li>
                                             <button ng-click="udashC.deleteSchedule(schedule.id)">
                                                 <i class="fa fa-trash-o"></i><span>&nbsp;&nbsp;DELETE</span>
@@ -566,7 +625,9 @@
                             <span>Enabled</span>
                         </label>
                     </div>
-                    <button class="secondary_button" ng-click="udashC.editSchedule.delete()"><i class="fa fa-trash-o"></i>&nbsp;&nbsp;DELETE </button>
+                    <button class="secondary_button" ng-click="udashC.editSchedule.delete()"><i
+                            class="fa fa-trash-o"></i>&nbsp;&nbsp;DELETE
+                    </button>
                     <p class="error_tile" ng-repeat="error in udashC.editSchedule.errors">&nbsp;&nbsp;{{error}}</p>
                 </div>
                 <div class="modal-footer">
