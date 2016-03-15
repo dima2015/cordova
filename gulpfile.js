@@ -91,7 +91,8 @@ gulp.task('key-remove', ['production'],  function (){
 gulp.task('concat', ['concat_configuration', 'concat_services_directives', 'concat_controllers_organization', 'concat_controllers_user', 'concat_presentation']);
 
 
-gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
+//gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
+gulp.task('production', ['sass_compile','concat', 'npm-release']);
 
 gulp.task('android-prepare', ['production', 'gz-remove', 'key-remove']);
 
@@ -101,6 +102,12 @@ gulp.task('run', shell.task([
 
 gulp.task('release', shell.task([
     'cordova build android --release'
+]));
+
+gulp.task('npm-release', shell.task([
+    'mkdir -p www/node_modules',
+    'cp package.json www',
+    'npm install --production --prefix www/'
 ]));
 
 gulp.task('android-execute', ['android-prepare', 'run']);
