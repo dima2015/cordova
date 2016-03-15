@@ -105,7 +105,8 @@ gulp.task('release', shell.task([
 ]));
 
 gulp.task('npm-release', shell.task([
-    'mkdir -p www/node_modules',
+    'rm -Rf www/node_modules',
+    'mkdir www/node_modules',
     'cp package.json www',
     'npm install --production --prefix www/'
 ]));
