@@ -4,54 +4,106 @@
             <h1 class="md-headline"><span>Dashboard</span></h1>
             <span flex></span>
             <md-button class="md-icon-button">
-                <md-icon>search</md-icon>
-            </md-button>
-            <md-button class="md-icon-button">
                 <md-icon>more_vert</md-icon>
             </md-button>
         </div>
 
     </md-toolbar>
     <div layout="column" flex>
-        <md-content >
+        <md-content>
             <md-tabs md-stretch-tabs="always" class="member_dashboard__tabs">
                 <md-tab label="MEETINGS">
                     <md-content layout-padding>
-                       <div class="member_dashboard__tabs__input_search">
-                           <i class="material-icons">search</i>
-                           <input type="search">
-                       </div>
+                        <div class="member_dashboard__meetings__search">
+                            <i class="material-icons">search</i>
+                            <input type="search">
+                        </div>
+                        <div class="member_dashboard__meetings__content">
+                            <section class="member_dashboard__meetings__content--tbp">
+                                <h3 class="md-title">Meetings to be planned</h3>
+                                <md-list flex>
+                                    <md-button class="list_button" ng-repeat="meeting in udashC.meetings.toBePlanned | filter: {title : filterTBPMeetings}">
+                                        <md-list-item class="md-3-line">
+                                            <md-icon>group_work</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{meeting.title}}</h3>
+                                                <p>{{meeting.description}}</p>
+                                            </div>
+                                        </md-list-item>
+                                    </md-button>
+                                </md-list>
+                            </section>
+                            <section class="member_dashboard__meetings__content--p">
+                                <h3 class="md-title">Meetings planned</h3>
+                                <md-button class="list_button" ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
+                                    <md-list-item class="md-3-line">
+                                        <md-icon>group_work</md-icon>
+                                        <div class="md-list-item-text" layout="column">
+                                            <h3>{{meeting.title}}</h3>
+                                            <p>{{meeting.description}}</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-button>
+                            </section>
+                            <section class="member_dashboard__meetings__content--m">
+                                <h3 class="md-title">Meetings managed</h3>
+                                <md-list flex>
+                                    <md-button class="list_button" ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}" ng-repeat=" meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
+                                        <md-list-item class="md-3-line">
+                                            <md-icon>group_work</md-icon>
+                                            <div class="md-list-item-text" layout="column">
+                                                <h3>{{meeting.title}}</h3>
+                                                <p>{{meeting.description}}</p>
+                                            </div>
+                                        </md-list-item>
+                                    </md-button>
+                                </md-list>
+
+                            </section>
+                        </div>
                     </md-content>
                 </md-tab>
                 <md-tab label="SCHEDULES">
-                    <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab One</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus
-                            volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium
-                            ultrices.
-                            Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                    <md-content class="md-padding" layout-padding>
+                        <div class="member_dashboard__meetings__search">
+                            <i class="material-icons">search</i>
+                            <input type="search">
+                        </div>
+                        <section class="member_dashboard__meetings__content--tbp">
+                            <h3 class="md-title">Imported schedules</h3>
+                            <md-list flex>
+                                <md-button class="list_button--special" ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}">
+                                    <md-list-item class="md-3-line">
+                                        <md-icon>perm_contact_calendar</md-icon>
+                                        <div class="md-list-item-text" layout="column">
+                                            <h3>{{schedule.name}}</h3>
+                                            <p>{{schedule.updated_at}}</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-button>
+                            </md-list>
+                        </section>
+                        <section class="member_dashboard__meetings__content--tbp">
+                            <h3 class="md-title">Composed schedules</h3>
+                            <md-list flex>
+                                <md-button class="list_button--special" ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}" ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}">
+                                    <md-list-item class="md-3-line">
+                                        <md-icon>perm_contact_calendar</md-icon>
+                                        <div class="md-list-item-text" layout="column">
+                                            <h3>{{schedule.name}}</h3>
+                                            <p>{{schedule.updated_at}}</p>
+                                        </div>
+                                    </md-list-item>
+                                </md-button>
+                            </md-list>
+                        </section>
                     </md-content>
                 </md-tab>
             </md-tabs>
         </md-content>
     </div>
 
-    <md-list flex>
-        <md-subheader class="md-no-sticky">3 line item</md-subheader>
-        <md-button>
-            <md-list-item class="md-3-line">
-                <md-icon>face</md-icon>
-                <div class="md-list-item-text" layout="column">
-                    <h3>Lorem </h3>
-                    <h4>sdsadas</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa delectus, est fugit impedit ipsum
-                        perspiciatis quos rem tempore? Alias aspernatur assumenda consequuntur mollitia nam nesciunt
-                        quibusdam quidem quos, soluta velit.</p>
-                </div>
-            </md-list-item>
-        </md-button>
 
-    </md-list>
 
 </div>
 

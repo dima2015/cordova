@@ -776,6 +776,9 @@
                     c.confirmPopup.hide();
                 })
         };
+        c.move = function(){
+            alert("move");
+        }
         getUserInfo();
         getSchedules();
         getMeetings();
