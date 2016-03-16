@@ -24,7 +24,6 @@
     "angular-route": "^1.4.8",
     "jquery": "^2.1.4",
     "jwt-decode": "^1.4.0",
-    "material-design-icons": "^2.2.1",
     "moment": "^2.10.6"
   },
   "devDependencies": {
@@ -34,6 +33,7 @@
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-sass": "^2.1.0",
+    "material-design-icons": "^2.2.1",
     "gulp-shell": "^0.5.2"
   },
   "bugs": {
