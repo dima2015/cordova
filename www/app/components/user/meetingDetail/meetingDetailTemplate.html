@@ -1,0 +1,32 @@
+<div id="meeting_detail" layout="column">
+    <md-toolbar class="member_dashboard__toolbar" flex>
+        <div class="md-toolbar-tools">
+            <md-button ng-href="/#/user" class="md-icon-button">
+                <md-icon>arrow_back</md-icon>
+            </md-button>
+            <h1 class="md-headline"><span>Meeting</span></h1>
+            <span flex></span>
+        </div>
+        <div layout="row" layout-align="center center" style=" padding-top: 1em; padding-bottom: 1em">
+            <md-icon style="font-size: 10em;">group_work</md-icon>
+        </div>
+    </md-toolbar>
+    <md-content layout-padding class="md-padding meeting_detail__content" flex>
+        <h3 class="md-title">{{mdC.meeting.title}}</h3>
+        <h4 class="md-subhead">{{mdC.meeting.desc}}</h4>
+
+        <div>
+            <md-icon>group</md-icon>
+            <span>{{mdC.meeting.group}}</span>
+        </div>
+        <div>
+            <md-icon>hourglass_empty</md-icon>
+            <span>{{mdC.meeting.duration}} mins</span>
+        </div>
+        <div class="meeting_detail__content__starts">
+            <h3>STARTS ON </h3>
+            <h4>10/3/2015 18:40:00</h4>
+            <span>{{mdC.meeting.starts}}</span>
+        </div>
+    </md-content>
+</div>

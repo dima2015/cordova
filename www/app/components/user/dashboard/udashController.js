@@ -481,7 +481,10 @@
         };
         c.move = function(){
             alert("move");
-        }
+        };
+        c.openMenu = function($mdOpenMenu, $event){
+          $mdOpenMenu($event);
+        };
         getUserInfo();
         getSchedules();
         getMeetings();

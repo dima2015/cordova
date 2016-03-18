@@ -116,7 +116,7 @@ coverage.xml
 node_modules/
 npm-debug.log
 public/css
-app/dist
+www/app/dist
 www/assets/css/generated
 
 ### laravel ide helper ###
