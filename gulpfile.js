@@ -92,9 +92,13 @@ gulp.task('concat', ['concat_configuration', 'concat_services_directives', 'conc
 
 
 //gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
-gulp.task('production', ['sass_compile','concat', 'npm-release']);
+gulp.task('production', ['cordova-prepare', 'sass_compile','concat', 'npm-release']);
 
 gulp.task('android-prepare', ['production', 'gz-remove', 'key-remove']);
+
+gulp.task('browser-run', ['production'], shell.task([
+    'cordova run browser'
+]));
 
 gulp.task('run', shell.task([
     'cordova run android'
@@ -104,6 +108,11 @@ gulp.task('release', shell.task([
     'cordova build android --release'
 ]));
 
+gulp.task('cordova-prepare', shell.task([
+    'cordova prepare'
+]));
+
+
 gulp.task('npm-release', shell.task([
     'rm -Rf www/node_modules',
     'mkdir www/node_modules',
@@ -112,6 +121,8 @@ gulp.task('npm-release', shell.task([
 ]));
 
 gulp.task('android-execute', ['android-prepare', 'run']);
+
+gulp.task('browser-execute', ['production', 'browser-run']);
 
 
 gulp.task('dev', ['watch', 'broswer-sync', 'sass_compile', 'concat']);
