@@ -23,8 +23,11 @@
             c.meeting.title = meetingObj.title;
             c.meeting.desc = meetingObj.description;
             c.meeting.group = meetingObj.group_name;
-            c.meeting.duration = meetingObj.duration;
-            c.meeting.starts = meetingObj.start_time;
+            c.meeting.duration = parseInt(meetingObj.duration)/15;
+            if(meetingObj.start_time != null){
+                c.meeting.starts = moment(meetingObj.start_time).format('llll');
+            }
+
         };
         var getMeeting = function(){
           if(params.isPlanned === '1'){

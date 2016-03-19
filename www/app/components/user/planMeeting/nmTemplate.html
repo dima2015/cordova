@@ -1,4 +1,70 @@
-<div class="container-fluid navigation">
+<div id="plan_meeting" layout="column">
+    <md-toolbar class="member_dashboard__toolbar" flex>
+        <div class="md-toolbar-tools">
+            <md-button ng-href="/#/user" class="md-icon-button">
+                <md-icon>arrow_back</md-icon>
+            </md-button>
+            <h1 class="md-headline"><span>Plan meeting</span></h1>
+            <span flex></span>
+            <md-button class="md-icon-button">
+                <md-icon>send</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content flex layout="column">
+        <section class="plan_meeting__information md-padding" layout-padding>
+            <h3 class="md-title"><md-icon>info</md-icon>&nbsp;&nbsp;Information</h3>
+            <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
+                <md-icon>title</md-icon>
+                <input name="org" ng-model="sihC.memberInputs.org" type="text"
+                       placeholder="Meeting name">
+                <div class="input_errors">
+                    <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
+                        required
+                    </div>
+                </div>
+            </md-input-container>
+            <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
+                <md-icon>short_text</md-icon>
+                <textarea placeholder="Meeting description" ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                <div class="input_errors">
+                    <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
+                        required
+                    </div>
+                </div>
+            </md-input-container>
+            <md-divider></md-divider>
+            <h3><md-icon>schedule</md-icon>&nbsp;&nbsp;Duration</h3>
+            <md-slider-container layout="rows">
+                <md-slider flex min="15" max="360" ng-model="color.red" aria-label="red" id="red-slider">
+                </md-slider>
+                <md-input-container style="max-width: 40px; margin-top: .5em; margin-left: 1em">
+                    <input readonly style="font-size: 1.5em; text-align: center" type="text" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+                </md-input-container>
+            </md-slider-container>
+            <h3><md-icon>group</md-icon>&nbsp;&nbsp;Groups</h3>
+            <md-list flex>
+                <md-list-item>
+                    <md-icon>group</md-icon>
+                    <span flex>group</span>
+                    <md-checkbox></md-checkbox>
+                </md-list-item>
+            </md-list>
+        </section>
+        <md-divider></md-divider>
+        <section class="plan_meeting__information md-padding" layout-padding>
+            <h3 class="md-title"><md-icon>event_available</md-icon>&nbsp;&nbsp;Possible time windows</h3>
+            <div id="meetingTimeslots">
+            </div>
+        </section>
+    </md-content>
+</div>
+
+
+
+
+
+<!--<div class="container-fluid navigation">
     <div class="navigation-left">
         <a href="/#/user">
             <img src="assets/img/logoWhite.png" alt="Plunner"/>
@@ -134,7 +200,7 @@
             </div>
             <!--<div class="modal-footer">
           </div>-->
-            <br/>
+           <!-- <br/>
         </div>
     </div>
-</div>
+</div>-->

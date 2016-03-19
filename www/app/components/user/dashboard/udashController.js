@@ -479,9 +479,7 @@
                     c.confirmPopup.hide();
                 })
         };
-        c.move = function(){
-            alert("move");
-        };
+        c.loading = true;
         c.openMenu = function($mdOpenMenu, $event){
           $mdOpenMenu($event);
         };

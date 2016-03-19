@@ -9,16 +9,16 @@
                 </md-button>
                 <md-menu-content width="2">
                     <md-menu-item>
-                        <md-button>
-                            <md-icon md-menu-align-target>group_work</md-icon>
-                            Plan meeting
+                        <md-button ng-href="/#/user/newmeeting/_">
+                            <md-icon>group_work</md-icon>
+                            <span>Plan meeting</span>
                         </md-button>
                     </md-menu-item>
                     <md-menu-divider></md-menu-divider>
                     <md-menu-item>
-                        <md-button>
+                        <md-button ng-href="/#/user/schedules/compose/_">
                             <md-icon>perm_contact_calendar</md-icon>
-                            Add schedule
+                            <span>Add schedule</span>
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
@@ -43,7 +43,7 @@
                     <input type="search" ng-model="filterTBPMeetings">
                 </div>
                 <div class="member_dashboard__meetings__content">
-                    <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="udashC.meetings.toBePlanned">
+                    <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
                         <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                     </div>
                     <section class="member_dashboard__meetings__content--tbp" ng-show="udashC.meetings.toBePlanned">
@@ -106,9 +106,6 @@
                     </section>
                 </div>
             </md-content>
-            <md-button class="md-fab md-warn" style="position: fixed">
-                <md-icon>group_work</md-icon>
-            </md-button>
         </md-tab>
         <md-tab label="SCHEDULES">
             <md-content class="md-padding" layout-padding>
@@ -162,9 +159,6 @@
                     </section>
                 </div>
             </md-content>
-            <md-button class="md-fab">
-                <md-icon>perm_contact_calendar</md-icon>
-            </md-button>
         </md-tab>
     </md-tabs>
 </div>

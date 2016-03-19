@@ -12,21 +12,26 @@
         </div>
     </md-toolbar>
     <md-content layout-padding class="md-padding meeting_detail__content" flex>
-        <h3 class="md-title">{{mdC.meeting.title}}</h3>
-        <h4 class="md-subhead">{{mdC.meeting.desc}}</h4>
+        <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="mdC.meeting.title" >
+            <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+        </div>
+        <div ng-show="mdC.meeting.title" layout-padding>
+            <h3 class="md-title">{{mdC.meeting.title}}</h3>
+            <h4 class="md-subhead">{{mdC.meeting.desc}}</h4>
 
-        <div>
-            <md-icon>group</md-icon>
-            <span>{{mdC.meeting.group}}</span>
+            <div>
+                <md-icon>group</md-icon>
+                <span>{{mdC.meeting.group}}</span>
+            </div>
+            <div>
+                <md-icon>hourglass_empty</md-icon>
+                <span>{{mdC.meeting.duration}} mins</span>
+            </div>
+            <div class="meeting_detail__content__starts" ng-show="mdC.meeting.starts">
+                <h3>STARTS ON </h3>
+                <span>{{mdC.meeting.starts}}</span>
+            </div>
         </div>
-        <div>
-            <md-icon>hourglass_empty</md-icon>
-            <span>{{mdC.meeting.duration}} mins</span>
-        </div>
-        <div class="meeting_detail__content__starts">
-            <h3>STARTS ON </h3>
-            <h4>10/3/2015 18:40:00</h4>
-            <span>{{mdC.meeting.starts}}</span>
-        </div>
+
     </md-content>
 </div>

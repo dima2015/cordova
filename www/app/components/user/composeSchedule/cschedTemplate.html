@@ -1,4 +1,38 @@
-<div class="container-fluid navigation">
+<div id="compose_schedule" layout="column">
+    <md-toolbar class="member_dashboard__toolbar" flex>
+        <div class="md-toolbar-tools">
+            <md-button ng-href="/#/user" class="md-icon-button">
+                <md-icon>arrow_back</md-icon>
+            </md-button>
+            <h1 class="md-headline"><span>Compose schedule</span></h1>
+            <span flex></span>
+            <md-button class="md-icon-button">
+                <md-icon>send</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-content layout="column" layout-padding class="md-padding">
+        <section>
+            <h3><md-icon>information</md-icon>&nbsp;&nbsp;Information</h3>
+            <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
+                <md-icon>title</md-icon>
+                <input name="org" ng-model="sihC.memberInputs.org" type="text"
+                       placeholder="Schedule name">
+                <div class="input_errors">
+                    <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
+                        required
+                    </div>
+                </div>
+                <md-switch>Enabled</md-switch>
+            </md-input-container>
+        </section>
+        <section>
+            <div id="composeScheduleCal"></div>
+        </section>
+    </md-content>
+</div>
+
+<!--<div class="container-fluid navigation">
     <div class="navigation-left">
         <a href="/#/user">
             <img src="assets/img/logoWhite.png" alt="Plunner"/>
@@ -76,4 +110,4 @@
     </div>
 </div>
 <br/>
-<br/>
+<br/>-->
