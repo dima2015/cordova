@@ -6,62 +6,88 @@
             </md-button>
             <h1 class="md-headline"><span>Plan meeting</span></h1>
             <span flex></span>
-            <md-button class="md-icon-button">
+            <md-button class="md-icon-button" ng-click="nmC.submit()">
                 <md-icon>send</md-icon>
             </md-button>
         </div>
     </md-toolbar>
-    <md-content flex layout="column">
-        <section class="plan_meeting__information md-padding" layout-padding>
-            <h3 class="md-title"><md-icon>info</md-icon>&nbsp;&nbsp;Information</h3>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
+    <md-content flex layout="column" class="md-padding" layout-padding>
+        <section class="plan_meeting__information">
+            <h3 class="md-subhead">
+                <md-icon>info_outline</md-icon>
+                &nbsp;&nbsp;Information
+            </h3>
+            <md-input-container class="md-block" ng-class="{'md-input-invalid' : nmC.invalidFlags.name }">
                 <md-icon>title</md-icon>
-                <input name="org" ng-model="sihC.memberInputs.org" type="text"
+                <input name="org" ng-model="nmC.data.meeting.name" type="text"
                        placeholder="Meeting name">
                 <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
+                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.name">This field is
                         required
                     </div>
                 </div>
             </md-input-container>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
+            <md-input-container class="md-block" ng-class="{'md-input-invalid' : nmC.invalidFlags.description_len || nmC.invalidFlags.description_req }">
                 <md-icon>short_text</md-icon>
-                <textarea placeholder="Meeting description" ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                <textarea placeholder="Meeting description" ng-model="nmC.data.meeting.description" md-maxlength="150" rows="5"
+                          md-select-on-focus></textarea>
                 <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
+                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description_req">This field is
                         required
+                    </div>
+                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description_len">The field containts
+                        too much characters
                     </div>
                 </div>
             </md-input-container>
-            <md-divider></md-divider>
-            <h3><md-icon>schedule</md-icon>&nbsp;&nbsp;Duration</h3>
+        </section>
+        <md-divider></md-divider>
+        <section>
+            <h3 class="md-subhead">
+                <md-icon>schedule</md-icon>
+                &nbsp;&nbsp;Duration
+            </h3>
             <md-slider-container layout="rows">
-                <md-slider flex min="15" max="360" ng-model="color.red" aria-label="red" id="red-slider">
+                <md-slider flex min="15"  ng-model="nmC.data.meeting.duration" max="360" ng-model="color.red" aria-label="red" id="red-slider">
                 </md-slider>
-                <md-input-container style="max-width: 40px; margin-top: .5em; margin-left: 1em">
-                    <input readonly style="font-size: 1.5em; text-align: center" type="text" ng-model="color.red" aria-label="red" aria-controls="red-slider">
+                <md-input-container class="plan_meeting__duration__display">
+                    <span>Mins</span>
+                    <input readonly  type="text" ng-model="nmC.data.meeting.duration"
+                           aria-label="red" aria-controls="red-slider">
                 </md-input-container>
             </md-slider-container>
-            <h3><md-icon>group</md-icon>&nbsp;&nbsp;Groups</h3>
-            <md-list flex>
-                <md-list-item>
+        </section>
+        <md-divider></md-divider>
+        <section class="plan_meeting__groups">
+            <div>
+                <h3 class="md-subhead">
                     <md-icon>group</md-icon>
-                    <span flex>group</span>
-                    <md-checkbox></md-checkbox>
+                    &nbsp;&nbsp;Groups
+                </h3>
+                <span ng-show="nmC.invalidFlags.groups">Select at least one group</span>
+            </div>
+
+
+            <md-list class="plan_meeting__groups__list" flex>
+                <md-list-item ng-repeat="group in nmC.groups">
+                    <img style="margin-right: 2em" src="../../../../assets/icon.svg" alt="">
+                    <span flex>{{group.name}}</span>
+                    <md-checkbox ng-checked="checkGroup(group.id)"></md-checkbox>
                 </md-list-item>
             </md-list>
         </section>
+
         <md-divider></md-divider>
         <section class="plan_meeting__information md-padding" layout-padding>
-            <h3 class="md-title"><md-icon>event_available</md-icon>&nbsp;&nbsp;Possible time windows</h3>
-            <div id="meetingTimeslots">
+            <h3 class="md-subhead">
+                <md-icon>event_available</md-icon>
+                &nbsp;&nbsp;Possible time windows
+            </h3>
+            <div id="meetingTimeslots" md-swipe-left="onSwipeLeft()">
             </div>
         </section>
     </md-content>
 </div>
-
-
-
 
 
 <!--<div class="container-fluid navigation">
@@ -200,7 +226,7 @@
             </div>
             <!--<div class="modal-footer">
           </div>-->
-           <!-- <br/>
-        </div>
-    </div>
+<!-- <br/>
+</div>
+</div>
 </div>-->

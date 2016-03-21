@@ -1,9 +1,57 @@
-@import  "../../global/colors"
+@import "../../global/colors"
+
+#plan_meeting > md-content > section > h3
+  margin-top: .5em
+
+#plan_meeting > md-content > section:first-child > h3
+  margin-top: 1em
+
+.plan_meeting__groups > div
+    position: relative
+
+    span
+      position: absolute
+      top: 4px
+      right: 0
+      text-transform: uppercase
+      font-size: .9em
+      font-weight: 500
+      color: $errorColor
+
+
+.plan_meeting__duration__display
+  max-width: 40px
+  margin-top: -2em
+  margin-left: 1em
+
+  span
+    margin-bottom: .5em
+    display: block
+    text-align: center
+    color: $colorPrimary
+
+  input[type="text"]
+    font-size: 1.5em
+    text-align: center
+
+.plan_meeting__groups__list
+  padding-left: 0
+  padding-right: 0
+
+  md-checkbox.md-checked
+    .md-ink-ripple
+      color: $colorPrimary
+
+    .md-icon
+      background-color: $colorPrimary
+
+    .md-icon:after
+      border-color: white
 
 .nm
-  >div
-   &:first-child
-     padding-right: 30px
+  > div
+    &:first-child
+      padding-right: 30px
   h4
     margin-top: 30px
     margin-bottom: 30px
@@ -16,10 +64,10 @@
       font-weight: 500
       margin-top: 15px
 
-    >div
-        p
-          &:first-child
-            margin-top: 0
+    > div
+      p
+        &:first-child
+          margin-top: 0
 
     textarea
       padding: 5px
@@ -32,11 +80,11 @@
       &:focus
         border: 1px solid $main_blue
         outline: none
-    
+
     input[type="radio"]
       display: none
 
-    input[type="radio"]+.label-text:before
+    input[type="radio"] + .label-text:before
       content: "\f1db"
       font-family: "FontAwesome"
       font-style: normal
@@ -50,7 +98,7 @@
       margin-top: 10px
       transition: all 50ms ease-in-out
 
-    input[type="radio"]:checked+.label-text:before
+    input[type="radio"]:checked + .label-text:before
       content: "\f111"
       font-family: "FontAwesome"
       font-style: normal
@@ -61,7 +109,6 @@
       text-transform: none
       line-height: 1
       -webkit-font-smoothing: antialiased
-
 
   .span
     @media(max-width: 700px)
@@ -101,7 +148,6 @@
     font-size: 18px
     border: 0
 
-
   @media(max-width: 450px)
     .fc-left
       float: none
@@ -115,18 +161,17 @@
       float: none
       width: 100%
 
-      >div
+      > div
         float: left
 
-      >button
+      > button
         float: right
 
   .error_tile
     margin-bottom: 20px
 
-
   form
-    >h4
+    > h4
       margin-left: 16px
       margin-right: 16px
 

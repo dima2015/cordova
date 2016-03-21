@@ -22,7 +22,7 @@
             }).when('/user', {
                 templateUrl: 'app/components/user/dashboard/udashTemplate.html',
                 controller: 'udashController',
-                controllerAs: 'udashC',
+                controllerAs: 'udashC'
             }).when('/organization/profile', {
                 templateUrl: 'app/components/organization/profile/opTemplate.html',
                 controller: 'opController',
@@ -52,7 +52,7 @@
                 controller: 'groupController',
                 controllerAs: 'groupC'
             }).when('/user/newmeeting/:type', {
-                templateUrl: 'app/components/user/meeting/nmTemplate.html',
+                templateUrl: 'app/components/user/planMeeting/nmTemplate.html',
                 controller: 'nmController',
                 controllerAs: 'nmC'
             }).when('/userecovery', {

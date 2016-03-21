@@ -393,9 +393,15 @@
                 jQuery('#authorizationPopup').modal('hide');
             }
         };
+        c.data = {
+            meeting : {
+                name : '',
+                description : '',
+                duration : 15
+            }
+        };
         c.submit = function () {
-            var form = $scope.meetingInfoForm;
-            var events;
+            var events, areErrors, minEventDuration;
             if (!c.showEmptyState) {
                 events = calendar.fullCalendar('clientEvents');
             }
@@ -403,37 +409,30 @@
                 events = [];
             }
 
-            var minEventDuration;
-            this.invalidFields.nameReq = form.title.$error.required;
-            this.invalidFields.descriptionReq = form.description.$error.required;
-            this.invalidFields.durationReq = form.duration.$error.required;
-            this.invalidFields.oneGroup = !angular.isDefined(this.selectedGroup) && mode !== 'w';
-            this.invalidFields.durationVal = form.duration.$error.number;
-
-            if (!this.invalidFields.durationReq) {
-                this.invalidFields.durationLimit = !(this.duration >= 15 && this.duration <= 300);
+            c.invalidFlags.name = c.data.meeting.name === '';
+            c.invalidFlags.description_req = c.data.meeting.description === '';
+            if(!c.invalidFlags.description_req){
+                c.invalidFields.description_len = c.data.meeting.length > 150;
             }
+            c.invalidFlags.groups = checkedGroups.length === 0 && mode !== 'w';
             if (!startTime) {
-                this.invalidFields.oneEventLeast = events.length === 0;
+                c.invalidFlags.time_windows_num = events.length === 0;
                 for (var i = 0; i < events.length; i++) {
                     minEventDuration = (events[i].end.format('x') - events[i].start.format('x')) / 1000;
-                    if (minEventDuration < this.duration) {
-                        this.invalidFields.durationConflict = true;
+                    if (minEventDuration < c.data.meeting.duration) {
+                        c.invalidFields.time_windows_duration_conflict = true;
                         break;
                     }
                 }
             }
 
-            for (var key in this.invalidFields) {
+            for (var key in c.invalidFields) {
                 if (this.invalidFields[key] === true) {
-                    this.thereErrors = true;
+                    areErrors = true;
                     break;
                 }
             }
-            this.thereErrors = form.$invalid || this.invalidFields.durationConflict || this.invalidFields.oneEventLeast
-                || this.invalidFields.oneGroup;
-            console.log(c.invalidFields);
-            if (!this.thereErrors) {
+            if (!areErrors) {
                 if (mode === 'c') {
                     createMeeting(events);
                 }
@@ -452,6 +451,27 @@
             }
 
         };
+        c.onSwipeLeft = function(){
+            alert("swiped")
+        };
+
+        var checkedGroups = [];
+        c.invalidFlags = {
+            name : false,
+            description : false,
+            groups : false,
+            time_windows : false
+        };
+        c.checkGroup = function(id){
+            if(checkedGroups.indexOf(id) === -1){
+                checkedGroups.push(id);
+            }
+            else{
+                checkedGroups.splice(checkedGroups.indexOf(id),1);
+            }
+        };
+
+
         adaptToResolution();
         getUserInfo();
         processUrl();
