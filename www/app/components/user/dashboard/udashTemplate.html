@@ -29,9 +29,25 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
-            <md-button class="md-icon-button">
-                <md-icon>more_vert</md-icon>
-            </md-button>
+            <md-menu>
+                <md-button aria-label="Open phone interactions menu" ng-click="udashC.openMenu($mdOpenMenu,$event)" class="md-icon-button">
+                    <md-icon md-menu-origin>more_vert</md-icon>
+                </md-button>
+                <md-menu-content width="2">
+                    <md-menu-item>
+                        <md-button ng-href="/#/user/newmeeting/_">
+                            <md-icon>account_circle</md-icon>
+                            <span>Your settings</span>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-href="/#/user/newmeeting/_">
+                            <md-icon>directions_walk</md-icon>
+                            <span>Sign out</span>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </div>
     </md-toolbar>
 

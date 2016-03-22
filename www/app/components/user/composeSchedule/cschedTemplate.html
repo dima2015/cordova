@@ -13,7 +13,7 @@
     </md-toolbar>
     <md-content layout="column" layout-padding class="md-padding">
         <section>
-            <h3><md-icon>information</md-icon>&nbsp;&nbsp;Information</h3>
+            <h3><md-icon>info_outline</md-icon>&nbsp;&nbsp;Information</h3>
             <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
                 <md-icon>title</md-icon>
                 <input name="org" ng-model="sihC.memberInputs.org" type="text"
@@ -23,10 +23,15 @@
                         required
                     </div>
                 </div>
-                <md-switch>Enabled</md-switch>
             </md-input-container>
         </section>
         <section>
+            <h3><md-icon>lock_outline</md-icon>&nbsp;&nbsp;Status</h3>
+            <md-switch>ENABLED</md-switch>
+        </section>
+        <md-divider></md-divider>
+        <section>
+            <h3><md-icon>event_busy</md-icon>&nbsp;&nbsp;Busy timeslots</h3>
             <div id="composeScheduleCal"></div>
         </section>
     </md-content>
