@@ -6,6 +6,7 @@
         var c = this;
         var isUpdate = false;
         var changedEvents = [];
+        var _evs;
         var calendar;
         var groupId;
         var meetingId;
@@ -72,7 +73,7 @@
                 for (var i = 0; i < response.length; i++) {
                     splittedTimeStart = response[i].time_start.split(' ');
                     splittedTimeEnd = response[i].time_end.split(' ');
-                    c.events.push({
+                    _evs.push({
                         title: '',
                         start: splittedTimeStart[0] + 'T' + splittedTimeStart[1],
                         end: splittedTimeEnd[0] + 'T' + splittedTimeEnd[1],
@@ -245,7 +246,7 @@
             },
             defaultView: 'agendaWeek',
             slotDuration: '00:15:00',
-            events: c.events,
+            events: _evs,
             editable: true,
             selectable: true,
             selectHelper: true,

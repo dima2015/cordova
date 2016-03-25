@@ -1,12 +1,15 @@
 <div id="compose_schedule" layout="column">
-    <md-toolbar class="member_dashboard__toolbar" flex>
+    <md-toolbar class="toolbar" flex>
         <div class="md-toolbar-tools">
             <md-button ng-href="/#/user" class="md-icon-button">
                 <md-icon>arrow_back</md-icon>
             </md-button>
-            <h1 class="md-headline"><span>Compose schedule</span></h1>
+            <h1 class="md-headline"><span>{{cschedC.toolbarTitle}}</span></h1>
             <span flex></span>
-            <md-button class="md-icon-button">
+            <md-button class="md-icon-button" ng-show="cschedC.getMode()" ng-click="cschedC.deleteSchedule()">
+                <md-icon>delete</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="cschedC.submit()">
                 <md-icon>send</md-icon>
             </md-button>
         </div>
@@ -14,12 +17,11 @@
     <md-content layout="column" layout-padding class="md-padding compose_schedule__content">
         <section>
             <h3 class="md-subhead"><md-icon>info_outline</md-icon>&nbsp;&nbsp;Information</h3>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
+            <md-input-container class="md-block" ng-class="{'md-input-invalid' : cschedC.invalidFlags.schedule }">
                 <md-icon>title</md-icon>
-                <input name="org" ng-model="sihC.memberInputs.org" type="text"
-                       placeholder="Schedule name">
+                <input ng-model="cschedC.data.schedule.name" type="text" placeholder="Schedule name">
                 <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
+                    <div class="input_errors__error md-caption" ng-show="cschedC.invalidFlags.schedule">This field is
                         required
                     </div>
                 </div>
@@ -29,15 +31,16 @@
         <section class="compose_schedule__content__status">
             <h3 class="md-subhead"><md-icon>lock_outline</md-icon>&nbsp;&nbsp;Status</h3>
             <div layout="row">
-                <span class="md-body-2 compose_schedule__content__status__text--disabled " flex>ENABLED</span>
-                <div flex="10">
-                    <md-switch></md-switch>
+                <span class="md-body-2" ng-class="{'compose_schedule__content__status__text' : cschedC.data.schedule.status === 'ENABLED', 'compose_schedule__content__status__text--disabled' : cschedC.data.schedule.status === 'DISABLED'}" flex>{{cschedC.data.schedule.status}}</span>
+                <div flex="20">
+                    <md-switch ng-true-value="'ENABLED'" ng-false-value="'DISABLED'" ng-model="cschedC.data.schedule.status"></md-switch>
                 </div>
             </div>
 
         </section>
         <md-divider></md-divider>
         <section>
+            <p ng-show="cschedC.invalidFlags.events" class="non_field_error">Insert at least one timeslot</p>
             <h3 class="md-subhead"><md-icon>event_busy</md-icon>&nbsp;&nbsp;Busy timeslots</h3>
             <div id="composeScheduleCal"></div>
         </section>

@@ -1,10 +1,13 @@
 (function () {
 
-    var controller = function (userResources, mixedContentToArray, $routeParams, $scope, $location) {
+    var controller = function ($mdDialog, userResources, mixedContentToArray, $routeParams, $location) {
 
         var calendar;
-        var mode = 1;
+        var scheduleId;
+        var isUpdate = false;
         var changedEvents = [];
+        var c = this;
+        var _evs = [];
         var checkNewEvents = function (events) {
             var newEvents = [];
             for (var i = 0; i < events.length; i++) {
@@ -39,212 +42,169 @@
             return adaptedEvents;
 
         };
-        var c = this;
-        c.events = [];
-        c.eventRemoveId = [2];
-        c.errors = [];
-        c.invalidFields = {
-            nameReq: false,
-            eventsReq: false
-        };
-        c.confirmPopup = {
-            message: '',
-            show: function () {
-                jQuery('#authorizationPopup').modal('show');
-            },
-            hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
+
+        var enabledValueAdapter = function (argument, forBackend) {
+            switch (forBackend) {
+                case true :
+                    if (argument === 'DISABLED') {
+                        return '0';
+                    }
+                    else {
+                        return '1';
+                    }
+                    break;
+                default :
+                    if (argument === '0') {
+                        return 'DISABLED';
+                    }
+                    else {
+                        return 'ENABLED';
+                    }
+                    break;
             }
         };
-        c.enabled = '0';
-        c.thereErrors = false;
-        c.processUrl = function () {
-            if ($routeParams.type.length === 1 && $routeParams.type === '_') {
-                mode = 1;
-                this.showDelete = false;
-            }
-            else {
-                mode = 0;
+        var processUrl = function () {
+            if (!($routeParams.type.length === 1 && $routeParams.type === '_')) {
+                isUpdate = true;
                 var urlParams = $routeParams.type.split('&');
-                this.id = urlParams[0];
-                this.name = urlParams[1];
-                this.enabled = urlParams[2];
-                this.showDelete = true;
-
+                scheduleId = urlParams[0];
+                c.data.schedule.name = urlParams[1];
+                c.data.schedule.status = enabledValueAdapter(urlParams[2], false);
+                c.toolbarTitle = 'Edit schedule'
             }
         };
-        c.getTimeslots = function () {
+        var getTimeslots = function () {
             var splittedTimeStart, splittedTimeEnd;
-            if (mode === 0) {
-                userResources.userScheduleTimeslots.query({calendarId: c.id, timeslotId: ''})
+            if (isUpdate) {
+                userResources.userScheduleTimeslots.query({calendarId: scheduleId, timeslotId: ''})
                     .$promise.then(function (response) {
-                        for (var i = 0; i < response.length; i++) {
-                            splittedTimeStart = response[i].time_start.split(' ');
-                            splittedTimeEnd = response[i].time_end.split(' ');
-                            c.events.push({
-                                title: '',
-                                start: splittedTimeStart[0] + 'T' + splittedTimeStart[1],
-                                end: splittedTimeEnd[0] + 'T' + splittedTimeEnd[1],
-                                specificId: response[i].id
-                            });
+                    for (var i = 0; i < response.length; i++) {
+                        splittedTimeStart = response[i].time_start.split(' ');
+                        splittedTimeEnd = response[i].time_end.split(' ');
+                        _evs.push({
+                            title: '',
+                            start: splittedTimeStart[0] + 'T' + splittedTimeStart[1],
+                            end: splittedTimeEnd[0] + 'T' + splittedTimeEnd[1],
+                            specificId: response[i].id
+                        });
 
 
-                        }
-                        if (window.innerWidth <= 768) {
-                            c.calendarConfig.defaultView = 'agendaDay';
-                        }
-                        calendar = jQuery('#composeScheduleCal').fullCalendar(c.calendarConfig);
-                    })
+                    }
+                    if (window.innerWidth <= 768) {
+                        calendarConfig.defaultView = 'agendaDay';
+                    }
+                    calendar = jQuery('#composeScheduleCal').fullCalendar(calendarConfig);
+                })
             }
             else {
                 if (window.innerWidth <= 768) {
-                    c.calendarConfig.defaultView = 'agendaDay';
+                    calendarConfig.defaultView = 'agendaDay';
                 }
-                calendar = jQuery('#composeScheduleCal').fullCalendar(c.calendarConfig);
+                calendar = jQuery('#composeScheduleCal').fullCalendar(calendarConfig);
             }
 
         };
-
-        c.removeTimeslot = function (id) {
+        var removeTimeslot = function (id) {
             c.confirmPopup.message = 'Deleting event';
             c.confirmPopup.show();
-            userResources.userScheduleTimeslots.remove({calendarId: c.id, timeslotId: id}).$promise
+            userResources.userScheduleTimeslots.remove({calendarId: scheduleId, timeslotId: id}).$promise
                 .then(function () {
                     c.confirmPopup.hide();
-                }, function(){
+                }, function () {
                     c.confirmPopup.hide();
                 })
         };
-        c.deleteSchedule = function () {
-            c.confirmPopup.message = 'Deleting schedule';
-            c.confirmPopup.show();
-            userResources.userSchedule.remove({calendarId: c.id})
-                .$promise.then(function () {
+        var updateScheduleTimeslots = function (schedule_id, events) {
+            var index = 0;
+            for (var i = 0; i < events[1].length; i++) {
+                userResources.userScheduleTimeslots.update({
+                        calendarId: schedule_id,
+                        timeslotId: events[0][i]
+                    },
+                    jQuery.param(events[1][i])).$promise.then(function () {
+                    if (index === events[1].length - 1) {
+                        c.confirmPopup.hide();
+                        $location.path('/user');
+
+                    }
+                    index++;
+
+                }, function (response) {
+                    if (response.status === 422) {
+                        mixedContentToArray.process(response.data, c.errors, true);
+                        c.confirmPopup.hide();
+                    }
                     c.confirmPopup.hide();
-                    $location.path('/user')
-                }, function(){
-                    c.confirmPopup.hide();
-                })
-        };
-        c.saveSchedule = function () {
-            var newEvents, modifiedEvents = [];
-            var alsoEditEvents = false;
-            var events = calendar.fullCalendar('clientEvents');
-            var processedEvents = [];
-            var enabled, index, index_one;
-            this.invalidFields.nameReq = (c.name === '' || c.name === undefined);
-            this.invalidFields.eventsReq = (events.length === 0);
-            this.thereErrors = this.invalidFields.nameReq || this.invalidFields.eventsReq;
-            index = 0;
-            index_one = 0;
-            if (!(this.invalidFields.nameReq || this.invalidFields.eventsReq)) {
-                if (this.enabled === true) {
-                    enabled = '1'
-                }
-                else {
-                    enabled = '0'
-                }
-                if (mode === 1) {
-                    c.confirmPopup.message = 'Creating schedule';
-                    c.confirmPopup.show();
-                    processedEvents = backendEventAdapter(events, true);
-                    userResources.userSchedule.save({calendarId: ''}, jQuery.param({
-                        name: this.name,
-                        enabled: enabled
-                    })).$promise.then(function (response) {
-                            for (var i = 0; i < processedEvents.length; i++) {
-                                userResources.userScheduleTimeslots.save({calendarId: response.id, timeslotId: ''},
-                                    jQuery.param(processedEvents[i])).$promise.then(function () {
-                                        if (index === processedEvents.length - 1) {
-                                            c.confirmPopup.hide();
-                                            $location.path('/user');
-                                        }
-                                        index++;
-                                    }, function (response) {
-                                        if (response.status === 422) {
-                                            mixedContentToArray.process(response.data, c.errors, true);
-                                            c.confirmPopup.hide();
-                                        }
-                                        c.confirmPopup.hide();
-                                    });
-                            }
-                        }, function (response) {
-                            if (response.status === 422) {
-                                mixedContentToArray.process(response.data, c.errors, true);
-                                c.confirmPopup.hide();
-                            }
-                            c.confirmPopup.hide();
-                        })
-                }
-                else {
-                    c.confirmPopup.message = 'Saving schedule';
-                    c.confirmPopup.show();
-                    index = 0;
-                    console.log("events");
-                    console.log(events);
-                    processedEvents = backendEventAdapter(events, true);
-                    newEvents = backendEventAdapter(checkNewEvents(events), true);
-                    modifiedEvents = backendEventAdapter(changedEvents, false);
-                    alsoEditEvents = modifiedEvents[1].length > 0;
-
-                    userResources.userSchedule.update({calendarId: c.id}, jQuery.param({
-                        name: c.name,
-                        enabled: enabled
-                    })).$promise.then(function () {
-                            for (var i = 0; i < newEvents.length; i++) {
-                                userResources.userScheduleTimeslots.save({calendarId: c.id, timeslotId: ''},
-                                    jQuery.param(newEvents[i])).$promise.then(function () {
-                                        if (index === newEvents.length - 1 && !alsoEditEvents) {
-                                            c.confirmPopup.hide();
-                                            $location.path('/user');
-                                        }
-
-                                    }, function (response) {
-                                        if (response.status === 422) {
-                                            mixedContentToArray.process(response.data, c.errors, true);
-                                            c.confirmPopup.hide();
-                                        }
-                                        c.confirmPopup.hide();
-                                    });
-                            }
-                            for (i = 0; i < modifiedEvents[1].length; i++) {
-                                userResources.userScheduleTimeslots.update({
-                                        calendarId: c.id,
-                                        timeslotId: modifiedEvents[0][i]
-                                    },
-                                    jQuery.param(modifiedEvents[1][i])).$promise.then(function () {
-                                        if (index_one === modifiedEvents[1].length - 1) {
-                                            c.confirmPopup.hide();
-                                            $location.path('/user');
-
-                                        }
-                                        index_one++;
-
-                                    }, function (response) {
-                                        if (response.status === 422) {
-                                            mixedContentToArray.process(response.data, c.errors, true);
-                                            c.confirmPopup.hide();
-                                        }
-                                        c.confirmPopup.hide();
-                                    });
-                            }
-                            if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
-                                c.confirmPopup.hide();
-                                $location.path('/user');
-                            }
-                        }, function (response) {
-                            if (response.status === 422) {
-                                mixedContentToArray.process(response.data, c.errors, true);
-                                c.confirmPopup.hide();
-                            }
-                            c.confirmPopup.hide();
-                        });
-                }
+                });
             }
-
-
         };
-        c.calendarConfig = {
+        var updateSchedule = function () {
+            var newEvents, modifiedEvents, alsoEditEvents, enabled, events;
+            c.confirmPopup.message = 'Saving schedule';
+            c.confirmPopup.show();
+            events = calendar.fullCalendar('clientEvents');
+            newEvents = backendEventAdapter(checkNewEvents(events), true);
+            modifiedEvents = backendEventAdapter(changedEvents, false);
+            alsoEditEvents = modifiedEvents[1].length > 0;
+            enabled = enabledValueAdapter(c.data.schedule.status, true);
+            userResources.userSchedule.update({calendarId: scheduleId}, jQuery.param({
+                name: c.data.schedule.name,
+                enabled: enabled
+            })).$promise.then(function () {
+                saveScheduleTimeslots(scheduleId, newEvents, alsoEditEvents);
+                updateScheduleTimeslots(scheduleId, modifiedEvents[1]);
+                if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
+                    c.confirmPopup.hide();
+                    $location.path('/user');
+                }
+            }, function (response) {
+                if (response.status === 422) {
+                    mixedContentToArray.process(response.data, c.errors, true);
+                    c.confirmPopup.hide();
+                }
+                c.confirmPopup.hide();
+            });
+        };
+        var saveScheduleTimeslots = function (schedule_id, events, alsoEditEvents) {
+            var index = 0;
+            for (var i = 0; i < events.length; i++) {
+                userResources.userScheduleTimeslots.save({calendarId: schedule_id, timeslotId: ''},
+                    jQuery.param(events[i])).$promise.then(function () {
+                    if (index === events.length - 1 && !alsoEditEvents) {
+                        c.confirmPopup.hide();
+                        $location.path('/user');
+                    }
+                    index++;
+                }, function (response) {
+                    if (response.status === 422) {
+                        mixedContentToArray.process(response.data, c.errors, true);
+                        c.confirmPopup.hide();
+                    }
+                    c.confirmPopup.hide();
+                });
+            }
+        };
+
+        var createSchedule = function () {
+            var enabled = enabledValueAdapter(c.data.schedule.status, true);
+            var events = calendar.fullCalendar('clientEvents');
+            c.confirmPopup.message = 'Creating schedule';
+            c.confirmPopup.show();
+            var processedEvents = backendEventAdapter(events, true);
+            userResources.userSchedule.save({calendarId: ''}, jQuery.param({
+                name: c.data.schedule.name,
+                enabled: enabled
+            })).$promise.then(function (response) {
+                saveScheduleTimeslots(response.id, processedEvents, false);
+            }, function (response) {
+                if (response.status === 422) {
+                    mixedContentToArray.process(response.data, c.errors, true);
+                    c.confirmPopup.hide();
+                }
+                c.confirmPopup.hide();
+            })
+        };
+        var calendarConfig = {
             firstDay: 1,
             allDaySlot: false,
             header: {
@@ -252,7 +212,7 @@
             },
             defaultView: 'agendaWeek',
             slotDuration: '00:15:00',
-            events: c.events,
+            events: _evs,
             editable: true,
             selectable: true,
             selectHelper: true,
@@ -278,19 +238,74 @@
                 }
             },
             eventRender: function (event, element) {
-                element.append("<span class='fa fa-close removeEvent'></span>");
-                element.find(".fa-close").click(function () {
-                    if (mode === 0) {
-                        c.removeTimeslot(event.specificId);
+                element.append("<i class='material-icons removeEvent'>close</i>");
+                element.find(".removeEvent").click(function () {
+                    if (isUpdate) {
+                        removeTimeslot(event.specificId);
                     }
                     calendar.fullCalendar('removeEvents', event._id);
                 });
             }
         };
-        c.processUrl();
-        c.getTimeslots();
+        c.events = [];
+        c.errors = [];
+        c.confirmPopup = {
+            message: '',
+            show: function () {
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
+            },
+            hide: function () {
+                $mdDialog.cancel();
+            }
+        };
+        c.getMode = function () {
+            return isUpdate;
+        };
+
+        c.deleteSchedule = function () {
+            c.confirmPopup.message = 'Deleting schedule';
+            c.confirmPopup.show();
+            userResources.userSchedule.remove({calendarId: scheduleId})
+                .$promise.then(function () {
+                c.confirmPopup.hide();
+                $location.path('/user')
+            }, function () {
+                c.confirmPopup.hide();
+            })
+        };
+        c.submit = function () {
+            var events = calendar.fullCalendar('clientEvents');
+            c.invalidFlags.schedule = c.data.schedule.name === '';
+            c.invalidFlags.events = (events.length === 0);
+            if (!(c.invalidFlags.schedule || c.invalidFlags.events)) {
+                if (!isUpdate) {
+                    createSchedule();
+                }
+                else {
+                    updateSchedule();
+                }
+            }
+        };
+        c.data = {
+            schedule: {
+                name: '',
+                status: 'ENABLED'
+            }
+        };
+        c.invalidFlags = {
+            schedule: false,
+            events: false
+        };
+        c.toolbarTitle = 'Add schedule';
+        processUrl();
+        getTimeslots();
     };
     var app = angular.module('Plunner');
-    app.controller('cschedController', ['userResources', 'mixedContentToArray', '$routeParams', '$scope', '$location', controller]);
+    app.controller('cschedController', ['$mdDialog', 'userResources', 'mixedContentToArray', '$routeParams', '$location', controller]);
 
 }());
