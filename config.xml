@@ -86,4 +86,5 @@
     <plugin name="cordova-plugin-contacts" spec="~2.0.1" />
     <engine name="browser" spec="~4.0.0" />
     <plugin name="com.phonegap.plugins.PushPlugin" spec="https://github.com/phonegap-build/PushPlugin.git" />
+    <plugin name="cordova-plugin-calendar" spec="https://github.com/EddyVerbruggen/Calendar-PhoneGap-Plugin.git" />
 </widget>
