@@ -1,13 +1,14 @@
 (function () {
 
-    var controller = function (userResources, plannerResources, mixedContentToArray, $scope, $location, $routeParams) {
+    var controller = function ($mdDialog, userResources, plannerResources, mixedContentToArray, $location, $routeParams) {
 
-        var mode = 'c';
+
         var c = this;
+        var isUpdate = false;
         var changedEvents = [];
         var calendar;
-        var startTime;
-
+        var groupId;
+        var meetingId;
         var selectDay = function () {
             var date = moment();
             date.utc();
@@ -21,11 +22,8 @@
 
             return date;
         };
-
-
         var checkNewEvents = function (events) {
             var newEvents = [];
-
             for (var i = 0; i < events.length; i++) {
                 if (events[i].new === true) {
                     newEvents.push(events[i]);
@@ -33,7 +31,6 @@
             }
             return newEvents;
         };
-
         var backendEventAdapter = function (events, switcher) {
             var adaptedEvents = [];
             if (switcher) {
@@ -59,202 +56,156 @@
             return adaptedEvents;
 
         };
-
         var adaptToResolution = function () {
             if (window.innerWidth <= 768) {
                 calendarConfig.defaultView = 'agendaDay';
             }
         };
-
-        var getUserInfo = function () {
-            userResources.userInfo.get()
-                .$promise.then(function (response) {
-                    c.userInfo.is_planner = response.is_planner
-                });
-        };
-
-        var getMeetings = function () {
-            var meeting;
-            if (mode === 'w') {
-                plannerResources.plannerManagedMeetings.query({current: 1})
-                    .$promise.then(function (response) {
-                        for (var i = 0; i < response.length; i++) {
-                            for (var j = 0; j < response[i].meetings.length; j++) {
-                                meeting = response[i].meetings[j];
-                                if (meeting.id === c.meetingId) {
-                                    c.startTime = meeting.start_time;
-                                    startTime = meeting.start_time;
-                                    getTimeslots();
-                                    break;
-
-                                }
-                            }
-                        }
-                        if (startTime) {
-                            c.showEmptyState = true;
-                        }
-                    });
-            }
-            else {
-                calendar = jQuery('#meetingTimeslots').fullCalendar(calendarConfig)
-            }
-
-        };
         var getTimeslots = function () {
-            if (!startTime) {
-                plannerResources.plannerManagedMeetingsTimeslots.query({
-                    groupId: c.groupId,
-                    meetingId: c.meetingId,
+            plannerResources.plannerManagedMeetingsTimeslots.query({
+                    groupId: groupId,
+                    meetingId: meetingId,
                     timeslotId: ''
                 })
-                    .$promise.then(function (response) {
-                        var splittedTimeStart, splittedTimeEnd;
-                        for (var i = 0; i < response.length; i++) {
-                            splittedTimeStart = response[i].time_start.split(' ');
-                            splittedTimeEnd = response[i].time_end.split(' ');
-                            c.events.push({
-                                title: '',
-                                start: splittedTimeStart[0] + 'T' + splittedTimeStart[1],
-                                end: splittedTimeEnd[0] + 'T' + splittedTimeEnd[1],
-                                specificId: response[i].id
-                            });
+                .$promise.then(function (response) {
+                var splittedTimeStart, splittedTimeEnd;
+                for (var i = 0; i < response.length; i++) {
+                    splittedTimeStart = response[i].time_start.split(' ');
+                    splittedTimeEnd = response[i].time_end.split(' ');
+                    c.events.push({
+                        title: '',
+                        start: splittedTimeStart[0] + 'T' + splittedTimeStart[1],
+                        end: splittedTimeEnd[0] + 'T' + splittedTimeEnd[1],
+                        specificId: response[i].id
+                    });
 
-                        }
-                        calendar = jQuery('#meetingTimeslots').fullCalendar(calendarConfig);
-                    })
-            }
+                }
+                calendar = jQuery('#meetingTimeslots').fullCalendar(calendarConfig);
+            })
         };
-        
+
         var processUrl = function () {
             var urlParams;
-            if ($routeParams.type.length === 1 && $routeParams.type === '_') {
-                c.inputEnabled = true
-            }
-            else {
+            if (!($routeParams.type.length === 1 && $routeParams.type === '_')) {
                 urlParams = $routeParams.type.split('&');
-                c.groupId = urlParams[0];
-                c.meetingId = urlParams[1];
-
-                mode = urlParams[2];
-                if (mode === 'w') {
-                    c.inputEnabled = true;
-                    c.buttonText = 'Save changes'
-                }
+                groupId = urlParams[0];
+                meetingId = urlParams[1];
+                isUpdate = true;
+                c.toolbarTitle = 'Edit meeting'
             }
         };
-        
+
         var getMeetingInfo = function () {
-            if (mode === 'w') {
-                plannerResources.plannerMeetings.get({groupId: c.groupId, meetingId: c.meetingId})
+            if (isUpdate) {
+                plannerResources.plannerMeetings.get({groupId: groupId, meetingId: meetingId})
                     .$promise.then(function (response) {
-                        console.log(response);
-                        c.data = response;
-                        c.title = response.title;
-                        c.description = response.description;
-                        c.duration = parseInt(response.duration) / 60;
-                        c.groupName = response.group.name;
-                    })
+                    c.data.meeting.name = response.title;
+                    c.data.meeting.description = response.description;
+                    c.data.meeting.duration = parseInt(response.duration) / 60;
+                    getTimeslots();
+                })
+            }
+            else {
+                calendar = jQuery('#meetingTimeslots').fullCalendar(calendarConfig);
             }
 
         };
 
         var removeTimeslot = function (id) {
-            c.confirmPopup.message = 'Deleting event';
-            c.confirmPopup.show();
+            confirmPopup.message = 'Deleting event';
+            confirmPopup.show();
             plannerResources.plannerManagedMeetingsTimeslots.remove({
-                groupId: c.groupId,
-                meetingId: c.meetingId,
+                groupId: groupId,
+                meetingId: meetingId,
                 timeslotId: id
             }).$promise
                 .then(function () {
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                 }, function () {
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                 })
         };
 
 
         var createMeeting = function (events) {
             var processedEvents = backendEventAdapter(events, true);
-            c.confirmPopup.message = "Creating meeting";
-            c.confirmPopup.show();
-            plannerResources.plannerMeetings.save({groupId: c.selectedGroup, meetingId: ''}, jQuery.param({
-                title: c.title,
-                description: c.description,
-                duration: (c.duration * 60)
+            confirmPopup.message = "Creating meeting";
+            confirmPopup.show();
+            plannerResources.plannerMeetings.save({groupId: grabCheckedGroup(), meetingId: ''}, jQuery.param({
+                title: c.data.meeting.name,
+                description: c.data.meeting.description,
+                duration: (c.data.meeting.duration * 60)
             })).$promise.then(function (response) {
-                    saveMeetingTimeslots(response.id, processedEvents, true, true)
-                }, function (response) {
-                    if (response.status === 422) {
-                        mixedContentToArray.process(response.data, c.errors, true);
-                        c.confirmPopup.hide();
-                    }
-                    c.confirmPopup.hide();
+                saveMeetingTimeslots(response.id, processedEvents, true, true)
+            }, function (response) {
+                if (response.status === 422) {
+                    mixedContentToArray.process(response.data, c.errors, true);
+                    confirmPopup.hide();
+                }
+                confirmPopup.hide();
 
-                })
+            })
         };
         var updateMeetingTimeslots = function (events, redirect) {
-            console.log(events);
             var counter = 0;
-            console.log(events[1].length);
             for (var i = 0; i < events[1].length; i++) {
                 plannerResources.plannerManagedMeetingsTimeslots.update({
-                        groupId: c.groupId,
-                        meetingId: c.meetingId,
+                        groupId: groupId,
+                        meetingId: meetingId,
                         timeslotId: events[0][i]
                     },
                     jQuery.param(events[1][i])).$promise.then(function () {
-                        if (counter === events[1].length - 1) {
-                            c.confirmPopup.hide();
-                            if (redirect) {
-                                $location.path('/user');
-                            }
+                    if (counter === events[1].length - 1) {
+                        confirmPopup.hide();
+                        if (redirect) {
+                            $location.path('/user');
                         }
-                        counter++;
+                    }
+                    counter++;
 
-                    }, function (response) {
-                        if (response.status === 422) {
-                            mixedContentToArray.process(response.data, c.errors, true);
-                            c.confirmPopup.hide();
-                        }
-                        c.confirmPopup.hide();
-                    })
+                }, function (response) {
+                    if (response.status === 422) {
+                        mixedContentToArray.process(response.data, c.errors, true);
+                        confirmPopup.hide();
+                    }
+                    confirmPopup.hide();
+                })
             }
 
         };
-        var saveMeetingTimeslots = function (meetingId, events, redirect, showPopupCondition, isUpdate) {
+        var saveMeetingTimeslots = function (meeting_id, events, redirect, showPopupCondition, isUpdate) {
             var counter = 0;
-            var groupId;
-            if (isUpdate){
-                groupId = c.groupId;
+            var group_id;
+            if (isUpdate) {
+                group_id = groupId;
             }
-            else{
-                groupId = c.selectedGroup;
+            else {
+                group_id = grabCheckedGroup();
             }
             for (var i = 0; i < events.length; i++) {
                 plannerResources.plannerManagedMeetingsTimeslots.save({
-                        groupId: groupId,
-                        meetingId: meetingId,
+                        groupId: group_id,
+                        meetingId: meeting_id,
                         timeslotId: ''
                     },
                     jQuery.param(events[i])
                 ).$promise.then(function () {
-                        if (counter === events.length - 1 && showPopupCondition) {
-                            c.confirmPopup.hide();
-                            if (redirect) {
-                                $location.path('/user');
-                            }
-
+                    if (counter === events.length - 1 && showPopupCondition) {
+                        confirmPopup.hide();
+                        if (redirect) {
+                            $location.path('/user');
                         }
-                        counter++;
-                    }, function (response) {
-                        if (response.status === 422) {
-                            mixedContentToArray.process(response.data, c.errors, true);
-                            c.confirmPopup.hide();
-                        }
-                        c.confirmPopup.hide();
 
-                    })
+                    }
+                    counter++;
+                }, function (response) {
+                    if (response.status === 422) {
+                        mixedContentToArray.process(response.data, c.errors, true);
+                        confirmPopup.hide();
+                    }
+                    confirmPopup.hide();
+
+                })
             }
 
         };
@@ -262,55 +213,29 @@
             var alsoEditedEvents = false;
             var newEvents = backendEventAdapter(checkNewEvents(events), true);
             var modifiedEvents = backendEventAdapter(changedEvents, false);
-            console.log(newEvents);
-            console.log(modifiedEvents);
-            c.confirmPopup.message = "Saving changes";
-            c.confirmPopup.show();
+            confirmPopup.message = "Saving changes";
+            confirmPopup.show();
             alsoEditedEvents = modifiedEvents[1].length > 0;
-            plannerResources.plannerMeetings.update({groupId: c.groupId, meetingId: c.meetingId}, jQuery.param({
-                title: c.title,
-                description: c.description,
-                duration: (c.duration * 60)
+            plannerResources.plannerMeetings.update({groupId: groupId, meetingId: meetingId}, jQuery.param({
+                title: c.data.meeting.name,
+                description: c.data.meeting.description,
+                duration: (c.data.meeting.duration * 60)
             })).$promise.then(function () {
-                    if (!startTime) {
-                        saveMeetingTimeslots(c.meetingId, newEvents, true, !alsoEditedEvents, true);
-                        updateMeetingTimeslots(modifiedEvents, true);
-
-                    }
-                    if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
-                        c.confirmPopup.hide();
-                        $location.path('/user');
-
-                    }
-                }, function (response) {
-                    if (response.status === 422) {
-                        mixedContentToArray.process(response.data, c.errors, true);
-                        c.confirmPopup.hide();
-                    }
-                    c.confirmPopup.hide();
-
-                })
-        };
-
-        c.buttonText = 'Plan meeting';
-        c.events = [];
-        c.userInfo = {
-            is_planner: false
-        };
-        c.inputEnabled = false;
-        c.dataCopy = {};
-        c.showEmptyState = false;
-        c.startTime;
-        c.deleteMeeting = function () {
-            c.confirmPopup.message = "Deleting meeting";
-            c.confirmPopup.show();
-            plannerResources.plannerMeetings.remove({groupId: c.groupId, meetingId: c.meetingId}).$promise
-                .then(function () {
-                    c.confirmPopup.hide();
+                saveMeetingTimeslots(meetingId, newEvents, true, !alsoEditedEvents, true);
+                updateMeetingTimeslots(modifiedEvents, true);
+                if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
+                    confirmPopup.hide();
                     $location.path('/user');
-                }, function () {
-                    c.confirmPopup.hide();
-                })
+
+                }
+            }, function (response) {
+                if (response.status === 422) {
+                    mixedContentToArray.process(response.data, c.errors, true);
+                    confirmPopup.hide();
+                }
+                confirmPopup.hide();
+
+            })
         };
         var calendarConfig = {
             firstDay: 1,
@@ -333,9 +258,9 @@
                 end: selectDay().add(30, 'days')
             },
             eventRender: function (event, element) {
-                element.append("<span class='fa fa-close removeEvent'></span>");
-                element.find(".fa-close").click(function () {
-                    if (mode === 'w') {
+                element.append("<i class='material-icons removeEvent'>close</i>");
+                element.find(".removeEvent").click(function () {
+                    if (isUpdate) {
                         removeTimeslot(event.specificId);
                     }
                     calendar.fullCalendar('removeEvents', event._id);
@@ -365,40 +290,68 @@
                 }
             }
         };
-
-
-        c.invalidFields = {
-            nameReq: false,
-            descriptionReq: false,
-            durationReq: false,
-            durationVal: false,
-            durationLimit: false,
-            oneEventLeast: false,
-            durationConflict: false,
-            oneGroup: false
-        };
-
-        c.selectGroup = function (id) {
-            c.selectedGroup = id;
-        };
-
-        c.errors = [];
-        c.thereErrors = false;
-        c.confirmPopup = {
+        var confirmPopup = {
             message: '',
             show: function () {
-                jQuery('#authorizationPopup').modal('show');
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
             },
             hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
+                $mdDialog.cancel();
             }
         };
-        c.data = {
-            meeting : {
-                name : '',
-                description : '',
-                duration : 15
+        var getGroups = function () {
+            plannerResources.plannerManagedMeetings.query({groupId: ''}).$promise
+                .then(function (response) {
+                    c.groups = response;
+                    fillCheckedGroups();
+                })
+
+        };
+        var grabCheckedGroup = function () {
+            for (var i = 0; i < c.checkedGroups.length; i++) {
+                if (c.checkedGroups[i].selected == true) {
+                    return c.checkedGroups[i].id;
+                }
             }
+        };
+        var fillCheckedGroups = function () {
+            var selected = false;
+            for (var i = 0; i < c.groups.length; i++) {
+                if (c.groups[i].id === groupId) {
+                    selected = true;
+                }
+                c.checkedGroups.push({id: c.groups[i].id, selected: selected});
+            }
+        };
+        c.toolbarTitle = 'Plan meeting';
+        c.events = [];
+        c.showEmptyState = false;
+        c.deleteMeeting = function () {
+            confirmPopup.message = "Deleting meeting";
+            confirmPopup.show();
+            plannerResources.plannerMeetings.remove({groupId: groupId, meetingId: meetingId}).$promise
+                .then(function () {
+                    confirmPopup.hide();
+                    $location.path('/user');
+                }, function () {
+                    confirmPopup.hide();
+                })
+        };
+        c.errors = [];
+        c.data = {
+            meeting: {
+                name: '',
+                description: '',
+                duration: 15
+            }
+        };
+        c.getMode = function () {
+            return isUpdate;
         };
         c.submit = function () {
             var events, areErrors, minEventDuration;
@@ -408,32 +361,32 @@
             else {
                 events = [];
             }
-
             c.invalidFlags.name = c.data.meeting.name === '';
-            c.invalidFlags.description_req = c.data.meeting.description === '';
-            if(!c.invalidFlags.description_req){
-                c.invalidFields.description_len = c.data.meeting.length > 150;
+            c.invalidFlags.description = c.data.meeting.length > 150;
+            for (var i = 0; i < c.checkedGroups.length; i++) {
+                if (c.checkedGroups[i].selected === true) {
+                    c.invalidFlags.groups = false;
+                    break;
+                }
+                c.invalidFlags.groups = true;
             }
-            c.invalidFlags.groups = checkedGroups.length === 0 && mode !== 'w';
-            if (!startTime) {
-                c.invalidFlags.time_windows_num = events.length === 0;
-                for (var i = 0; i < events.length; i++) {
-                    minEventDuration = (events[i].end.format('x') - events[i].start.format('x')) / 1000;
-                    if (minEventDuration < c.data.meeting.duration) {
-                        c.invalidFields.time_windows_duration_conflict = true;
-                        break;
-                    }
+            c.invalidFlags.time_windows_num = (events.length === 0);
+            for (i = 0; i < events.length; i++) {
+                minEventDuration = (events[i].end.format('x') - events[i].start.format('x')) / 1000;
+                if (minEventDuration / 60 < c.data.meeting.duration) {
+                    c.invalidFlags.time_windows_dur = true;
+                    break;
                 }
             }
 
-            for (var key in c.invalidFields) {
-                if (this.invalidFields[key] === true) {
+            for (var key in c.invalidFlags) {
+                if (c.invalidFlags[key] === true) {
                     areErrors = true;
                     break;
                 }
             }
             if (!areErrors) {
-                if (mode === 'c') {
+                if (!isUpdate) {
                     createMeeting(events);
                 }
                 else {
@@ -442,40 +395,19 @@
 
             }
         };
-        var getGroups = function () {
-            if (mode === 'c') {
-                plannerResources.plannerManagedMeetings.query({groupId: ''}).$promise
-                    .then(function (response) {
-                        c.groups = response;
-                    })
-            }
 
-        };
-        c.onSwipeLeft = function(){
-            alert("swiped")
-        };
-
-        var checkedGroups = [];
+        c.checkedGroups = [];
         c.invalidFlags = {
-            name : false,
-            description : false,
-            groups : false,
-            time_windows : false
-        };
-        c.checkGroup = function(id){
-            if(checkedGroups.indexOf(id) === -1){
-                checkedGroups.push(id);
-            }
-            else{
-                checkedGroups.splice(checkedGroups.indexOf(id),1);
-            }
+            name: false,
+            description: false,
+            groups: false,
+            time_windows_num: false,
+            time_windows_dur: false
         };
 
 
         adaptToResolution();
-        getUserInfo();
         processUrl();
-        getMeetings();
         getGroups();
         getMeetingInfo();
 
@@ -483,5 +415,5 @@
     };
 
     var app = angular.module('Plunner');
-    app.controller('nmController', ['userResources', 'plannerResources', 'mixedContentToArray', '$scope', '$location', '$routeParams', controller]);
+    app.controller('nmController', ['$mdDialog', 'userResources', 'plannerResources', 'mixedContentToArray', '$location', '$routeParams', '$cordovaSpinnerDialog', controller]);
 }());

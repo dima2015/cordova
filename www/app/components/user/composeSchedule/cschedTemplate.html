@@ -11,9 +11,9 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content layout="column" layout-padding class="md-padding">
+    <md-content layout="column" layout-padding class="md-padding compose_schedule__content">
         <section>
-            <h3><md-icon>info_outline</md-icon>&nbsp;&nbsp;Information</h3>
+            <h3 class="md-subhead"><md-icon>info_outline</md-icon>&nbsp;&nbsp;Information</h3>
             <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
                 <md-icon>title</md-icon>
                 <input name="org" ng-model="sihC.memberInputs.org" type="text"
@@ -25,13 +25,20 @@
                 </div>
             </md-input-container>
         </section>
-        <section>
-            <h3><md-icon>lock_outline</md-icon>&nbsp;&nbsp;Status</h3>
-            <md-switch>ENABLED</md-switch>
+        <md-divider></md-divider>
+        <section class="compose_schedule__content__status">
+            <h3 class="md-subhead"><md-icon>lock_outline</md-icon>&nbsp;&nbsp;Status</h3>
+            <div layout="row">
+                <span class="md-body-2 compose_schedule__content__status__text--disabled " flex>ENABLED</span>
+                <div flex="10">
+                    <md-switch></md-switch>
+                </div>
+            </div>
+
         </section>
         <md-divider></md-divider>
         <section>
-            <h3><md-icon>event_busy</md-icon>&nbsp;&nbsp;Busy timeslots</h3>
+            <h3 class="md-subhead"><md-icon>event_busy</md-icon>&nbsp;&nbsp;Busy timeslots</h3>
             <div id="composeScheduleCal"></div>
         </section>
     </md-content>

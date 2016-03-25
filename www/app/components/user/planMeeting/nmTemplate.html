@@ -1,11 +1,14 @@
 <div id="plan_meeting" layout="column">
-    <md-toolbar class="member_dashboard__toolbar" flex>
+    <md-toolbar class="toolbar" flex>
         <div class="md-toolbar-tools">
             <md-button ng-href="/#/user" class="md-icon-button">
                 <md-icon>arrow_back</md-icon>
             </md-button>
-            <h1 class="md-headline"><span>Plan meeting</span></h1>
+            <h1 class="md-headline"><span>{{nmC.toolbarTitle}}</span></h1>
             <span flex></span>
+            <md-button ng-show="nmC.getMode()" class="md-icon-button" ng-click="nmC.deleteMeeting()">
+                <md-icon>delete</md-icon>
+            </md-button>
             <md-button class="md-icon-button" ng-click="nmC.submit()">
                 <md-icon>send</md-icon>
             </md-button>
@@ -32,10 +35,7 @@
                 <textarea placeholder="Meeting description" ng-model="nmC.data.meeting.description" md-maxlength="150" rows="5"
                           md-select-on-focus></textarea>
                 <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description_req">This field is
-                        required
-                    </div>
-                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description_len">The field containts
+                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description">The field containts
                         too much characters
                     </div>
                 </div>
@@ -66,19 +66,22 @@
                 </h3>
                 <span ng-show="nmC.invalidFlags.groups">Select at least one group</span>
             </div>
-
-
             <md-list class="plan_meeting__groups__list" flex>
+                <md-list-item layout="row" layout-align="center center" ng-hide="nmC.groups">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </md-list-item>
                 <md-list-item ng-repeat="group in nmC.groups">
                     <img style="margin-right: 2em" src="../../../../assets/icon.svg" alt="">
                     <span flex>{{group.name}}</span>
-                    <md-checkbox ng-checked="checkGroup(group.id)"></md-checkbox>
+                    <md-checkbox ng-model="nmC.checkedGroups[$index].selected"></md-checkbox>
                 </md-list-item>
             </md-list>
         </section>
 
         <md-divider></md-divider>
         <section class="plan_meeting__information md-padding" layout-padding>
+            <span class="non_field_error" ng-show="nmC.invalidFlags.time_windows_num">Insert at least one time window</span>
+            <span class="non_field_error" ng-show="nmC.invalidFlags.time_windows_dur">At least on time window is too short</span>
             <h3 class="md-subhead">
                 <md-icon>event_available</md-icon>
                 &nbsp;&nbsp;Possible time windows
@@ -87,6 +90,7 @@
             </div>
         </section>
     </md-content>
+
 </div>
 
 
