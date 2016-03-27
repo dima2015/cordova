@@ -45,8 +45,8 @@
                 controllerAs: 'userC'
             }).when('/member/meeting/:group_id/:id/:is_planned', {
                 templateUrl: 'app/components/user/meetingDetail/meetingDetailTemplate.html',
-                controller : 'meetingDetailController',
-                controllerAs : 'mdC'
+                controller: 'meetingDetailController',
+                controllerAs: 'mdC'
             }).when('/organization/groups/:id', {
                 templateUrl: 'app/components/organization/group/groupTemplate.html',
                 controller: 'groupController',
@@ -55,6 +55,10 @@
                 templateUrl: 'app/components/user/planMeeting/nmTemplate.html',
                 controller: 'nmController',
                 controllerAs: 'nmC'
+            }).when('/member/schedules/import', {
+                templateUrl: 'app/components/user/importSchedule/importScheduleTemplate.html',
+                controller: 'importScheduleController',
+                controllerAs: 'isC'
             }).when('/userecovery', {
                 templateUrl: 'app/components/user/recovery/urecTemplate.html',
                 controller: 'urecController',
