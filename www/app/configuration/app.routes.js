@@ -59,6 +59,10 @@
                 templateUrl: 'app/components/user/importSchedule/importScheduleTemplate.html',
                 controller: 'importScheduleController',
                 controllerAs: 'isC'
+            }).when('/member/schedule/:id', {
+                templateUrl: 'app/components/user/importedScheduleDetail/importedScheduleDetailTemplate.html',
+                controller: 'importedScheduleDetailController',
+                controllerAs: 'isdC'
             }).when('/userecovery', {
                 templateUrl: 'app/components/user/recovery/urecTemplate.html',
                 controller: 'urecController',
