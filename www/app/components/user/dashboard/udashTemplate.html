@@ -81,9 +81,9 @@
                                     </md-list-item>
                                 </md-button>
                                 <div class="member_dashboard__meetings_empty"
-                                     ng-show="udashC.meetings.toBePlanned.length === 0 && !filterTBPMeetings">
+                                     ng-hide="udashC.meetings.toBePlanned.length > 0">
                                     <md-icon>sentiment_dissatisfied</md-icon>
-                                    <h3>Sorry no meetings to be planned for you yet</h3>
+                                    <h3 class="md-subhead">Sorry no meetings to be planned for you yet</h3>
                                 </div>
                             </md-list>
                         </section>
@@ -99,10 +99,10 @@
                                     </div>
                                 </md-list-item>
                             </md-button>
-                            <div class="member_dashboard__meetings_empty"
-                                 ng-show="udashC.meetings.planned.length === 0 && !filterTBPMeetings">
+                            <div class="empty_state"
+                                 ng-hide="udashC.meetings.planned.length > 0">
                                 <md-icon>sentiment_dissatisfied</md-icon>
-                                <h3>Sorry no meetings planned for you yet</h3>
+                                <h3 class="md-subhead">Sorry no meetings planned for you yet</h3>
                             </div>
                         </section>
                         <section class="member_dashboard__meetings__content--m" ng-show="udashC.meetings.managed">
@@ -119,13 +119,12 @@
                                         </div>
                                     </md-list-item>
                                 </md-button>
-                                <div class="member_dashboard__meetings_empty"
-                                     ng-show="udashC.meetings.managed.length === 0  && !filterTBPMeetings">
+                                <div class="empty_state"
+                                     ng-hide="udashC.meetings.managed.length > 0">
                                     <md-icon>sentiment_dissatisfied</md-icon>
-                                    <h3>Sorry no meetings managed by you yet</h3>
+                                    <h3 class="md-subhead">Sorry no meetings managed by you yet</h3>
                                 </div>
                             </md-list>
-
                         </section>
                     </div>
                 </div>
@@ -156,10 +155,10 @@
                                 </md-list-item>
                             </md-button>
 
-                            <div class="member_dashboard__meetings_empty"
-                                 ng-show="udashC.schedules.imported.length === 0  && !filterISchedules">
+                            <div class="empty_state"
+                                 ng-hide="udashC.schedules.imported.length > 0">
                                 <md-icon>sentiment_dissatisfied</md-icon>
-                                <h3>Sorry no schedules imported yet</h3>
+                                <h3 class="md-subhead">Sorry no schedules imported yet</h3>
                             </div>
                         </md-list>
                     </section>
@@ -177,10 +176,10 @@
                                     </div>
                                 </md-list-item>
                             </md-button>
-                            <div class="member_dashboard__meetings_empty"
-                                 ng-show="udashC.schedules.composed.length === 0 && !filterISchedules">
+                            <div class="empty_state"
+                                 ng-hide="udashC.schedules.composed.length > 0">
                                 <md-icon>sentiment_dissatisfied</md-icon>
-                                <h3>Sorry no schedules composed yet</h3>
+                                <h3 class="md-subhead">Sorry no schedules composed yet</h3>
                             </div>
                         </md-list>
                     </section>
