@@ -5,6 +5,9 @@
 ##Ideas
 - [ ] rfid to login, useful for some android terminal (like fixed devices)
 
+##Todo
+- [ ] tests
+
 ## Privacy
 
 [privacy policy](http://plunner.com/privacy.txt)
