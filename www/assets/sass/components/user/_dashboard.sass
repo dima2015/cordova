@@ -19,10 +19,10 @@
 
   i
     position: absolute
-    left: .75em
-    top: .65em
-    color: $washed_black
-
+    right: .75em
+    top: .9em
+    color: #555
+    font-size: 20px
   input
     width: calc(100% - 3.5em)
     padding: .75em .5em
@@ -33,7 +33,27 @@
     outline: none
     transition: box-shadow 100ms linear
 
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.16)
+
+
+
+.aspra
+  >h3
+    width: calc(100% - 16px)
+    margin-left: -8px
+    margin-bottom: 0
+    margin-top: 2em
+    font-size: 1rem
+    text-transform: uppercase
+    background-color: $colorPrimary
+    padding: 1em
+    color: white
+
+    md-icon
+      margin-top: -3px
+      margin-right: 8px
+      float: right
+      color: white
 
 .list_button
   width: 100%
@@ -44,6 +64,9 @@
   md-list-item
     border-bottom: 1px solid rgba(158, 158, 158, 0.1)
     padding-left: 0
+
+    &:last-child
+      border-bottom: none
   md-icon
     width: 1em !important
     font-size: 4em
@@ -62,11 +85,16 @@
     > h3
       font-size: 1rem
       text-transform: uppercase
-      background-color: rgb(255, 236, 179)
-      padding: 11px
-      text-align: center
-      color: rgba(0, 0, 0, 0.54)
+      background-color: #007AC1
+      padding: 1em
+      color: white
       border-radius: 4px
+
+      md-icon
+        margin-top: -3px
+        float: right
+        color: white
+
 .member_dashboard__meetings_empty
   padding-top: 1em
   padding-bottom: 1em
@@ -106,6 +134,9 @@
   md-list-item
     border-bottom: 1px solid rgba(158, 158, 158, 0.1)
     padding-left: 0
+
+    &:last-child
+      border: none
 
 .udash
   .udash_content_type_title

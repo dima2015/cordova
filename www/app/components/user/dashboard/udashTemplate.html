@@ -55,19 +55,23 @@
 
     <md-tabs md-dynamic-height md-stretch-tabs="always" class="member_dashboard__tabs" flex>
         <md-tab label="MEETINGS">
-            <md-content layout-padding>
+            <div layout-padding class="aspra">
                 <div class="member_dashboard__meetings__search">
                     <i class="material-icons">search</i>
                     <input type="search" ng-model="filterTBPMeetings">
                 </div>
+                <h3>Meetings to be planned
+                    <md-icon>date_range</md-icon>
+                </h3>
                 <div class="member_dashboard__meetings__content">
                     <div layout="row" layout-sm="column" layout-align="space-around"
                          ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
                         <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                     </div>
+
                     <div ng-show="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
-                        <section class="member_dashboard__meetings__content--tbp" >
-                            <h3 class="md-title">Meetings to be planned</h3>
+                        <section class="member_dashboard__meetings__content--tbp">
+
                             <md-list flex>
                                 <md-button class="list_button"
                                            ng-href="/#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0"
@@ -87,8 +91,15 @@
                                 </div>
                             </md-list>
                         </section>
+                    </div>
+                </div>
+                <h3>Meetings planned
+                    <md-icon>event</md-icon>
+                </h3>
+                <div>
+                    <div class="member_dashboard__meetings__content">
                         <section class="member_dashboard__meetings__content--p" ng-show="udashC.meetings.planned">
-                            <h3 class="md-title">Meetings planned</h3>
+
                             <md-button class="list_button" ng-href="/#/meeting/{{meeting.groupId}}/{{meeting.id}}"
                                        ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
                                 <md-list-item class="md-3-line">
@@ -105,8 +116,15 @@
                                 <h3 class="md-subhead">Sorry no meetings planned for you yet</h3>
                             </div>
                         </section>
+                    </div>
+                </div>
+                <h3 class="aspra">Meetings managed
+                    <md-icon>gavel</md-icon>
+                </h3>
+                <div>
+                    <div class="member_dashboard__meetings__content">
                         <section class="member_dashboard__meetings__content--m" ng-show="udashC.meetings.managed">
-                            <h3 class="md-title">Meetings managed</h3>
+
                             <md-list flex>
                                 <md-button class="list_button"
                                            ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
@@ -128,10 +146,10 @@
                         </section>
                     </div>
                 </div>
-            </md-content>
+                </md-content>
         </md-tab>
         <md-tab label="SCHEDULES">
-            <md-content class="md-padding" layout-padding>
+            <md-content class="aspra md-padding" layout-padding>
                 <div class="member_dashboard__meetings__search">
                     <i class="material-icons">search</i>
                     <input type="search" ng-model="filterISchedules">
@@ -140,9 +158,12 @@
                      ng-hide="udashC.schedules.imported && udashC.schedules.composed">
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
-                <div class="member_dashboard__schedules__content" ng-show="udashC.schedules.imported && udashC.schedules.composed">
+                <h3 class="md-title">Imported schedules
+                    <md-icon>swap_vert</md-icon>
+                </h3>
+                <div class="member_dashboard__schedules__content"
+                     ng-show="udashC.schedules.imported && udashC.schedules.composed">
                     <section ng-show="udashC.schedules.imported">
-                        <h3 class="md-title">Imported schedules</h3>
                         <md-list flex>
                             <md-button class="list_button--special"
                                        ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}">
@@ -162,8 +183,14 @@
                             </div>
                         </md-list>
                     </section>
+                </div>
+                <h3>Composed schedules
+                    <md-icon>create</md-icon>
+                </h3>
+                <div class="member_dashboard__schedules__content"
+                     ng-show="udashC.schedules.imported && udashC.schedules.composed">
                     <section ng-show="udashC.schedules.composed">
-                        <h3 class="md-title">Composed schedules</h3>
+
                         <md-list flex>
                             <md-button class="list_button--special"
                                        ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}"
