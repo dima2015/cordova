@@ -34,6 +34,38 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         //app.receivedEvent('deviceready');
+        /*if (window.cordova) { //TODO useless??
+            var push = PushNotification.init({
+                android: {
+                    senderID: "992047859622"
+                },
+                ios: {
+                    alert: "true",
+                    badge: "true",
+                    sound: "true"
+                },
+                windows: {}
+            });
+
+            push.on('registration', function (data) {
+                // data.registrationId
+                alert(data.registrationId);
+            });
+
+            push.on('notification', function (data) {
+                alert(data.message);
+                // data.message,
+                // data.title,
+                // data.count,
+                // data.sound,
+                // data.image,
+                // data.additionalData
+            });
+
+            push.on('error', function (e) {
+                // e.message
+            });
+        }*/
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
