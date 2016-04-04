@@ -51,7 +51,7 @@
             }
         });
     });
-
+/*
     app.run(function($cordovaPush) {
 
         alert("test");
@@ -99,5 +99,5 @@
             })
 
         }, false);
-    });
+    });*/
 }());
