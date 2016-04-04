@@ -15,18 +15,20 @@
 
 .member_dashboard__meetings__search
   position: relative
-  width: calc(100% - 16px)
+  margin: 0 auto
 
   i
     position: absolute
-    right: .75em
-    top: .9em
+    right: 1.2em
+    top: .5em
     color: #555
     font-size: 20px
   input
-    width: calc(100% - 3.5em)
-    padding: .75em .5em
-    padding-left: 3em
+    display: block
+    width: calc(100% - 6em)
+    padding: .75em 1em
+    padding-right: 3em
+    margin: 1.5em auto
     border-radius: 4px
     border: 1px solid #ccc
     background: none
@@ -38,14 +40,16 @@
 
 
 .aspra
+
+  md-list
+    padding: 0
   >h3
     width: calc(100% - 16px)
     margin-left: -8px
     margin-bottom: 0
-    margin-top: 2em
     font-size: 1rem
     text-transform: uppercase
-    background-color: $colorPrimary
+    background-color: #B1B8BB
     padding: 1em
     color: white
 
@@ -55,6 +59,8 @@
       float: right
       color: white
 
+    &:first-child
+      margin-top: 0
 .list_button
   width: 100%
   margin: 0
@@ -80,7 +86,7 @@
     text-align: left
     text-transform: none
 
-.member_dashboard__meetings__content, .member_dashboard__schedules__content
+.aspra
   section
     > h3
       font-size: 1rem

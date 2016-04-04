@@ -23,7 +23,7 @@
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button>
+                        <md-button ng-href="/#/member/schedules/import">
                             <md-icon>import_export</md-icon>
                             Import schedule
                         </md-button>
@@ -52,165 +52,147 @@
             </md-menu>
         </div>
     </md-toolbar>
-
     <md-tabs md-dynamic-height md-stretch-tabs="always" class="member_dashboard__tabs" flex>
         <md-tab label="MEETINGS">
-            <div layout-padding class="aspra">
-                <div class="member_dashboard__meetings__search">
-                    <i class="material-icons">search</i>
-                    <input type="search" ng-model="filterTBPMeetings">
-                </div>
+            <div class="member_dashboard__meetings__search">
+                <i class="material-icons">search</i>
+                <input type="search" ng-model="filterTBPMeetings">
+            </div>
+            <div layout="column" layout-align="center center"
+                 ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
+                <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+            </div>
+            <md-content layout-padding class="aspra"
+                        ng-show="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
                 <h3>Meetings to be planned
                     <md-icon>date_range</md-icon>
                 </h3>
-                <div class="member_dashboard__meetings__content">
-                    <div layout="row" layout-sm="column" layout-align="space-around"
-                         ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
-                        <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
-                    </div>
-
-                    <div ng-show="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
-                        <section class="member_dashboard__meetings__content--tbp">
-
-                            <md-list flex>
-                                <md-button class="list_button"
-                                           ng-href="/#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0"
-                                           ng-repeat="meeting in udashC.meetings.toBePlanned | filter: {title : filterTBPMeetings}">
-                                    <md-list-item class="md-3-line">
-                                        <md-icon>group_work</md-icon>
-                                        <div class="md-list-item-text" layout="column">
-                                            <h3>{{meeting.title}}</h3>
-                                            <p>{{meeting.description}}</p>
-                                        </div>
-                                    </md-list-item>
-                                </md-button>
-                                <div class="member_dashboard__meetings_empty"
-                                     ng-hide="udashC.meetings.toBePlanned.length > 0">
-                                    <md-icon>sentiment_dissatisfied</md-icon>
-                                    <h3 class="md-subhead">Sorry no meetings to be planned for you yet</h3>
+                <section class="member_dashboard__meetings__content--tbp">
+                    <md-list flex>
+                        <md-button class="list_button"
+                                   ng-href="/#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0"
+                                   ng-repeat="meeting in udashC.meetings.toBePlanned | filter: {title : filterTBPMeetings}">
+                            <md-list-item class="md-3-line">
+                                <md-icon>group_work</md-icon>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{meeting.title}}</h3>
+                                    <p>{{meeting.description}}</p>
                                 </div>
-                            </md-list>
-                        </section>
-                    </div>
-                </div>
+                            </md-list-item>
+                        </md-button>
+                        <div class="member_dashboard__meetings_empty"
+                             ng-hide="udashC.meetings.toBePlanned.length > 0 || filterTBPMeetings">
+                            <md-icon>sentiment_dissatisfied</md-icon>
+                            <h3 class="md-subhead">Sorry no meetings to be planned for you yet</h3>
+                        </div>
+                    </md-list>
+                </section>
                 <h3>Meetings planned
                     <md-icon>event</md-icon>
                 </h3>
-                <div>
-                    <div class="member_dashboard__meetings__content">
-                        <section class="member_dashboard__meetings__content--p" ng-show="udashC.meetings.planned">
+                <section class="member_dashboard__meetings__content--p" ng-show="udashC.meetings.planned">
 
-                            <md-button class="list_button" ng-href="/#/meeting/{{meeting.groupId}}/{{meeting.id}}"
-                                       ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
-                                <md-list-item class="md-3-line">
-                                    <md-icon>group_work</md-icon>
-                                    <div class="md-list-item-text" layout="column">
-                                        <h3>{{meeting.title}}</h3>
-                                        <p>{{meeting.description}}</p>
-                                    </div>
-                                </md-list-item>
-                            </md-button>
-                            <div class="empty_state"
-                                 ng-hide="udashC.meetings.planned.length > 0">
-                                <md-icon>sentiment_dissatisfied</md-icon>
-                                <h3 class="md-subhead">Sorry no meetings planned for you yet</h3>
+                    <md-button class="list_button" ng-href="/#/meeting/{{meeting.groupId}}/{{meeting.id}}"
+                               ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
+                        <md-list-item class="md-3-line">
+                            <md-icon>group_work</md-icon>
+                            <div class="md-list-item-text" layout="column">
+                                <h3>{{meeting.title}}</h3>
+                                <p>{{meeting.description}}</p>
                             </div>
-                        </section>
+                        </md-list-item>
+                    </md-button>
+                    <div class="empty_state"
+                         ng-hide="udashC.meetings.planned.length > 0 || filterTBPMeetings">
+                        <md-icon>sentiment_dissatisfied</md-icon>
+                        <h3 class="md-subhead">Sorry no meetings planned for you yet</h3>
                     </div>
-                </div>
+                </section>
                 <h3 class="aspra">Meetings managed
                     <md-icon>gavel</md-icon>
                 </h3>
-                <div>
-                    <div class="member_dashboard__meetings__content">
-                        <section class="member_dashboard__meetings__content--m" ng-show="udashC.meetings.managed">
+                <section class="member_dashboard__meetings__content--m" ng-show="udashC.meetings.managed">
 
-                            <md-list flex>
-                                <md-button class="list_button"
-                                           ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
-                                           ng-repeat=" meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
-                                    <md-list-item class="md-3-line">
-                                        <md-icon>group_work</md-icon>
-                                        <div class="md-list-item-text" layout="column">
-                                            <h3>{{meeting.title}}</h3>
-                                            <p>{{meeting.description}}</p>
-                                        </div>
-                                    </md-list-item>
-                                </md-button>
-                                <div class="empty_state"
-                                     ng-hide="udashC.meetings.managed.length > 0">
-                                    <md-icon>sentiment_dissatisfied</md-icon>
-                                    <h3 class="md-subhead">Sorry no meetings managed by you yet</h3>
+                    <md-list flex>
+                        <md-button class="list_button"
+                                   ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
+                                   ng-repeat=" meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
+                            <md-list-item class="md-3-line">
+                                <md-icon>group_work</md-icon>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{meeting.title}}</h3>
+                                    <p>{{meeting.description}}</p>
                                 </div>
-                            </md-list>
-                        </section>
-                    </div>
-                </div>
-                </md-content>
+                            </md-list-item>
+                        </md-button>
+                        <div class="empty_state"
+                             ng-hide="udashC.meetings.managed.length > 0 || filterTBPMeetings">
+                            <md-icon>sentiment_dissatisfied</md-icon>
+                            <h3 class="md-subhead">Sorry no meetings managed by you yet</h3>
+                        </div>
+                    </md-list>
+                </section>
+            </md-content>
         </md-tab>
         <md-tab label="SCHEDULES">
-            <md-content class="aspra md-padding" layout-padding>
-                <div class="member_dashboard__meetings__search">
-                    <i class="material-icons">search</i>
-                    <input type="search" ng-model="filterISchedules">
-                </div>
-                <div layout="row" layout-sm="column" layout-align="space-around"
-                     ng-hide="udashC.schedules.imported && udashC.schedules.composed">
-                    <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
-                </div>
+            <div class="member_dashboard__meetings__search">
+                <i class="material-icons">search</i>
+                <input type="search" ng-model="filterISchedules">
+            </div>
+            <div layout="column" layout-align="center center"
+                 ng-hide="udashC.schedules.imported && udashC.schedules.composed">
+                <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+            </div>
+            <md-content class="aspra md-padding" layout-padding
+                        ng-show="udashC.schedules.imported && udashC.schedules.composed">
                 <h3 class="md-title">Imported schedules
                     <md-icon>swap_vert</md-icon>
                 </h3>
-                <div class="member_dashboard__schedules__content"
-                     ng-show="udashC.schedules.imported && udashC.schedules.composed">
-                    <section ng-show="udashC.schedules.imported">
-                        <md-list flex>
-                            <md-button class="list_button--special"
-                                       ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}">
-                                <md-list-item class="md-3-line">
-                                    <md-icon>perm_contact_calendar</md-icon>
-                                    <div class="md-list-item-text" layout="column">
-                                        <h3>{{schedule.name}}</h3>
-                                        <p>{{schedule.updated_at}}</p>
-                                    </div>
-                                </md-list-item>
-                            </md-button>
+                <section ng-show="udashC.schedules.imported">
+                    <md-list flex>
+                        <md-button class="list_button--special"
+                                   ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}" ng-href="/#/member/schedule/{{schedule.id}}">
+                            <md-list-item class="md-3-line">
+                                <md-icon>perm_contact_calendar</md-icon>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{schedule.name}}</h3>
+                                    <p>{{schedule.updated_at}}</p>
+                                </div>
+                            </md-list-item>
+                        </md-button>
 
-                            <div class="empty_state"
-                                 ng-hide="udashC.schedules.imported.length > 0">
-                                <md-icon>sentiment_dissatisfied</md-icon>
-                                <h3 class="md-subhead">Sorry no schedules imported yet</h3>
-                            </div>
-                        </md-list>
-                    </section>
-                </div>
+                        <div class="empty_state"
+                             ng-hide="udashC.schedules.imported.length > 0 || filterISchedules">
+                            <md-icon>sentiment_dissatisfied</md-icon>
+                            <h3 class="md-subhead">Sorry no schedules imported yet</h3>
+                        </div>
+                    </md-list>
+                </section>
                 <h3>Composed schedules
                     <md-icon>create</md-icon>
                 </h3>
                 <div class="member_dashboard__schedules__content"
-                     ng-show="udashC.schedules.imported && udashC.schedules.composed">
-                    <section ng-show="udashC.schedules.composed">
+                <section ng-show="udashC.schedules.composed">
 
-                        <md-list flex>
-                            <md-button class="list_button--special"
-                                       ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}"
-                                       ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}">
-                                <md-list-item class="md-3-line">
-                                    <md-icon>perm_contact_calendar</md-icon>
-                                    <div class="md-list-item-text" layout="column">
-                                        <h3>{{schedule.name}}</h3>
-                                        <p>{{schedule.updated_at}}</p>
-                                    </div>
-                                </md-list-item>
-                            </md-button>
-                            <div class="empty_state"
-                                 ng-hide="udashC.schedules.composed.length > 0">
-                                <md-icon>sentiment_dissatisfied</md-icon>
-                                <h3 class="md-subhead">Sorry no schedules composed yet</h3>
-                            </div>
-                        </md-list>
-                    </section>
-                </div>
+                    <md-list flex>
+                        <md-button class="list_button--special"
+                                   ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}"
+                                   ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}">
+                            <md-list-item class="md-3-line">
+                                <md-icon>perm_contact_calendar</md-icon>
+                                <div class="md-list-item-text" layout="column">
+                                    <h3>{{schedule.name}}</h3>
+                                    <p>{{schedule.updated_at}}</p>
+                                </div>
+                            </md-list-item>
+                        </md-button>
+                        <div class="empty_state"
+                             ng-hide="udashC.schedules.composed.length > 0 || filterISchedules">
+                            <md-icon>sentiment_dissatisfied</md-icon>
+                            <h3 class="md-subhead">Sorry no schedules composed yet</h3>
+                        </div>
+                    </md-list>
+                </section>
             </md-content>
         </md-tab>
     </md-tabs>
