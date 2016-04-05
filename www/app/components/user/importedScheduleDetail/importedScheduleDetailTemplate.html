@@ -6,7 +6,10 @@
             </md-button>
             <h1 class="md-headline"><span>Imported Schedule</span></h1>
             <span flex></span>
-            <md-button class="md-icon-button">
+            <md-button class="md-icon-button" ng-click="isdC.saveSchedule()">
+                <md-icon>send</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="isdC.deleteSchedule()">
                 <md-icon>delete</md-icon>
             </md-button>
         </div>
@@ -14,4 +17,14 @@
             <md-icon style="font-size: 10em">perm_contact_calendar</md-icon>
         </div>
     </md-toolbar>
+    <md-content layout="column" class="md-padding" layout-padding>
+        <h3>{{isdC.data.name}}</h3>
+        <p>{{isdC.data.updated_at}}</p>
+        <div layout="row">
+            <span class="md-body-2" ng-class="{'compose_schedule__content__status__text' : isdC.data.enabled === 'ENABLED', 'compose_schedule__content__status__text--disabled' : isdC.data.enabled === 'DISABLED'}" flex>{{isdC.data.enabled}}</span>
+            <div flex="20">
+                <md-switch ng-true-value="'ENABLED'" ng-false-value="'DISABLED'" ng-model="isdC.data.enabled"></md-switch>
+            </div>
+        </div>
+    </md-content>
 </div>
