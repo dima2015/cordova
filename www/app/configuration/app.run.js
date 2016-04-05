@@ -20,7 +20,6 @@
                         $location.path('/orgsignin');
                     }
                     else if(path.search('orgsignin') !== -1){
-                        console.log('entro qui');
                         $location.path('/organization')
                     }
                 }
@@ -33,9 +32,6 @@
                     else if(path.search('usersignin') !== -1){
                         $location.path('/user')
                     }
-
-
-
                 }
                 //Redirect if the user is already logged in
                 /*else if(path.search('/orgsignin') !== -1 ){
