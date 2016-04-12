@@ -65,6 +65,8 @@ var app = {
 
             push.on('error', function (e) {
                 // e.message
+                console.log(e);
+                alert(e);
             });
        // }
     },
