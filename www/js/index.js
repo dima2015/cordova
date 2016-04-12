@@ -34,7 +34,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         //app.receivedEvent('deviceready');
-        /*if (window.cordova) { //TODO useless??
+        if (window.cordova) {
             var push = PushNotification.init({
                 android: {
                     senderID: "992047859622"
@@ -65,7 +65,7 @@ var app = {
             push.on('error', function (e) {
                 // e.message
             });
-        }*/
+        }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
