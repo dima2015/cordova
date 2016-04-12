@@ -22,6 +22,7 @@
     "angular-material": "^1.0.6",
     "angular-resource": "^1.4.8",
     "angular-route": "^1.4.8",
+    "gcm": "^1.0.1",
     "jquery": "^2.1.4",
     "jwt-decode": "^1.4.0",
     "moment": "^2.10.6"
