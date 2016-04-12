@@ -49,11 +49,11 @@ var app = {
 
             push.on('registration', function (data) {
                 // data.registrationId
-                alert(data.registrationId);
+                console.log(data.registrationId);
             });
 
             push.on('notification', function (data) {
-                alert(data.message);
+                console.log(data.message);
                 // data.message,
                 // data.title,
                 // data.count,

@@ -17,3 +17,6 @@ We are not responsible for any kind of problems related to privacy or any other 
 
 ## Useful links
 * http://phonegappro.com/tutorials/apache-cordova-phonegap-push-notification-tutorial-part-1/
+
+## LOG
+adb logcat plunner:V
