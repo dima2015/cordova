@@ -54,6 +54,7 @@ var app = {
 
             push.on('notification', function (data) {
                 console.log(data.message);
+                alert(data.message);
                 // data.message,
                 // data.title,
                 // data.count,
