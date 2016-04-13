@@ -18,6 +18,7 @@ We are not responsible for any kind of problems related to privacy or any other 
 ## Useful links
 * [push notification tutorial](http://phonegappro.com/tutorials/apache-cordova-phonegap-push-notification-tutorial-part-1/)
 * [gcm test online](http://www.pushwatch.com/gcm/)
+* [another gcm tester](http://apns-gcm.bryantan.info/)
 
 ## LOG
 adb logcat plunner:V
