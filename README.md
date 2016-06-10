@@ -4,7 +4,7 @@
 
 ##Ideas
 - [ ] rfid to login, useful for some android terminal (like fixed devices)
-- [ ] push notifications for new meetings planed
+- [ ] push notifications for new meetings planed (both company and employees)
 
 ##Todo
 - [ ] tests
