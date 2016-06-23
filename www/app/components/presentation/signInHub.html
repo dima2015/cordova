@@ -1,7 +1,62 @@
 <div id="sign_in_hub" layout="column" flex>
     <md-content>
-        <h2 class="md-display-1 text-center signinhub__title">Sign In</h2>
-        <section class="signinhub__typeswitch" layout="row" layout-align="center center">
+        <br>
+        <br>
+        <div class="signinhub-brand">
+            <img src="assets/img/brand_sign_in.png" alt="">
+            <h2 class="md-display-1 text-center">Plunner</h2>
+        </div>
+        <br>
+        <br>
+        <section class="signinhub-typeswitch">
+            <ul class="list-unstyled list-inline">
+                <li><button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===0}" ng-click="sihC.mode.changeMode(0)">Member</button></li>
+                <li><button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===1}" ng-click="sihC.mode.changeMode(1)">Organization</button></li>
+            </ul>
+        </section>
+        <section class="signinhub-sign-in signinhub-sign-in--member" ng-show="sihC.mode.modeValue === 0">
+            <form novalidate>
+                <div>
+                    <input type="email" ng-model="sihC.orgInputs.email" placeholder="Email">
+                    <i class="material-icons" ng-show="sihC.invalidFlags.org.email.required || sihC.invalidFlags.org.email.valid ">lens</i>
+                </div>
+                <div>
+                    <input type="password" ng-model="sihC.orgInputs.pwd" placeholder="Password">
+                    <i class="material-icons" ng-show="sihC.invalidFlags.org.pwd.required">lens</i>
+                </div>
+
+            </form>
+        </section>
+        <section class="signinhub-sign-in signinhub-sign-in--member" ng-show="sihC.mode.modeValue === 1">
+            <form action="">
+                <div>
+                    <input type="email" ng-model="sihC.memberInputs.org" placeholder="Organization's email">
+                    <i class="material-icons" ng-show="sihC.invalidFlags.member.org">lens</i>
+                </div>
+                <div>
+                    <input type="email" ng-model="sihC.memberInputs.email" placeholder="Email">
+                    <i class="material-icons" ng-show="sihC.invalidFlags.member.email.required || sihC.invalidFlags.member.email.valid" style="">lens</i>
+                </div>
+                <div>
+                    <input type="password" ng-model="sihC.memberInputs.pwd" placeholder="Password">
+                    <i class="material-icons"  ng-show="sihC.invalidFlags.member.pwd.required">lens</i>
+                </div>
+            </form>
+        </section>
+        <button class="signinhub-submit" ng-click="sihC.signIn()">Sign in</button>
+        <section class="signinhub-errors-warning">
+            <p ng-show="sihC.invalidFlags.member.problems || sihC.invalidFlags.org.problems"><i class="material-icons">warning</i>&nbsp;&nbsp;The highlighted fields are required or invalid</p>
+            <p ng-repeat="error in sihC.errors.org"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
+            </p>
+            <p ng-repeat="error in sihC.errors.member"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
+            </p>
+        </section>
+
+
+
+
+
+        <!--<section class="signinhub__typeswitch" layout="row" layout-align="center center">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg ng-click="sihC.mode.changeMode(0)" class="signinhub__typeswitch__member" width="58px" height="58px"
                  viewBox="0 0 58 58" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -110,7 +165,7 @@
             <p class="error_tile" ng-repeat="error in sihC.errors.org"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
             </p>
         </section>
-        <md-button class="md-raised md-primary signinhub__submit" ng-click="sihC.signIn()">SIGN IN</md-button>
+        <md-button class="md-raised md-primary signinhub__submit" ng-click="sihC.signIn()">SIGN IN</md-button>-->
     </md-content>
 </div>
 

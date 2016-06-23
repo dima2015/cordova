@@ -9,20 +9,11 @@
 
         c.mode = {
             modeValue : 0,
-            message: 'SIGN IN AS MEMBER',
+
             changeMode: function (oldmode) {
-                if(oldmode === 1){
-                    this.message ='SIGN IN AS PLUNNER ORGANIZATION';
-                }
-                else{
-                    this.message = 'SIGN IN AS MEMBER';
-                }
                 if(oldmode !== this.modeValue){
                     clearFields();
-                    jQuery('.signinhub__typeswitch svg:nth-child('+(this.modeValue+1)+')').find('ellipse').attr('fill', '#D8D8D8');
                     this.modeValue = oldmode;
-                    jQuery('.signinhub__typeswitch svg:nth-child('+(oldmode+1)+')').find('ellipse').attr('fill', 'rgb(3,169,244)');
-
                 }
 
             }
@@ -39,7 +30,8 @@
                     overall : false,
                     required : false,
                     valid : false
-                }
+                },
+                problems : false
             },
             org : {
                 email : {
@@ -51,7 +43,8 @@
                     overall : false,
                     required : false,
                     valid : false
-                }
+                },
+                problems : false
             }
         };
 
@@ -71,7 +64,7 @@
         };
 
         c.signIn = function () {
-            if (c.mode.modeValue === 1) {
+            if (c.mode.modeValue === 0) {
                 signInAsOrg();
             }
             else {
@@ -90,8 +83,12 @@
             c.invalidFlags.member.pwd.required = c.memberInputs.pwd === '';
             c.invalidFlags.member.pwd.length = c.memberInputs.pwd.length < 6;
             c.invalidFlags.member.pwd.overall =  c.invalidFlags.member.pwd.valid || c.invalidFlags.member.pwd.required;
-            console.log(c.invalidFlags.member);
+            if(computeStatus(c.invalidFlags.member)){
+                c.invalidFlags.member.problems = true;
+                console.log('entro')
+            }
             if (!computeStatus(c.invalidFlags.member)) {
+                c.invalidFlags.member.problems = false;
                 //authorizationPopup.show();
                 dataPublisher.publish(apiDomain + '/employees/auth/login', {
                     company: c.memberInputs.org,
@@ -121,8 +118,11 @@
             c.invalidFlags.org.pwd.required = c.orgInputs.pwd === '';
             c.invalidFlags.org.pwd.length = c.orgInputs.pwd.length < 6;
             c.invalidFlags.org.pwd.overall =  c.invalidFlags.org.pwd.valid && c.invalidFlags.org.pwd.required;
+            if(!computeStatus(c.invalidFlags.org)){
+                c.invalidFlags.org.problems = true;
+            }
             if (computeStatus(c.invalidFlags.org)) {
-                authorizationPopup.show();
+                c.invalidFlags.org.problems = false;
                 dataPublisher.publish(apiDomain + '/companies/auth/login', {
                     email: c.orgInputs.email,
                     password: c.orgInputs.pwd,
@@ -145,7 +145,6 @@
             if(!angular.isDefined(invalidFlags.org)){
                 return invalidFlags.email.overall || invalidFlags.pwd.overall;
             }
-            console.log('enter');
             return invalidFlags.email.overall || invalidFlags.pwd.overall || invalidFlags.org;
         };
         var clearFields = function(){

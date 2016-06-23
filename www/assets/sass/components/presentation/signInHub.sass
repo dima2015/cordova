@@ -1,4 +1,82 @@
 @import "../../global/colors"
+
+
+#sign_in_hub
+  height: 100vh
+  background-color: $colorPrimary
+
+  md-content
+    background-color: transparent
+
+.signinhub-brand
+  img
+    display: block
+    margin: 0 auto
+
+  h2
+    color: white
+    text-align: center
+.signinhub-typeswitch
+  button
+    margin-right: 10px
+    padding: 7px 14px
+    color: white
+    background-color: transparent
+    border: 1px solid white
+
+
+.signinhub-sign-in
+  form
+    input
+      display: block
+      width: calc(100% - 45px)
+      padding: 15px 30px 15px 14px
+      font-size: 110%
+      box-shadow: none
+      outline: none
+      border: none
+      border-bottom: 1px solid #ddd
+
+
+    div
+      position: relative
+
+      i
+        position: absolute
+        font-size: 15px
+        color: $danger_red
+        top: 16px
+        right: 17px
+
+      &:last-child input
+       border-bottom: none
+
+.signinhub-signin-mode--selected
+  color: $colorPrimary !important
+  background-color: white !important
+.signinhub-submit
+  display: block
+  width: 100%
+  margin-top: 15px
+  padding: 10px 15px
+  color: white
+  font-size: 120%
+  background-color: transparent
+  border: 2px solid white
+  outline: none
+
+.signinhub-errors-warning
+  p
+    padding: 15px
+    background-color: $danger_red
+    color: white
+    text-align: center
+    margin-top: 30px
+    border-radius: 2px
+
+  i
+    vertical-align: middle
+    font-size: 20px
 md-input-container > md-icon
     color: rgba(0,0,0,0.12)
 

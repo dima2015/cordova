@@ -1,3 +1,3 @@
 (function () {
-    angular.module('Plunner', ['ngRoute', 'ngCookies','ngMessages', 'ngResource','angular-loading-bar', 'ngMaterial']);
+    angular.module('Plunner', ['ngRoute', 'ngCookies', 'ngResource','angular-loading-bar', 'ngMaterial']);
 }());
