@@ -239,6 +239,7 @@
             })
         };
         var calendarConfig = {
+            height: 400,
             firstDay: 1,
             allDaySlot: false,
             header: {
@@ -409,12 +410,12 @@
 
         adaptToResolution();
         processUrl();
-        getGroups();
+        //getGroups();
         getMeetingInfo();
 
 
     };
 
     var app = angular.module('Plunner');
-    app.controller('nmController', ['$mdDialog', 'userResources', 'plannerResources', 'mixedContentToArray', '$location', '$routeParams', '$cordovaSpinnerDialog', controller]);
+    app.controller('nmController', ['$mdDialog', 'userResources', 'plannerResources', 'mixedContentToArray', '$location', '$routeParams', controller]);
 }());

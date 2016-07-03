@@ -483,9 +483,9 @@
         c.openMenu = function($mdOpenMenu, $event){
           $mdOpenMenu($event);
         };
-        getUserInfo();
-        getSchedules();
-        getMeetings();
+        //getUserInfo();
+        //getSchedules();
+        //getMeetings();
     };
 
     var app = angular.module('Plunner');

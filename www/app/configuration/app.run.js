@@ -16,18 +16,18 @@
             //Mode checking(organizations)
             if (path) {
                 if (path.search('org') !== -1 && path.search('recovery') === -1 && path.search('reset') === -1) {
-                    if (mode === undefined || mode !== 'cn') {
+                    /*if (mode === undefined || mode !== 'cn') {
                         $location.path('/orgsignin');
                     }
                     else if(path.search('orgsignin') !== -1){
                         $location.path('/organization')
-                    }
+                    }*/
                 }
                 //Mode checking(employees)
                 else if (path.search('user') !== -1 && path.search('recovery') === -1 && path.search('reset') === -1) {
 
                     if (mode === undefined || mode !== 'en') {
-                        $location.path('/usersignin');
+                        //$location.path('/usersignin');
                     }
                     else if(path.search('usersignin') !== -1){
                         $location.path('/user')

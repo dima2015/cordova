@@ -155,6 +155,28 @@
             c.orgInputs.pwd = '';
             c.errors.member.length = 0;
             c.errors.org.length = 0;
+            var orgFields =  c.invalidFlags.org;
+            var memeberFields = c.invalidFlags.member;
+            for(key in orgFields){
+                if(!angular.isObject(orgFields[key])){
+                    orgFields[key] = false;
+                }
+                else {
+                    for(key_one in orgFields[key]){
+                        orgFields[key][key_one] = false
+                    }
+                }
+            }
+            for(key in memeberFields){
+                if(!angular.isObject(memeberFields[key])){
+                    orgFields[key] = false;
+                }
+                else {
+                    for(key_one in memeberFields[key]){
+                        memeberFields[key][key_one] = false
+                    }
+                }
+            }
         }
     };
     var app = angular.module('Plunner');

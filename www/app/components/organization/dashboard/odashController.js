@@ -259,8 +259,8 @@
                 }
             }
         };
-        getUsers();
-        getGroups();
+        //getUsers();
+        //getGroups();
     };
 
     var app = angular.module('Plunner');

@@ -3,7 +3,6 @@
 
 #sign_in_hub
   height: 100vh
-  background-color: $colorPrimary
 
   md-content
     background-color: transparent
@@ -14,15 +13,23 @@
     margin: 0 auto
 
   h2
-    color: white
+    color: $colorPrimary
     text-align: center
 .signinhub-typeswitch
+  margin: 30px 0
   button
     margin-right: 10px
-    padding: 7px 14px
-    color: white
+    padding: 10px 30px
+    color: $colorPrimary
     background-color: transparent
-    border: 1px solid white
+    border: none
+    outline: none
+    font-size: 110%
+    float: left
+
+    &:last-child
+      margin-right: 0
+      float: right
 
 
 .signinhub-sign-in
@@ -52,18 +59,20 @@
        border-bottom: none
 
 .signinhub-signin-mode--selected
-  color: $colorPrimary !important
-  background-color: white !important
+  color: white !important
+  background-color: $colorPrimary !important
+
 .signinhub-submit
   display: block
   width: 100%
-  margin-top: 15px
+  margin-top: 30px
   padding: 10px 15px
-  color: white
+  color: $colorPrimary
   font-size: 120%
   background-color: transparent
-  border: 2px solid white
+  border: 2px solid $colorPrimary
   outline: none
+  text-transform: uppercase
 
 .signinhub-errors-warning
   p
@@ -73,6 +82,7 @@
     text-align: center
     margin-top: 30px
     border-radius: 2px
+    font-weight: 500
 
   i
     vertical-align: middle
@@ -102,7 +112,8 @@ md-input-container > md-icon
 
 .signinhub__selectedtype
   padding-bottom: 1em
-  color: $colorPrimary
+  color: white
+  background-color: $colorPrimary
 
 .signinhub__submit
   width: calc(100% - 16px)
@@ -113,3 +124,17 @@ md-input-container > md-icon
 
 .input_errors
   margin-top: 2.5em
+
+
+.clearfix
+  *zoom: 1
+  &:before
+  &:after
+    display: table
+    content: ""
+    // Fixes Opera/contenteditable bug:
+    // http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+    line-height: 0
+
+  &:after
+    clear: both

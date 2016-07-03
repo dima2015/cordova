@@ -11,69 +11,68 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content layout-padding class="md-padding import_schedules__content">
+    <md-content layout-padding class="md-padding import_schedules__content" style="background-color: #fafafa">
         <section class="import_schedules__content__credentials">
-            <h3 class="md-subhead">
-                <md-icon>info_outline</md-icon>
-                &nbsp;&nbsp;CalDav credentials
-            </h3>
-            <md-input-container class="md-block"
-                                ng-class="{'md-input-invalid' : isC.invalidFlags.url || isC.invalidFlags.url_valid }">
-                <md-icon>public</md-icon>
-                <input type="text" placeholder="CalDav url" ng-model="isC.data.credentials.url">
-                <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.url">This field is
-                        required
+            <div class="general-tile">
+                <h4>Caldav credentials</h4>
+                <md-input-container class="md-block"
+                                    ng-class="{'md-input-invalid' : isC.invalidFlags.url || isC.invalidFlags.url_valid }">
+                    <md-icon>public</md-icon>
+                    <input type="text" placeholder="CalDav url" ng-model="isC.data.credentials.url">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.url">This field is
+                            required
+                        </div>
+                        <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.url_valid">The inserted url is
+                            not valid
+                        </div>
                     </div>
-                    <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.url_valid">The inserted url is
-                        not valid
+                </md-input-container>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                    <md-icon>person</md-icon>
+                    <input type="text" placeholder="CalDav username" ng-model="isC.data.credentials.username">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.username">This field is
+                            required
+                        </div>
                     </div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
-                <md-icon>person</md-icon>
-                <input type="text" placeholder="CalDav username" ng-model="isC.data.credentials.username">
-                <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.username">This field is
-                        required
+                </md-input-container>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.password}">
+                    <md-icon>lock</md-icon>
+                    <input type="password" placeholder="CalDav password" ng-model="isC.data.credentials.password">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.password">This field is
+                            required
+                        </div>
                     </div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.password}">
-                <md-icon>lock</md-icon>
-                <input type="password" placeholder="CalDav password" ng-model="isC.data.credentials.password">
-                <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="isC.invalidFlags.password">This field is
-                        required
-                    </div>
-                </div>
-            </md-input-container>
-            <md-button ng-click="isC.getSchedules()" class="md-raised md-primary">
-                <md-icon style="color: white">get_app</md-icon>
-                &nbsp;&nbsp;GET SCHEDULES
-            </md-button>
-        </section>
-        <md-divider></md-divider>
-        <section class="import_schedules__content__schedules">
-            <p class="non_field_error non_field_error-bottom_margin" ng-show="isC.invalidFlags.schedules.none">No
-                schedules to import</p>
-            <p class="non_field_error non_field_error-bottom_margin" ng-show="isC.invalidFlags.schedules.at_least">
-                Select at least one schedule</p>
-            <h3 class="md-subhead">
-                <md-icon>swap_vert</md-icon>
-                &nbsp;&nbsp;Schedules to import
-            </h3>
-            <div class="empty_state" ng-hide="isC.calendars.length > 0">
-                <md-icon flex>sentiment_dissatisfied</md-icon>
-                <h3 class="md-subhead">Sorry no meetings to be planned for you yet</h3>
+                </md-input-container>
+                <md-button ng-click="isC.getSchedules()" class="md-raised md-primary">
+                    <md-icon style="color: white">get_app</md-icon>
+                    &nbsp;&nbsp;GET SCHEDULES
+                </md-button>
             </div>
-            <md-list class="plan_meeting__groups__list" flex>
-                <md-list-item ng-repeat="group in isC.calendars">
-                    <img style="margin-right: 2em" src="../../../../assets/icon.svg" alt="">
-                    <span flex>{{group}}</span>
-                    <md-checkbox ng-model="isC.checkedSchedules[$index].selected"></md-checkbox>
-                </md-list-item>
-            </md-list>
+        </section>
+        <section class="import_schedules__content__schedules">
+            <div class="general-tile">
+                <h4>Schedules to import</h4>
+                <p class="non_field_error non_field_error-bottom_margin" ng-show="isC.invalidFlags.schedules.none">No
+                    schedules to import</p>
+                <p class="non_field_error non_field_error-bottom_margin" ng-show="isC.invalidFlags.schedules.at_least">
+                    Select at least one schedule</p>
+                <div class="empty_state" ng-hide="isC.calendars.length > 0">
+                    <md-icon flex>sentiment_dissatisfied</md-icon>
+                    <h3 class="md-subhead">Sorry no meetings to be planned for you yet</h3>
+                </div>
+                <md-list class="plan_meeting__groups__list" flex>
+                    <md-list-item ng-repeat="group in isC.calendars">
+                        <img style="margin-right: 2em" src="../../../../assets/icon.svg" alt="">
+                        <span flex>{{group}}</span>
+                        <md-checkbox ng-model="isC.checkedSchedules[$index].selected"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+
+            </div>
+
         </section>
     </md-content>
 </div>

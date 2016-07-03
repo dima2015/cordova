@@ -1,18 +1,14 @@
+<img src="assets/img/upper.png" alt="" style="width: 100%">
 <div id="sign_in_hub" layout="column" flex>
     <md-content>
-        <br>
-        <br>
         <div class="signinhub-brand">
-            <img src="assets/img/brand_sign_in.png" alt="">
             <h2 class="md-display-1 text-center">Plunner</h2>
         </div>
         <br>
         <br>
-        <section class="signinhub-typeswitch">
-            <ul class="list-unstyled list-inline">
-                <li><button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===0}" ng-click="sihC.mode.changeMode(0)">Member</button></li>
-                <li><button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===1}" ng-click="sihC.mode.changeMode(1)">Organization</button></li>
-            </ul>
+        <section class="signinhub-typeswitch clearfix">
+            <button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===0}" ng-click="sihC.mode.changeMode(0)">Member</button>
+            <button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===1}" ng-click="sihC.mode.changeMode(1)">Organization</button>
         </section>
         <section class="signinhub-sign-in signinhub-sign-in--member" ng-show="sihC.mode.modeValue === 0">
             <form novalidate>
@@ -51,121 +47,6 @@
             <p ng-repeat="error in sihC.errors.member"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
             </p>
         </section>
-
-
-
-
-
-        <!--<section class="signinhub__typeswitch" layout="row" layout-align="center center">
-            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-            <svg ng-click="sihC.mode.changeMode(0)" class="signinhub__typeswitch__member" width="58px" height="58px"
-                 viewBox="0 0 58 58" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g transform="translate(-326.000000, -316.000000)">
-                        <g transform="translate(326.000000, 316.000000)">
-                            <ellipse fill="rgb(3,169,244)" cx="28.8898208" cy="28.7609375" rx="28.8898208"
-                                     ry="28.7609375"></ellipse>
-                            <g transform="translate(17.568134, 17.489759)" fill="#FFFFFF">
-                                <path d="M11.3216865,11.2711782 C14.4351503,11.2711782 16.9825298,8.73516311 16.9825298,5.6355891 C16.9825298,2.5360151 14.4351503,0 11.3216865,0 C8.20822273,0 5.66084326,2.5360151 5.66084326,5.6355891 C5.66084326,8.73516311 8.20822273,11.2711782 11.3216865,11.2711782 L11.3216865,11.2711782 Z M11.3216865,14.0889728 C7.50061732,14.0889728 0,15.9205392 0,19.7245619 L0,22.5423564 L22.643373,22.5423564 L22.643373,19.7245619 C22.643373,15.9205392 15.1427557,14.0889728 11.3216865,14.0889728 L11.3216865,14.0889728 Z"
-                                      id="Shape"></path>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-            <svg ng-click="sihC.mode.changeMode(1)" class="signinhub__typeswitch__org" width="60px" height="59px"
-                 viewBox="0 0 60 59" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g transform="translate(-421.000000, -316.000000)">
-                        <g transform="translate(421.692096, 316.000000)">
-                            <ellipse fill="#D8D8D8" cx="29.2555147" cy="29.125" rx="29.2555147" ry="29.125"></ellipse>
-                            <g transform="translate(17.790516, 18.498311)" fill="#FFFFFF">
-                                <path d="M11.6626714,4.63551051 L11.6626714,0 L0,0 L0,20.8597973 L23.3253428,20.8597973 L23.3253428,4.63551051 L11.6626714,4.63551051 L11.6626714,4.63551051 Z M4.66506856,18.542042 L2.33253428,18.542042 L2.33253428,16.2242868 L4.66506856,16.2242868 L4.66506856,18.542042 L4.66506856,18.542042 Z M4.66506856,13.9065315 L2.33253428,13.9065315 L2.33253428,11.5887763 L4.66506856,11.5887763 L4.66506856,13.9065315 L4.66506856,13.9065315 Z M4.66506856,9.27102102 L2.33253428,9.27102102 L2.33253428,6.95326577 L4.66506856,6.95326577 L4.66506856,9.27102102 L4.66506856,9.27102102 Z M4.66506856,4.63551051 L2.33253428,4.63551051 L2.33253428,2.31775526 L4.66506856,2.31775526 L4.66506856,4.63551051 L4.66506856,4.63551051 Z M9.33013712,18.542042 L6.99760284,18.542042 L6.99760284,16.2242868 L9.33013712,16.2242868 L9.33013712,18.542042 L9.33013712,18.542042 Z M9.33013712,13.9065315 L6.99760284,13.9065315 L6.99760284,11.5887763 L9.33013712,11.5887763 L9.33013712,13.9065315 L9.33013712,13.9065315 Z M9.33013712,9.27102102 L6.99760284,9.27102102 L6.99760284,6.95326577 L9.33013712,6.95326577 L9.33013712,9.27102102 L9.33013712,9.27102102 Z M9.33013712,4.63551051 L6.99760284,4.63551051 L6.99760284,2.31775526 L9.33013712,2.31775526 L9.33013712,4.63551051 L9.33013712,4.63551051 Z M20.9928085,18.542042 L11.6626714,18.542042 L11.6626714,16.2242868 L13.9952057,16.2242868 L13.9952057,13.9065315 L11.6626714,13.9065315 L11.6626714,11.5887763 L13.9952057,11.5887763 L13.9952057,9.27102102 L11.6626714,9.27102102 L11.6626714,6.95326577 L20.9928085,6.95326577 L20.9928085,18.542042 L20.9928085,18.542042 Z M18.6602742,9.27102102 L16.32774,9.27102102 L16.32774,11.5887763 L18.6602742,11.5887763 L18.6602742,9.27102102 L18.6602742,9.27102102 Z M18.6602742,13.9065315 L16.32774,13.9065315 L16.32774,16.2242868 L18.6602742,16.2242868 L18.6602742,13.9065315 L18.6602742,13.9065315 Z"
-                                      id="Shape"></path>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        </section>
-        <h4 class="md-subhead signinhub__selectedtype">{{sihC.mode.message}}</h4>
-        <section layout="column" class="signinhub__inputs--member" ng-show="sihC.mode.modeValue === 0">
-            <form novalidate>
-                <md-input-container class="md-block" ng-class="{'md-input-invalid' : sihC.invalidFlags.member.org }">
-                    <md-icon>business</md-icon>
-                    <input name="org"
-                           ng-model="sihC.memberInputs.org" type="text"
-                           placeholder="Your Planner organization">
-                    <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.org">This field is
-                            required
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block"
-                                    ng-class="{'md-input-invalid' : sihC.invalidFlags.member.email.overall }">
-                    <md-icon>mail</md-icon>
-                    <input name="email" ng-model="sihC.memberInputs.email" type="email" placeholder="Your email">
-                    <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.email.required">
-                            This field is required
-                        </div>
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.email.valid">The
-                            email inserted is not valid
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block"
-                                    ng-class="{'md-input-invalid' : sihC.invalidFlags.member.pwd.overall }">
-                    <md-icon>lock</md-icon>
-                    <input ng-model="sihC.memberInputs.pwd" type="password" placeholder="Your password">
-                    <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.pwd.required">This
-                            field is required
-                        </div>
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.member.pwd.valid">The
-                            password is too short(use at least 6 chars)
-                        </div>
-                    </div>
-                </md-input-container>
-            </form>
-            <p class="error_tile" ng-repeat="error in sihC.errors.member"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
-            </p>
-        </section>
-        <section layout="column" class="signinhub__inputs--org" ng-show="sihC.mode.modeValue === 1">
-            <form novalidate>
-                <md-input-container class="md-block"
-                                    ng-class="{'md-input-invalid' : sihC.invalidFlags.org.email.overall }">
-                    <md-icon>mail</md-icon>
-                    <input name="email" ng-model="sihC.orgInputs.email" type="email" placeholder="Your email">
-                    <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.org.email.required">This
-                            field is required
-                        </div>
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.org.email.valid">The
-                            password is too short(use at least 6 chars)
-                        </div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-block"
-                                    ng-class="{'md-input-invalid' : sihC.invalidFlags.org.pwd.overall }">
-                    <md-icon>lock</md-icon>
-                    <input ng-model="sihC.orgInputs.pwd" type="password" placeholder="Your password">
-                    <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.org.pwd.required">This
-                            field is required
-                        </div>
-                        <div class="input_errors__error md-caption" ng-show="sihC.invalidFlags.org.pwd.valid">The
-                            password is too short(use at least 6 chars)
-                        </div>
-                    </div>
-                </md-input-container>
-            </form>
-            <p class="error_tile" ng-repeat="error in sihC.errors.org"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
-            </p>
-        </section>
-        <md-button class="md-raised md-primary signinhub__submit" ng-click="sihC.signIn()">SIGN IN</md-button>-->
     </md-content>
 </div>
 

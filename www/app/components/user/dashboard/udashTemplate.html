@@ -1,3 +1,4 @@
+<div style="background-color:#FAFAFA; min-height: 100vh">
 <div id="member_dashboard" layout="column">
     <md-toolbar class="toolbar" flex>
         <div class="md-toolbar-tools">
@@ -54,6 +55,17 @@
     </md-toolbar>
     <md-tabs md-dynamic-height md-stretch-tabs="always" class="member_dashboard__tabs" flex>
         <md-tab label="MEETINGS">
+            <ul class="list-unstyled list-inline usr__items-type">
+                <li class="selected">
+                    <button>Planned</button>
+                </li>
+                <li>
+                    <button>To be planned</button>
+                </li>
+                <li>
+                    <button>Managed</button>
+                </li>
+            </ul>
             <div class="member_dashboard__meetings__search">
                 <i class="material-icons">search</i>
                 <input type="search" ng-model="filterTBPMeetings">
@@ -135,6 +147,14 @@
             </md-content>
         </md-tab>
         <md-tab label="SCHEDULES">
+            <ul class="list-unstyled list-inline usr__items-type">
+                <li class="selected">
+                    <button>Composed</button>
+                </li>
+                <li>
+                    <button>Imported</button>
+                </li>
+            </ul>
             <div class="member_dashboard__meetings__search">
                 <i class="material-icons">search</i>
                 <input type="search" ng-model="filterISchedules">
@@ -825,4 +845,5 @@ yet!</h4>
             </div>
         </div>
     </div>
+</div>-->
 </div>

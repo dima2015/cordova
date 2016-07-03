@@ -14,52 +14,66 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content flex layout="column" class="md-padding" layout-padding>
+    <md-content flex layout="column" class="md-padding" layout-padding style="background-color: #FAFAFA;">
         <section class="plan_meeting__information">
-            <h3 class="md-subhead">
-                <md-icon>info_outline</md-icon>
-                &nbsp;&nbsp;Information
-            </h3>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : nmC.invalidFlags.name }">
-                <md-icon>title</md-icon>
-                <input ng-model="nmC.data.meeting.name" type="text"
-                       placeholder="Meeting name">
-                <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.name">This field is
-                        required
+            <div class="general-tile">
+                <h4>Information</h4>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : nmC.invalidFlags.name }">
+                    <md-icon>title</md-icon>
+                    <input ng-model="nmC.data.meeting.name" type="text"
+                           placeholder="Meeting name">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.name">This field is
+                            required
+                        </div>
                     </div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block" ng-class="{'md-input-invalid' : nmC.invalidFlags.description_len || nmC.invalidFlags.description_req }">
-                <md-icon>short_text</md-icon>
+                </md-input-container>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : nmC.invalidFlags.description_len || nmC.invalidFlags.description_req }">
+                    <md-icon>short_text</md-icon>
                 <textarea placeholder="Meeting description" ng-model="nmC.data.meeting.description" md-maxlength="150" rows="5"
                           md-select-on-focus></textarea>
-                <div class="input_errors">
-                    <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description">The field containts
-                        too much characters
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="nmC.invalidFlags.description">The field containts
+                            too much characters
+                        </div>
                     </div>
-                </div>
-            </md-input-container>
+                </md-input-container>
+            </div>
         </section>
-        <md-divider></md-divider>
         <section>
-            <h3 class="md-subhead">
+            <div class="general-tile">
+                <h4>Duration</h4>
+                <md-slider-container layout="rows">
+                    <md-slider flex min="15"  ng-model="nmC.data.meeting.duration" max="360" ng-model="color.red" aria-label="red" id="red-slider">
+                    </md-slider>
+                    <md-input-container class="plan_meeting__duration__display">
+                        <span>Mins</span>
+                        <input readonly  type="text" ng-model="nmC.data.meeting.duration"
+                               aria-label="red" aria-controls="red-slider">
+                    </md-input-container>
+                </md-slider-container>
+            </div>
+            <!--<h3 class="md-subhead">
                 <md-icon>schedule</md-icon>
                 &nbsp;&nbsp;Duration
-            </h3>
-            <md-slider-container layout="rows">
-                <md-slider flex min="15"  ng-model="nmC.data.meeting.duration" max="360" ng-model="color.red" aria-label="red" id="red-slider">
-                </md-slider>
-                <md-input-container class="plan_meeting__duration__display">
-                    <span>Mins</span>
-                    <input readonly  type="text" ng-model="nmC.data.meeting.duration"
-                           aria-label="red" aria-controls="red-slider">
-                </md-input-container>
-            </md-slider-container>
+            </h3>-->
+
         </section>
-        <md-divider></md-divider>
         <section class="plan_meeting__groups">
-            <div>
+            <div class="general-tile">
+                <h4>Groups</h4>
+                <md-list class="plan_meeting__groups__list" flex>
+                    <md-list-item layout="row" layout-align="center center" ng-hide="nmC.groups">
+                        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                    </md-list-item>
+                    <md-list-item ng-repeat="group in nmC.groups">
+                        <img style="margin-right: 2em" src="../../../../assets/icon.svg" alt="">
+                        <span flex>{{group.name}}</span>
+                        <md-checkbox ng-model="nmC.checkedGroups[$index].selected"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <!--<div>
                 <h3 class="md-subhead">
                     <md-icon>group</md-icon>
                     &nbsp;&nbsp;Groups
@@ -75,20 +89,16 @@
                     <span flex>{{group.name}}</span>
                     <md-checkbox ng-model="nmC.checkedGroups[$index].selected"></md-checkbox>
                 </md-list-item>
-            </md-list>
+            </md-list>-->
         </section>
-
-        <md-divider></md-divider>
         <section class="plan_meeting__information md-padding" layout-padding>
-            <span class="non_field_error" ng-show="nmC.invalidFlags.time_windows_num">Insert at least one time window</span>
-            <span class="non_field_error" ng-show="nmC.invalidFlags.time_windows_dur">At least on time window is too short</span>
-            <h3 class="md-subhead">
-                <md-icon>event_available</md-icon>
-                &nbsp;&nbsp;Possible time windows
-            </h3>
-            <div id="meetingTimeslots" md-swipe-left="onSwipeLeft()">
+            <div class="general-tile">
+                <h4>POSSIBLE TIME WINDOWS</h4>
+                <span class="non_field_error" ng-show="nmC.invalidFlags.time_windows_num">Insert at least one time window</span>
+                <span class="non_field_error" ng-show="nmC.invalidFlags.time_windows_dur">At least on time window is too short</span>
+                <div id="meetingTimeslots" md-swipe-left="onSwipeLeft()">
+                    </div>
             </div>
         </section>
     </md-content>
 </div>
-
