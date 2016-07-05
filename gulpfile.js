@@ -94,7 +94,8 @@ gulp.task('concat', ['concat_configuration', 'concat_services_directives', 'conc
 //gulp.task('production', ['sass_compile','concat', 'copy_node_modules']);
 gulp.task('production', ['cordova-prepare', 'sass_compile','concat', 'npm-release']);
 
-gulp.task('android-prepare', ['production', 'gz-remove', 'key-remove']);
+//gulp.task('android-prepare', ['production', 'gz-remove', 'key-remove']);
+gulp.task('android-prepare', ['production']);
 
 gulp.task('browser-run', ['production'], shell.task([
     'cordova run browser'
