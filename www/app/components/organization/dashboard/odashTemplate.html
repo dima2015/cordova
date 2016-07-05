@@ -5,28 +5,28 @@
                 <h1 class="md-headline"><span>Dashboard</span></h1>
                 <span flex></span>
                 <md-menu>
-                    <md-button aria-label="Open phone interactions menu" ng-click="udashC.openMenu($mdOpenMenu,$event)"
+                    <md-button aria-label="Open phone interactions menu" ng-click="odashC.openMenu($mdOpenMenu,$event)"
                                class="md-icon-button">
                         <md-icon md-menu-origin>add</md-icon>
                     </md-button>
                     <md-menu-content width="2">
                         <md-menu-item>
-                            <md-button ng-href="/#/user/newmeeting/_">
-                                <md-icon>group_work</md-icon>
+                            <md-button ng-href="/#/organization/userAdd">
+                                <md-icon>person</md-icon>
                                 <span>Add user</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item>
-                            <md-button ng-href="/#/user/schedules/compose/_">
-                                <md-icon>perm_contact_calendar</md-icon>
+                            <md-button ng-href="/#/organization/groupAdd">
+                                <md-icon>people</md-icon>
                                 <span>Add team</span>
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
                 <md-menu>
-                    <md-button aria-label="Open phone interactions menu" ng-click="udashC.openMenu($mdOpenMenu,$event)"
+                    <md-button aria-label="Open phone interactions menu" ng-click="odashC.openMenu($mdOpenMenu,$event)"
                                class="md-icon-button">
                         <md-icon md-menu-origin>more_vert</md-icon>
                     </md-button>
@@ -49,17 +49,6 @@
         </md-toolbar>
         <md-tabs md-dynamic-height md-stretch-tabs="always" class="member_dashboard__tabs" flex>
             <md-tab label="MEMBERS">
-                <ul class="list-unstyled list-inline usr__items-type">
-                    <li class="selected">
-                        <button>Planned</button>
-                    </li>
-                    <li>
-                        <button>To be planned</button>
-                    </li>
-                    <li>
-                        <button>Managed</button>
-                    </li>
-                </ul>
                 <div class="member_dashboard__meetings__search">
                     <i class="material-icons">search</i>
                     <input type="search" ng-model="filterTBPMeetings">

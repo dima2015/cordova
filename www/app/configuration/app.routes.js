@@ -51,7 +51,16 @@
                 templateUrl: 'app/components/organization/group/groupTemplate.html',
                 controller: 'groupController',
                 controllerAs: 'groupC'
-            }).when('/user/newmeeting/:type', {
+            }).when('/organization/userAdd', {
+                templateUrl: 'app/components/organization/user/userAddTemplate.html',
+                controller: 'userAddController',
+                controllerAs: 'userAddC'
+            }).when('/organization/teamCreate', {
+                templateUrl: 'app/components/organization/group/groupAddTemplate.html',
+                controller: 'groupAddController',
+                controllerAs: 'groupAddC'
+            })
+                .when('/user/newmeeting/:type', {
                 templateUrl: 'app/components/user/planMeeting/nmTemplate.html',
                 controller: 'nmController',
                 controllerAs: 'nmC'

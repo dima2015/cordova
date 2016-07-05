@@ -1,0 +1,40 @@
+<div style="background-color:#FAFAFA; min-height: 100vh">
+    <div id="member_dashboard" layout="column">
+        <md-toolbar class="toolbar" flex>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-href="/#/organization">
+                    <md-icon>arrow_back</md-icon>
+                </md-button>
+                <h1 class="md-headline"><span>Add user</span></h1>
+                <span flex></span>
+                <md-button class="md-icon-button">
+                    <md-icon>done</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content layout="column" layout-padding class="md-padding" style="background-color: #fafafa">
+            <div class="general-tile">
+                <h4>Information</h4>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : cschedC.invalidFlags.schedule }">
+                    <md-icon>title</md-icon>
+                    <input ng-model="cschedC.data.schedule.name" type="text" placeholder="User name">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="cschedC.invalidFlags.schedule">This field is
+                            required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : cschedC.invalidFlags.schedule }">
+                    <md-icon>email</md-icon>
+                    <input ng-model="cschedC.data.schedule.name" type="text" placeholder="User email">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="cschedC.invalidFlags.schedule">This field is
+                            required
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-content>
+    </div>
+
+</div>

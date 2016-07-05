@@ -3,8 +3,8 @@ var sass = require('gulp-sass');
 var sync = require('browser-sync');
 var concat = require('gulp-concat');
 var clean = require('gulp-clean');
-var gulp  = require('gulp')
-var shell = require('gulp-shell')
+var gulp  = require('gulp');
+var shell = require('gulp-shell');
 //var connect = require('gulp-connect');
 
 
