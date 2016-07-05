@@ -130,3 +130,9 @@ gulp.task('dev', ['watch', 'broswer-sync', 'sass_compile', 'concat']);
 gulp.task('default', ['watch', 'broswer-sync', 'sass_compile'], function () {
 
 });
+
+gulp.task('clean', shell.task([
+    'rm -Rf www/node_modules',
+    'rm -Rf plugins',
+    'rm -Rf platforms',
+]));
