@@ -57,10 +57,10 @@
         <md-tab label="MEETINGS">
             <ul class="list-unstyled list-inline usr__items-type">
                 <li ng-class="{'selected' : udashC.viewSections.meetings.to_be_planned}" ng-click="udashC.viewSections.changeMeetingsView('to_be_planned')">
-                    <button>Planned</button>
+                    <button>To be planned</button>
                 </li>
                 <li ng-class="{'selected' : udashC.viewSections.meetings.planned}" ng-click="udashC.viewSections.changeMeetingsView('planned')">
-                    <button>To be planned</button>
+                    <button>Planned</button>
                 </li>
                 <li ng-class="{'selected' : udashC.viewSections.meetings.managed}" ng-click="udashC.viewSections.changeMeetingsView('managed')">
                     <button>Managed</button>
@@ -95,6 +95,12 @@
                             </div>
                         </div>
                     </a>
+                    <div class="udash__empty-state" ng-if="udashC.meetings.toBePlanned.length === 0">
+                        <md-icon>sentiment_dissatisfied</md-icon>
+                        <h2>
+                            Sorry you have no meeting to be planned
+                        </h2>
+                    </div>
                 </div>
                 <div id="udash__planned-meetings"  ng-show="udashC.viewSections.meetings.planned">
                     <a ng-href="/#/meeting/{{meeting.groupId}}/{{meeting.id}}" ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
@@ -120,7 +126,12 @@
                             </div>
                         </div>
                     </a>
-
+                    <div class="udash__empty-state" ng-if="udashC.meetings.planned.length === 0">
+                        <md-icon>sentiment_dissatisfied</md-icon>
+                        <h2>
+                            Sorry you have no planned meeting
+                        </h2>
+                    </div>
                 </div>
                 <div id="udash__managed-meetings" ng-show="udashC.viewSections.meetings.managed">
                     <a ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}" ng-repeat="meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
@@ -146,6 +157,12 @@
                             </div>
                         </div>
                     </a>
+                    <div class="udash__empty-state" ng-if="udashC.meetings.managed.length === 0">
+                        <md-icon>sentiment_dissatisfied</md-icon>
+                        <h2>
+                            Sorry you have no managed meeting
+                        </h2>
+                    </div>
                 </div>
             </md-content>
         </md-tab>
@@ -164,7 +181,7 @@
             </div>
             <md-content class="udash__content md-padding" layout-padding>
                 <div id="udash__composed-schedules" ng-show="udashC.viewSections.schedules.composed">
-                    <a ng-href="/#/member/schedule/{{schedule.id}}" ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}" >
+                    <a ng-href="/#/member/schedule/{{schedule.id}}" ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}" >
                         <div class="general-tile general-tile--schedule clearfix">
                             <h4>Schedule</h4>
                             <div>
@@ -181,9 +198,16 @@
                             </div>
                         </div>
                     </a>
+                    <div class="udash__empty-state" ng-if="udashC.schedules.composed.length === 0">
+                        <md-icon>sentiment_dissatisfied</md-icon>
+                        <h2>
+                            Sorry you have no composed schedule
+                        </h2>
+                    </div>
+
                 </div>
                 <div id="udash__imported-schedules" ng-show="udashC.viewSections.schedules.imported">
-                    <a ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}" ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}" >
+                    <a ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}" ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}" >
                         <div class="general-tile general-tile--schedule clearfix">
                             <h4>Schedule</h4>
                             <div>
@@ -200,6 +224,12 @@
                             </div>
                         </div>
                     </a>
+                    <div class="udash__empty-state" ng-if="udashC.schedules.imported.length === 0">
+                        <md-icon>sentiment_dissatisfied</md-icon>
+                        <h2>
+                            Sorry you have no imported schedule
+                        </h2>
+                    </div>
                 </div>
             </md-content>
         </md-tab>
