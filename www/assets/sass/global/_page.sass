@@ -146,28 +146,49 @@ a
   background-color: white
 
   h4
-    margin: 0 0 30px 0
+    margin: 0 0 22.5px 0
     text-transform: uppercase
     font-weight: 500
 
   &--meeting, &--schedule
-    div, md-icon
-      float: left
+    > div > div
+        width: calc(100% - 72.5px)
+        float: left
+    > div > md-icon
+       float: left
 
-    md-icon
-      margin-right: 22.5px
-      color: $gray_light
-      font-size: 50px
+
 
     h1
       font-weight: 400
 
     p
-      margin: 10px 0
-      font-size: 120%
+      margin: 7px 0
+      font-size: 110%
       color: $gray_light
 
 
 
+  &__bullet-icon
+      margin-right: 22.5px
+      color: $gray_light
+      font-size: 50px
+
+  &__sub-info
+    margin: 15px 0
+    color: $grayPrimary
+    md-icon
+      margin-right: 10px
+    div
+      width: calc(50% - 20px)
+      margin-right: 5px
+
+
+    div:first-child
+      float: left
+
+    div:last-child
+      margin-right: 0
+      float: right
 
 

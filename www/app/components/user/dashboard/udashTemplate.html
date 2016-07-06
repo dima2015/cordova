@@ -76,11 +76,21 @@
                     <a ng-href="/#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0" ng-repeat="meeting in udashC.meetings.toBePlanned | filter: {title : filterTBPMeetings}">
                         <div class="general-tile general-tile--meeting clearfix">
                             <h4>Meeting</h4>
-                            <div>
-                                <md-icon>swap_calls</md-icon>
+                            <div class="clearfix">
+                                <md-icon class="general-tile__bullet-icon">swap_calls</md-icon>
                                 <div>
                                     <h1>{{meeting.title}}</h1>
                                     <p>{{meeting.description}}</p>
+                                    <div class="clearfix general-tile__sub-info">
+                                        <div>
+                                            <md-icon>people</md-icon>
+                                            <span>{{meeting.group_name}}</span>
+                                        </div>
+                                        <div>
+                                            <md-icon>history</md-icon>
+                                            <span>{{meeting.duration/15}}'</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -90,11 +100,22 @@
                     <a ng-href="/#/meeting/{{meeting.groupId}}/{{meeting.id}}" ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
                         <div class="general-tile general-tile--meeting clearfix">
                             <h4>Meeting</h4>
-                            <div>
-                                <md-icon>swap_calls</md-icon>
+                            <div class="clearfix">
+                                <md-icon class="general-tile__bullet-icon">swap_calls</md-icon>
                                 <div>
                                     <h1>{{meeting.title}}</h1>
                                     <p>{{meeting.description}}</p>
+                                    <p>{{meeting.start_time}}</p>
+                                    <div class="clearfix general-tile__sub-info">
+                                        <div>
+                                            <md-icon>people</md-icon>
+                                            <span>{{meeting.group_name}}</span>
+                                        </div>
+                                        <div>
+                                            <md-icon>history</md-icon>
+                                            <span>{{meeting.duration/15}}'</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -105,11 +126,22 @@
                     <a ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}" ng-repeat="meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
                         <div class="general-tile general-tile--meeting clearfix"  >
                             <h4>Meeting</h4>
-                            <div>
-                                <md-icon>swap_calls</md-icon>
+                            <div class="clearfix">
+                                <md-icon class="general-tile__bullet-icon">swap_calls</md-icon>
                                 <div>
                                     <h1>{{meeting.title}}</h1>
                                     <p>{{meeting.description}}</p>
+                                    <p>{{meeting.start_time}}</p>
+                                    <div class="clearfix general-tile__sub-info">
+                                        <div>
+                                            <md-icon>people</md-icon>
+                                            <span>{{meeting.group_name}}</span>
+                                        </div>
+                                        <div>
+                                            <md-icon>history</md-icon>
+                                            <span>{{meeting.duration/15}}'</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -134,12 +166,17 @@
                 <div id="udash__composed-schedules" ng-show="udashC.viewSections.schedules.composed">
                     <a ng-href="/#/member/schedule/{{schedule.id}}" ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}" >
                         <div class="general-tile general-tile--schedule clearfix">
-                            <h4>Meeting</h4>
+                            <h4>Schedule</h4>
                             <div>
-                                <md-icon>perm_contact_calendar</md-icon>
+                                <md-icon class="general-tile__bullet-icon">perm_contact_calendar</md-icon>
                                 <div>
                                     <h1>{{schedule.name}}</h1>
-                                    <p>{{schedule.updated_at}}</p>
+                                    <p>Last update: {{schedule.updated_at}}</p>
+                                    <div class="clearfix general-tile__sub-info">
+                                        <md-icon ng-if="schedule.enabled === '1'">fiber_smart_record</md-icon>
+                                        <md-icon ng-if="schedule.enabled === '0'">toll</md-icon>
+                                        <span>{{schedule.enabled === 1 ? 'ENABLED':'DISABLED' }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,12 +185,17 @@
                 <div id="udash__imported-schedules" ng-show="udashC.viewSections.schedules.imported">
                     <a ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}" ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}" >
                         <div class="general-tile general-tile--schedule clearfix">
-                            <h4>Meeting</h4>
+                            <h4>Schedule</h4>
                             <div>
-                                <md-icon>perm_contact_calendar</md-icon>
+                                <md-icon class="general-tile__bullet-icon">perm_contact_calendar</md-icon>
                                 <div>
                                     <h1>{{schedule.name}}</h1>
-                                    <p>{{schedule.updated_at}}</p>
+                                    <p>Last update: {{schedule.updated_at}}</p>
+                                    <div class="clearfix general-tile__sub-info">
+                                        <md-icon ng-if="schedule.enabled === '1'">fiber_smart_record</md-icon>
+                                        <md-icon ng-if="schedule.enabled === '0'">toll</md-icon>
+                                        <span>{{schedule.enabled === 1 ? 'ENABLED':'DISABLED' }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
