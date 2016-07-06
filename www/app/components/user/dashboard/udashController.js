@@ -130,15 +130,37 @@
         };
         //Flags for deciding what view show to the user
         c.viewSections = {
-            meetings: true,
-            schedules: false,
-            showMeetings: function () {
-                this.schedules = false;
-                this.meetings = true;
+            meetings: {
+                to_be_planned : true,
+                planned : false,
+                managed : false,
+                last: 'to_be_planned'
             },
-            showSchedules: function () {
-                this.meetings = false;
-                this.schedules = true;
+            schedules: {
+                composed : true,
+                imported : false,
+                last: 'composed'
+            },
+            changeMeetingsView : function(viewString){
+                var last = this.meetings.last;
+                if(viewString !==  last){
+                    jQuery('#udash__'+last+'-meetings').removeClass('animated slideInRight');
+                    jQuery('#udash__'+viewString+'-meetings').addClass('animated slideInRight');
+                    this.meetings[last] = false;
+                    this.meetings[viewString] = true;
+                    this.meetings.last = viewString;
+
+                }
+            },
+            changeSchedulesView : function(viewString){
+                var last = this.schedules.last;
+                if(viewString !== last){
+                    jQuery('#udash__'+last+'-schedules').removeClass('animated slideInRight');
+                    jQuery('#udash__'+viewString+'-schedules').addClass('animated slideInRight');
+                    this.schedules[last] = false;
+                    this.schedules[viewString] = true;
+                    this.schedules.last = viewString;
+                }
             }
         };
         c.userInfo = {
@@ -483,9 +505,9 @@
         c.openMenu = function($mdOpenMenu, $event){
           $mdOpenMenu($event);
         };
-        //getUserInfo();
-        //getSchedules();
-        //getMeetings();
+        getUserInfo();
+        getSchedules();
+        getMeetings();
     };
 
     var app = angular.module('Plunner');

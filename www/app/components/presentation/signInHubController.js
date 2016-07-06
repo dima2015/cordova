@@ -2,7 +2,7 @@
  * Created by giorgiopea on 13/03/16.
  */
 (function () {
-    var controller = function ($scope, $location,mixedContentToArray,  dataPublisher, configService) {
+    var controller = function ($scope, $location,mixedContentToArray,  dataPublisher, configService, $mdDialog) {
         var apiDomain = configService.apiDomain;
         var c = this;
         var emailRegex =/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
@@ -52,6 +52,7 @@
             member : [],
             org : []
         };
+
         c.memberInputs = {
             org: '',
             email: '',
@@ -71,8 +72,29 @@
                 signInAsMember();
             }
         };
+        var dialogContent = '<h3>Signing you in</h3><div layout="column" layout-align="center center" ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed"><md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular></div>';
+        var openDialog = function(ev){
+            $mdDialog.show({
+                clickOutsideToClose: true,
+                scope: $scope,
+                preserveScope: true,
+                template: '<md-dialog>' +
+                '  <md-dialog-content class="signinhub-dialog">' +
+                dialogContent + '<br>' +
+                '  </md-dialog-content>' +
+                '</md-dialog>',
+                controller: function DialogController($scope, $mdDialog) {
+                    $scope.closeDialog = function() {
+                        $mdDialog.hide();
+                    }
+                }
+            });
+        };
+
+
 
         var signInAsMember = function () {
+            console.log(c);
             c.errors.member.length = 0;
             c.invalidFlags.member.org = c.memberInputs.org === '';
             c.invalidFlags.member.email.required = c.memberInputs.email === '';
@@ -85,10 +107,10 @@
             c.invalidFlags.member.pwd.overall =  c.invalidFlags.member.pwd.valid || c.invalidFlags.member.pwd.required;
             if(computeStatus(c.invalidFlags.member)){
                 c.invalidFlags.member.problems = true;
-                console.log('entro')
             }
             if (!computeStatus(c.invalidFlags.member)) {
                 c.invalidFlags.member.problems = false;
+                openDialog(undefined);
                 //authorizationPopup.show();
                 dataPublisher.publish(apiDomain + '/employees/auth/login', {
                     company: c.memberInputs.org,
@@ -178,9 +200,10 @@
                 }
             }
         }
+
     };
     var app = angular.module('Plunner');
-    app.controller('signInHubController', ['$scope','$location','mixedContentToArray','dataPublisher','configService', controller]);
+    app.controller('signInHubController', ['$scope','$location','mixedContentToArray','dataPublisher','configService','$mdDialog', controller]);
 
 
 }());

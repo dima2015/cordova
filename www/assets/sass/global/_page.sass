@@ -137,9 +137,11 @@ a
     color: #CCCCCC
     font-size: 4em
 
-
-
+a
+  color: inherit
+//GENERAL TILE
 .general-tile
+  margin-bottom: 15px
   padding: 15px
   background-color: white
 
@@ -147,5 +149,25 @@ a
     margin: 0 0 30px 0
     text-transform: uppercase
     font-weight: 500
+
+  &--meeting, &--schedule
+    div, md-icon
+      float: left
+
+    md-icon
+      margin-right: 22.5px
+      color: $gray_light
+      font-size: 50px
+
+    h1
+      font-weight: 400
+
+    p
+      margin: 10px 0
+      font-size: 120%
+      color: $gray_light
+
+
+
 
 

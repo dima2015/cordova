@@ -8,15 +8,15 @@
     background-color: transparent
 
 .signinhub-brand
+  margin: 30px 0 90px 0
+
   img
     display: block
     margin: 0 auto
 
-  h2
-    color: $colorPrimary
-    text-align: center
 .signinhub-typeswitch
   margin: 30px 0
+
   button
     margin-right: 10px
     padding: 10px 30px
@@ -74,6 +74,14 @@
   outline: none
   text-transform: uppercase
 
+  &:hover
+    background-color: $colorPrimary
+    color: white
+
+  &:focus
+    background-color: $colorPrimary
+    color: white
+
 .signinhub-errors-warning
   p
     padding: 15px
@@ -117,6 +125,14 @@ md-input-container > md-icon
 
 .signinhub__submit
   width: calc(100% - 16px)
+
+.signinhub-dialog
+  h3
+    margin-top: 30px !important
+    margin-bottom: 20px
+    font-weight: 400
+    text-align: center
+    text-transform: uppercase
 
 .input_errors__error
   color: $errorColor

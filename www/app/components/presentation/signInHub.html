@@ -2,13 +2,11 @@
 <div id="sign_in_hub" layout="column" flex>
     <md-content>
         <div class="signinhub-brand">
-            <h2 class="md-display-1 text-center">Plunner</h2>
+            <img src="assets/img/Plunner.png" alt="" width="150px">
         </div>
-        <br>
-        <br>
         <section class="signinhub-typeswitch clearfix">
-            <button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===0}" ng-click="sihC.mode.changeMode(0)">Member</button>
-            <button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===1}" ng-click="sihC.mode.changeMode(1)">Organization</button>
+            <button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===0}" ng-click="sihC.mode.changeMode(0)">Organization</button>
+            <button ng-class="{'signinhub-signin-mode--selected': sihC.mode.modeValue===1}" ng-click="sihC.mode.changeMode(1)">Member</button>
         </section>
         <section class="signinhub-sign-in signinhub-sign-in--member" ng-show="sihC.mode.modeValue === 0">
             <form novalidate>
@@ -20,13 +18,12 @@
                     <input type="password" ng-model="sihC.orgInputs.pwd" placeholder="Password">
                     <i class="material-icons" ng-show="sihC.invalidFlags.org.pwd.required">lens</i>
                 </div>
-
             </form>
         </section>
         <section class="signinhub-sign-in signinhub-sign-in--member" ng-show="sihC.mode.modeValue === 1">
-            <form action="">
+            <form action="" novalidate>
                 <div>
-                    <input type="email" ng-model="sihC.memberInputs.org" placeholder="Organization's email">
+                    <input type="text" ng-model="sihC.memberInputs.org" placeholder="Organization's email">
                     <i class="material-icons" ng-show="sihC.invalidFlags.member.org">lens</i>
                 </div>
                 <div>
