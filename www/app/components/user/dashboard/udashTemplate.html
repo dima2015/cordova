@@ -10,13 +10,13 @@
                     <md-icon md-menu-origin>add</md-icon>
                 </md-button>
                 <md-menu-content width="2">
-                    <md-menu-item>
+                    <md-menu-item ng-if="udashC.userInfo.is_planner">
                         <md-button ng-href="/#/user/newmeeting/_">
                             <md-icon>group_work</md-icon>
                             <span>Plan meeting</span>
                         </md-button>
                     </md-menu-item>
-                    <md-menu-divider></md-menu-divider>
+                    <md-menu-divider ng-if="udashC.userInfo.is_planner"></md-menu-divider>
                     <md-menu-item>
                         <md-button ng-href="/#/user/schedules/compose/_">
                             <md-icon>perm_contact_calendar</md-icon>
@@ -62,7 +62,7 @@
                 <li ng-class="{'selected' : udashC.viewSections.meetings.planned}" ng-click="udashC.viewSections.changeMeetingsView('planned')">
                     <button>Planned</button>
                 </li>
-                <li ng-class="{'selected' : udashC.viewSections.meetings.managed}" ng-click="udashC.viewSections.changeMeetingsView('managed')">
+                <li ng-if="udashC.userInfo.is_planner" ng-class="{'selected' : udashC.viewSections.meetings.managed}" ng-click="udashC.viewSections.changeMeetingsView('managed')">
                     <button>Managed</button>
                 </li>
             </ul>
