@@ -31,6 +31,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="assets/favicons/ms-icon-144x144.png">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: ms-appdata: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
         <meta name="theme-color" content="#ffffff">
         <!--<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">-->
         <link rel="stylesheet" href="css/index.css">
@@ -65,6 +66,11 @@
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div> -->
+        <div  class="blink">
+            <button onclick="camera.openCamera()">Take a picture</button>
+            <button onclick="camera.openFilePicker()">Select a picture</button>
+            <img id="imageFile" />
+        </div>
             <div class="wrapper">
                 <div ng-view></div>
                 <!-- TEMPLATE INJECTED -->

@@ -89,4 +89,6 @@
     <plugin name="phonegap-plugin-push" spec="~1.6.1">
         <variable name="SENDER_ID" value="992047859622" />
     </plugin>
+    <plugin name="cordova-plugin-camera" spec="~2.2.0" />
+    <plugin name="cordova-plugin-file" spec="~4.2.0" />
 </widget>
