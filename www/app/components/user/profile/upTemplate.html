@@ -1,102 +1,59 @@
-<div class="container-fluid navigation">
-    <div class="navigation-left">
-        <a href="/#/user">
-            <img src="assets/img/logoWhite.png" alt="Plunner"/>
-        </a>
-    </div>
-    <div class="navigation-right">
-        <ul class="list-inline list-unstyled">
-            <li class="user_section">
-                <a href="/#/user/profile" profile type="user">
-                    <img class="user_icon" src="assets/img/user_white.png" alt="Your profile"/>
-                    <span>{{profileName}}</span>
-
-                </a>
-            </li>
-            <li>
-                <img src="assets/img/sign_out.png" alt="Sign out" logout redirect="/"/>
-                <button type="button" class="navbar_button" logout redirect="/">SIGN OUT</button>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="container-fluid upC">
-    <div class="section_heading row">
-        <h1 class="text-center font_light">Your profile</h1>
-    </div>
-    <div class="row">
-        <div class="col-md-8 col-md-push-2 col-sm-10 col-sm-push-1 col-xs-10 col-xs-push-1 media_adapt">
-            <div class=" section_action_bar" ng-class="{span : upC.editMode.flag}">
-                <a href="/#/user" class="link_top"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Back to dashboard</a>
-                <button class="main_button" ng-click="upC.update.submit()" ng-show="upC.editMode.flag">Save changes</button>
-                <button class="secondary_button" ng-show="upC.editMode.flag" ng-click="upC.editMode.exit()">Abort</button>
-                <button ng-show="!upC.editMode.flag" class="main_button" ng-click="upC.editMode.enter()"><i class="fa fa-wrench"></i>&nbsp;&nbsp;Edit profile
-                </button>
+<div style="background-color:#FAFAFA; min-height: 100vh">
+    <div id="import_schedules" layout="column">
+        <md-toolbar class="toolbar" flex>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-href="/#/user">
+                    <md-icon>arrow_back</md-icon>
+                </md-button>
+                <h1 class="md-headline"><span>Your profile</span></h1>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="upC.update.submit()">
+                    <md-icon>done</md-icon>
+                </md-button>
             </div>
-        </div>
-    </div>
-    <br/>
-    <br/>
-    <div class="row">
-        <div class="col-md-8 col-md-push-2 col-sm-10 col-sm-push-1 col-xs-10 col-xs-push-1 media_adapt">
-            <p class="error_tile" ng-repeat="error in upC.update.errors"><i class="fa fa-warning"></i>&nbsp;&nbsp;{{error}}</p>
-            <div class="row">
-                <div class="col-md-5">
-                    <form name="upC_profile_form">
-                        <table class="table">
-                            <thead>
-                            <th></th>
-                            <th></th>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="font_bold">Name:</td>
-                                <td>
-                                    <input placeholder="Name" name="name" type="text" ng-model="upC.dataCopy.name" ng-readonly="!upC.editMode.flag"
-                                           ng-class="{disabled : !upC.editMode.flag, error_bordering: upC.update.invalidFields.nameReq }" required>
-                                    <p class="error_msg" ng-show="upC.update.invalidFields.nameReq">Insert a name</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font_bold">Email:</td>
-                                <td>
-                                    <p>{{upC.data.email}}</p>
-                                </td>
-                            </tr>
-                            <tr class="password_row">
-                                <td class="font_bold">Password:</td>
-                                <td>
-                                    <input placeholder="your password" name="password" ng-minlength="6" type="password" ng-model="upC.dataCopy.password" ng-readonly="!upC.editMode.flag"
-                                           ng-class="{disabled : !upC.editMode.flag, error_bordering: upC.update.invalidFields.passwordLength }">
-                                    <p class="error_msg" ng-show="upC.update.invalidFields.passwordLength">Insert a password at least 6 characters long</p>
-                                </td>
-                            </tr>
-                            <tr class="password_row" ng-show="upC.editMode.flag">
-                                <td class="font_bold">Confirm password</td>
-                                <td>
-                                    <input name="password_confirmation" type="password" ng-model="upC.dataCopy.password_confirmation"
-                                           ng-class="{error_bordering : upC.update.invalidFields.passwordMatch}" >
-                                    <p class="error_msg" ng-show="upC.update.invalidFields.passwordMatch">The passwords don't match</p>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </form>
+        </md-toolbar>
+        <md-content layout-padding class="md-padding up__content" style="background-color: transparent">
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="upC.data.name" >
+                <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+            </div>
+            <section class="import_schedules_dentials" ng-show="upC.data.name">
+                <div class="md__img">
+                    <img src="assets/img/user.png" alt="">
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="authorizationPopup" class="modal" role="dialog" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body text-center">
-                <img src="assets/img/484.GIF" alt=""/>
-                <h2>&nbsp;&nbsp;Saving changes</h2>
-            </div>
-            <br/>
-        </div>
+                <div class="general-tile">
+                    <h4>Information</h4>
+                    <h1>{{upC.data.name}}</h1>
+                    <p>{{upC.data.email}}</p>
+                </div>
+                <div class="general-tile" ng-class="{'animated bounceIn': upC.edit}" ng-show="upC.edit">
+                    <h4>New Information</h4>
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                        <md-icon>person</md-icon>
+                        <input type="text" placeholder="Your username" ng-model="upC.dataCopy.name">
+                    </md-input-container>
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                        <md-icon>lock</md-icon>
+                        <input placeholder="Your password" ng-minlength="6" type="password" ng-model="upC.dataCopy.password">
+                        <div class="input_errors">
+                            <div class="input_errors__error md-caption" ng-show="upC.update.invalidFields.passwordLength">Insert
+                                a password at least 6 chars long
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                        <md-icon>&nbsp;</md-icon>
+                        <input type="password" placeholder="Repeat password" ng-model="upC.dataCopy.password_confirmation">
+                        <div class="input_errors">
+                            <div class="input_errors__error md-caption" ng-show="upC.update.invalidFields.passwordMatch">The
+                                two passowrds do not match
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-button ng-click="upC.editInfo()" ng-show="!upC.edit" class=" md-primary" style="margin: 0; float: right">
+                    EDIT INFORMATION
+                </md-button>
+            </section>
+        </md-content>
     </div>
 </div>

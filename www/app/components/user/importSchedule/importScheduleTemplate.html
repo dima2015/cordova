@@ -1,3 +1,4 @@
+<div style="background-color:#FAFAFA; min-height: 100vh">
 <div id="import_schedules" layout="column">
     <md-toolbar class="toolbar" flex>
         <div class="md-toolbar-tools">
@@ -7,11 +8,11 @@
             <h1 class="md-headline"><span>Import schedule</span></h1>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="isC.submit()">
-                <md-icon>send</md-icon>
+                <md-icon>done</md-icon>
             </md-button>
         </div>
     </md-toolbar>
-    <md-content layout-padding class="md-padding import_schedules__content" style="background-color: #fafafa">
+    <md-content layout-padding class="md-padding import_schedules__content" style="background-color: transparent">
         <section class="import_schedules__content__credentials">
             <div class="general-tile">
                 <h4>Caldav credentials</h4>
@@ -61,7 +62,7 @@
                     Select at least one schedule</p>
                 <div class="empty_state" ng-hide="isC.calendars.length > 0">
                     <md-icon flex>sentiment_dissatisfied</md-icon>
-                    <h3 class="md-subhead">Sorry no meetings to be planned for you yet</h3>
+                    <h3 class="md-subhead">Sorry no schedules to be imported for you yet</h3>
                 </div>
                 <md-list class="plan_meeting__groups__list" flex>
                     <md-list-item ng-repeat="group in isC.calendars">
@@ -75,4 +76,5 @@
 
         </section>
     </md-content>
+</div>
 </div>

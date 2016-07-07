@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($scope, userResources, mixedContentToArray) {
+    var controller = function ($mdDialog, $scope, userResources, mixedContentToArray) {
 
         var c = this;
 
@@ -8,14 +8,22 @@
             name: '',
             email: ''
         };
-
+        c.edit = false;
+        c.editInfo = function () {
+            c.edit = true;
+        };
         c.confirmPopup = {
             message: '',
             show: function () {
-                jQuery('#authorizationPopup').modal('show');
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
             },
             hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
+                $mdDialog.cancel();
             }
         };
 
@@ -24,7 +32,6 @@
                 .then(function (response) {
                     c.data.name = response.name;
                     c.data.email = response.email;
-                    c.dataCopy.name = response.name;
                 });
         };
         c.editMode = {
@@ -54,43 +61,35 @@
             },
             errors: [],
             submit: function () {
-                var toSend;
-                var form = $scope.upC_profile_form;
-                this.invalidFields.passwordLength = form.password.$error.minlength;
-                this.invalidFields.passwordMatch = c.dataCopy.password !== c.dataCopy.password_confirmation;
-                this.invalidFields.nameReq = form.name.$error.required;
-                if (!form.$invalid && !this.invalidFields.passwordMatch) {
-                    if ((c.dataCopy.name === c.data.name) && c.dataCopy.password === '') {
-                        c.editMode.exit();
-                    }
-                    else {
-                        toSend = {
-                            name: c.dataCopy.name,
-                            email: c.data.name
-                        };
-                        if (c.dataCopy.password !== '') {
-                            toSend.password = c.dataCopy.password;
-                            toSend.password_confirmation = c.dataCopy.password;
-                        }
-                        c.confirmPopup.show();
-                        userResources.userInfo.update(jQuery.param(toSend)).$promise
-                            .then(function () {
-                                c.dataCopy.password = '';
-                                c.dataCopy.password_confirmation = '';
-                                //Update view
-                                c.getInfo();
-                                c.editMode.exit();
+                c.update.invalidFields.passwordLength = (c.dataCopy.password.length < 6);
+                c.update.invalidFields.passwordMatch = (c.dataCopy.password !== c.dataCopy.password_confirmation);
+                if (!(c.update.invalidFields.passwordLength || c.update.invalidFields.passwordMatch)) {
+                    toSend = {
+                        name: c.data.name,
+                        email: c.data.name,
+                        password: c.dataCopy.password,
+                        password_confirmation: c.dataCopy.password
+                    };
+                    c.confirmPopup.message = 'Saving changes';
+                    c.confirmPopup.show();
+                    userResources.userInfo.update(jQuery.param(toSend)).$promise
+                        .then(function () {
+                            c.dataCopy.password = '';
+                            c.dataCopy.password_confirmation = '';
+                            //Update view
+                            c.edit = false;
+                            c.getInfo();
+                            c.confirmPopup.hide();
+                        }, function (response) {
+                            if (response.status === 422) {
+                                mixedContentToArray.process(response.data, c.update.errors, true);
                                 c.confirmPopup.hide();
-                            }, function (response) {
-                                if (response.status === 422) {
-                                    mixedContentToArray.process(response.data, c.update.errors, true);
-                                    c.confirmPopup.hide();
-                                }
-                                c.confirmPopup.hide();
-                            })
-                    }
-
+                            }
+                            c.confirmPopup.hide();
+                        })
                 }
+
+
             }
 
         };
@@ -100,6 +99,6 @@
     };
 
     var app = angular.module('Plunner');
-    app.controller('upController', ['$scope', 'userResources', 'mixedContentToArray', controller]);
+    app.controller('upController', ['$mdDialog', '$scope', 'userResources', 'mixedContentToArray', controller]);
 
 }());

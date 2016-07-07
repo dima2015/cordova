@@ -72,24 +72,6 @@
                 signInAsMember();
             }
         };
-        var dialogContent = '<h3>Signing you in</h3><div layout="column" layout-align="center center" ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed"><md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular></div>';
-        var openDialog = function(ev){
-            $mdDialog.show({
-                clickOutsideToClose: true,
-                scope: $scope,
-                preserveScope: true,
-                template: '<md-dialog>' +
-                '  <md-dialog-content class="signinhub-dialog">' +
-                dialogContent + '<br>' +
-                '  </md-dialog-content>' +
-                '</md-dialog>',
-                controller: function DialogController($scope, $mdDialog) {
-                    $scope.closeDialog = function() {
-                        $mdDialog.hide();
-                    }
-                }
-            });
-        };
 
 
 
