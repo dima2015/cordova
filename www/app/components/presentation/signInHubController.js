@@ -5,7 +5,7 @@
     var controller = function ($scope, $location,mixedContentToArray,  dataPublisher, configService, $mdDialog) {
         var apiDomain = configService.apiDomain;
         var c = this;
-        var emailRegex =/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
+        var emailRegex =/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
 
         c.mode = {
             modeValue : 0,
@@ -76,7 +76,6 @@
 
 
         var signInAsMember = function () {
-            console.log(c);
             c.errors.member.length = 0;
             c.invalidFlags.member.org = c.memberInputs.org === '';
             c.invalidFlags.member.email.required = c.memberInputs.email === '';
@@ -92,7 +91,6 @@
             }
             if (!computeStatus(c.invalidFlags.member)) {
                 c.invalidFlags.member.problems = false;
-                confirmPopup.message = 'Signin you in';
                 confirmPopup.show();
                 //authorizationPopup.show();
                 dataPublisher.publish(apiDomain + '/employees/auth/login', {
@@ -116,39 +114,38 @@
 
         var signInAsOrg = function () {
             c.errors.member.length = 0;
-            c.invalidFlags.org.email.required = c.memberInputs.email === '';
+            c.invalidFlags.org.email.required = c.orgInputs.email === '';
             if(!c.invalidFlags.org.email.required){
                 c.invalidFlags.org.email.valid = !emailRegex.test(c.orgInputs.email);
             }
             c.invalidFlags.org.email.overall = c.invalidFlags.org.email.valid && c.invalidFlags.org.email.required;
             c.invalidFlags.org.pwd.required = c.orgInputs.pwd === '';
-            c.invalidFlags.org.pwd.length = c.orgInputs.pwd.length < 6;
-            c.invalidFlags.org.pwd.overall =  c.invalidFlags.org.pwd.valid && c.invalidFlags.org.pwd.required;
-            if(!computeStatus(c.invalidFlags.org)){
+            c.invalidFlags.org.pwd.overall = c.invalidFlags.org.pwd.required;
+            if(computeStatus(c.invalidFlags.org)){
                 c.invalidFlags.org.problems = true;
             }
-            if (computeStatus(c.invalidFlags.org)) {
+            if (!computeStatus(c.invalidFlags.org)) {
+                confirmPopup.show();
                 c.invalidFlags.org.problems = false;
                 dataPublisher.publish(apiDomain + '/companies/auth/login', {
                     email: c.orgInputs.email,
                     password: c.orgInputs.pwd,
                     remember: '1'
                 }).then(function () {
-                    authorizationPopup.hide();
+                    confirmPopup.hide();
                     $location.path('/organization');
                 }, function (response) {
                     if (response.status === 422) {
                         mixedContentToArray.process(response.data, c.errors.org, true);
-                        authorizationPopup.hide();
                     }
-                    authorizationPopup.hide();
+                    confirmPopup.hide();
                 });
             }
 
 
         };
         var confirmPopup = {
-            message: '',
+            message: 'Signin you in',
             show: function () {
                 $mdDialog.show({
                         template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',

@@ -27,11 +27,7 @@
                 </div>
                 <div class="general-tile" ng-class="{'animated bounceIn': upC.edit}" ng-show="upC.edit">
                     <h4>New Information</h4>
-                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
-                        <md-icon>person</md-icon>
-                        <input type="text" placeholder="Your username" ng-model="upC.dataCopy.name">
-                    </md-input-container>
-                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : upC.update.invalidFields.passwordLength}">
                         <md-icon>lock</md-icon>
                         <input placeholder="Your password" ng-minlength="6" type="password" ng-model="upC.dataCopy.password">
                         <div class="input_errors">
@@ -40,7 +36,7 @@
                             </div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : upC.update.invalidFields.passwordMatch}">
                         <md-icon>&nbsp;</md-icon>
                         <input type="password" placeholder="Repeat password" ng-model="upC.dataCopy.password_confirmation">
                         <div class="input_errors">

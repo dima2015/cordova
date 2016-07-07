@@ -13,7 +13,7 @@
             c.edit = true;
         };
         c.confirmPopup = {
-            message: '',
+            message: 'Saving changes',
             show: function () {
                 $mdDialog.show({
                         template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
@@ -70,7 +70,6 @@
                         password: c.dataCopy.password,
                         password_confirmation: c.dataCopy.password
                     };
-                    c.confirmPopup.message = 'Saving changes';
                     c.confirmPopup.show();
                     userResources.userInfo.update(jQuery.param(toSend)).$promise
                         .then(function () {

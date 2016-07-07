@@ -8,22 +8,29 @@
             name: '',
             email: ''
         };
-
+        c.edit = false;
+        c.editInfo = function () {
+            c.edit = true;
+        };
         var getInfo = function () {
             orgResources.orgInfo.get().$promise
                 .then(function (response) {
                     c.data.name = response.name;
                     c.data.email = response.email;
-                    c.dataCopy.name = response.name;
                 });
         };
         c.confirmPopup = {
-            message: '',
+            message: 'Saving changes',
             show: function () {
-                jQuery('#authorizationPopup').modal('show');
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
             },
             hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
+                $mdDialog.cancel();
             }
         };
         c.editMode = {
@@ -52,32 +59,29 @@
             },
             errors: [],
             submit: function () {
-                var toSend;
-                var form = $scope.opC_profile_form;
-                this.invalidFields.passwordLength = form.password.$error.minlength;
-                this.invalidFields.passwordMatch = c.dataCopy.password !== c.dataCopy.password_confirmation;
-                this.invalidFields.nameReq = form.name.$error.required;
-                if (!form.$invalid && !this.invalidFields.passwordMatch) {
-                    if (c.dataCopy.password === '' && (c.dataCopy.name === c.data.name)) {
-                        c.editMode.exit();
-                    }
-                    else {
+                c.update.invalidFields.passwordLength = (c.dataCopy.password.length < 6);
+                c.update.invalidFields.passwordMatch = (c.dataCopy.password !== c.dataCopy.password_confirmation);
+                if (!(c.update.invalidFields.passwordLength || c.update.invalidFields.passwordMatch)) {
+                    toSend = {
+                        name: c.data.name,
+                        email: c.data.name,
+                        password: c.dataCopy.password,
+                        password_confirmation: c.dataCopy.password
+                    };
                         c.confirmPopup.show();
                         toSend = {
-                            name: c.dataCopy.name,
-                            email: c.data.email
+                            name: c.data.name,
+                            email: c.data.email,
+                            password: c.dataCopy.password,
+                            password_confirmation: c.dataCopy.password
                         };
-                        if (c.dataCopy.password !== '') {
-                            toSend.password = c.dataCopy.password;
-                            toSend.password_confirmation = c.dataCopy.password;
-                        }
                         orgResources.orgInfo.update(jQuery.param(toSend)).$promise
                             .then(function () {
                                 c.dataCopy.password = '';
                                 c.dataCopy.password_confirmation = '';
                                 //Update view
                                 getInfo();
-                                c.editMode.exit();
+                                c.edit = false;
                                 c.confirmPopup.hide();
                             }, function (response) {
                                 if (response.status === 422) {
@@ -86,7 +90,6 @@
                                 }
                                 c.confirmPopup.hide();
                             })
-                    }
                 }
             }
 

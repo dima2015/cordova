@@ -150,7 +150,7 @@ a
     text-transform: uppercase
     font-weight: 500
 
-  &--meeting, &--schedule
+  &--meeting, &--schedule, &--org
     > div > div
         width: calc(100% - 110px)
         float: left
@@ -168,7 +168,9 @@ a
       font-size: 110%
       color: $gray_light
 
-
+  &--org
+    > div > img
+      margin-top: 0
 
   &__bullet-icon
       margin-right: 22.5px
@@ -208,6 +210,10 @@ a
 .up__content
   .general-tile
     margin-bottom: 15px
+
+
+.grayPrimary
+  color: $grayPrimary !important
 
 
 

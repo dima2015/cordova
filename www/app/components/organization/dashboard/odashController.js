@@ -262,8 +262,8 @@
         c.openMenu = function($mdOpenMenu, $event){
             $mdOpenMenu($event);
         };
-        //getUsers();
-        //getGroups();
+        getUsers();
+        getGroups();
     };
 
     var app = angular.module('Plunner');

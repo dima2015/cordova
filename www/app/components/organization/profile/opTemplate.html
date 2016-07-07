@@ -1,3 +1,63 @@
+<div style="background-color:#FAFAFA; min-height: 100vh">
+    <div id="import_schedules" layout="column">
+        <md-toolbar class="toolbar" flex>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-href="/#/organization">
+                    <md-icon>arrow_back</md-icon>
+                </md-button>
+                <h1 class="md-headline"><span>Your profile</span></h1>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="opC.update.submit()">
+                    <md-icon>done</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content layout-padding class="md-padding up__content" style="background-color: transparent">
+            <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="opC.data.name" >
+                <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+            </div>
+            <section class="import_schedules_dentials" ng-show="opC.data.name">
+                <div class="md__img">
+                    <img src="assets/img/organization.png" alt="">
+                </div>
+                <div class="general-tile">
+                    <h4>Information</h4>
+                    <h1>{{opC.data.name}}</h1>
+                    <p>{{opC.data.email}}</p>
+                </div>
+                <div class="general-tile" ng-class="{'animated bounceIn': opC.edit}" ng-show="opC.edit">
+                    <h4>New Information</h4>
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : opC.update.invalidFields.passwordLength}">
+                        <md-icon>lock</md-icon>
+                        <input placeholder="Your password" ng-minlength="6" type="password" ng-model="opC.dataCopy.password">
+                        <div class="input_errors">
+                            <div class="input_errors__error md-caption" ng-show="opC.update.invalidFields.passwordLength">Insert
+                                a password at least 6 chars long
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block" ng-class="{'md-input-invalid' : isC.invalidFlags.username}">
+                        <md-icon>&nbsp;</md-icon>
+                        <input type="password" placeholder="Repeat password" ng-model="opC.dataCopy.password_confirmation">
+                        <div class="input_errors">
+                            <div class="input_errors__error md-caption" ng-show="opC.update.invalidFields.passwordMatch">The
+                                two passowrds do not match
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-button ng-click="opC.editInfo()" ng-show="!opC.edit" class=" md-primary" style="margin: 0; float: right">
+                    EDIT INFORMATION
+                </md-button>
+            </section>
+        </md-content>
+    </div>
+</div>
+
+
+
+
+
 <div class="container-fluid navigation">
     <div class="navigation-left">
         <a href="/#/organization">
