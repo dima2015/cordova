@@ -1,3 +1,4 @@
+<div style="background-color:#FAFAFA; min-height: 100vh">
 <div id="meeting_detail" layout="column">
     <md-toolbar class="member_dashboard__toolbar" flex>
         <div class="md-toolbar-tools">
@@ -7,31 +8,35 @@
             <h1 class="md-headline"><span>Meeting</span></h1>
             <span flex></span>
         </div>
-        <div layout="row" layout-align="center center" style=" padding-top: 1em; padding-bottom: 1em">
-            <md-icon style="font-size: 10em;">group_work</md-icon>
-        </div>
     </md-toolbar>
-    <md-content layout-padding class="md-padding meeting_detail__content" flex>
+    <md-content layout-padding class="md-padding meeting_detail__content" flex style="background-color: transparent">
+        <div class="md__img">
+            <img src="assets/img/meetings.png" alt="">
+        </div>
         <div layout="row" layout-sm="column" layout-align="space-around" ng-hide="mdC.meeting.title" >
             <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
         </div>
-        <div ng-show="mdC.meeting.title" layout-padding>
-            <h3 class="md-title">{{mdC.meeting.title}}</h3>
-            <h4 class="md-subhead">{{mdC.meeting.desc}}</h4>
+        <div class="md__text general-tile" layout-padding ng-show="mdC.meeting.title">
+            <h4>Information</h4>
+            <h1>{{mdC.meeting.title}}</h1>
+            <p>{{mdC.meeting.desc}}</p>
+            <div class="md__sub-info clearfix">
+                <div>
+                    <md-icon>group</md-icon>
+                    <span>{{mdC.meeting.group}}</span>
+                </div>
+                <div>
+                    <md-icon>history</md-icon>
+                    <span>{{mdC.meeting.duration}} mins</span>
+                </div>
+                <div class="meeting_detail__content__starts" ng-show="mdC.meeting.starts">
+                    <h3>STARTS ON </h3>
+                    <span>{{mdC.meeting.starts}}</span>
+                </div>
+            </div>
 
-            <div>
-                <md-icon>group</md-icon>
-                <span>{{mdC.meeting.group}}</span>
-            </div>
-            <div>
-                <md-icon>hourglass_empty</md-icon>
-                <span>{{mdC.meeting.duration}} mins</span>
-            </div>
-            <div class="meeting_detail__content__starts" ng-show="mdC.meeting.starts">
-                <h3>STARTS ON </h3>
-                <span>{{mdC.meeting.starts}}</span>
-            </div>
         </div>
 
     </md-content>
 </div>
+    </div>

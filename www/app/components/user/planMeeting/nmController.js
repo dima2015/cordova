@@ -6,7 +6,7 @@
         var c = this;
         var isUpdate = false;
         var changedEvents = [];
-        var _evs;
+        var _evs = [];
         var calendar;
         var groupId;
         var meetingId;
