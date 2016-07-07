@@ -6,6 +6,7 @@ sendPush($to,$title,$message);
 
 function sendPush($to,$title,$message)
 {
+global $argv;
 // API access key from Google API's Console
 // replace API
 define( 'API_ACCESS_KEY', $argv[1]);
