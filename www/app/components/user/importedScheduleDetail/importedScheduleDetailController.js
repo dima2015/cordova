@@ -72,7 +72,7 @@
             jQuery.param({
                 name : c.data.name,
                 enabled : enabledValueAdapter(c.data.enabled, true),
-                caldav_name : caldav.caldav_name,
+                calendar_name : caldav.calendar_name,
                 url : caldav.url,
                 username : caldav.username
             }))

@@ -86,10 +86,6 @@
                     pages = Math.ceil(c.schedules.composed.length / 10);
                     c.pagination.schedulesComposed.pages = pages;
                     c.pagination.schedulesComposed.utilArray = new Array(pages);
-                    setTimeout(function(){
-                        jQuery("[data-toggle='tooltip']").tooltip();
-                    },1000);
-
                 });
         };
         var getMeetings = function () {

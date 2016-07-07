@@ -152,7 +152,7 @@
                 enabled: enabled
             })).$promise.then(function () {
                 saveScheduleTimeslots(scheduleId, newEvents, alsoEditEvents);
-                updateScheduleTimeslots(scheduleId, modifiedEvents[1]);
+                updateScheduleTimeslots(scheduleId, modifiedEvents);
                 if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
                     c.confirmPopup.hide();
                     $location.path('/user');
@@ -205,6 +205,7 @@
             })
         };
         var calendarConfig = {
+            height: 400,
             firstDay: 1,
             allDaySlot: false,
             header: {

@@ -181,7 +181,7 @@
             </div>
             <md-content class="udash__content md-padding" layout-padding>
                 <div id="udash__composed-schedules" ng-show="udashC.viewSections.schedules.composed">
-                    <a ng-href="/#/member/schedule/{{schedule.id}}" ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}" >
+                    <a ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}" ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}" >
                         <div class="general-tile general-tile--schedule clearfix">
                             <h4>Schedule</h4>
                             <div>
@@ -192,7 +192,7 @@
                                     <div class="clearfix general-tile__sub-info">
                                         <md-icon ng-if="schedule.enabled === '1'">fiber_smart_record</md-icon>
                                         <md-icon ng-if="schedule.enabled === '0'">toll</md-icon>
-                                        <span>{{schedule.enabled === 1 ? 'ENABLED':'DISABLED' }}</span>
+                                        <span>{{schedule.enabled === '1' ? 'ENABLED':'DISABLED' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +207,7 @@
 
                 </div>
                 <div id="udash__imported-schedules" ng-show="udashC.viewSections.schedules.imported">
-                    <a ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}" ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}" >
+                    <a ng-href="/#/member/schedule/{{schedule.id}}" ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}" >
                         <div class="general-tile general-tile--schedule clearfix">
                             <h4>Schedule</h4>
                             <div>
