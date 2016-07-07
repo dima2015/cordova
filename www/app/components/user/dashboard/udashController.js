@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($scope, dataPublisher, mixedContentToArray, userResources, plannerResources, configService, objectResetFields) {
+    var controller = function ($mdDialog,$scope, dataPublisher, mixedContentToArray, userResources, plannerResources, configService, objectResetFields, logoutService) {
 
         /*
          Gets the meetings relative to a given group.
@@ -174,10 +174,15 @@
         c.confirmPopup = {
             message: '',
             show: function () {
-                jQuery('#authorizationPopup').modal('show');
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
             },
             hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
+                $mdDialog.cancel();
             }
         };
         c.pagination = {
@@ -501,11 +506,21 @@
         c.openMenu = function($mdOpenMenu, $event){
           $mdOpenMenu($event);
         };
+        c.logout = function(){
+            c.confirmPopup.message = 'Signin you out';
+            c.confirmPopup.show();
+            setTimeout(function(){
+                c.confirmPopup.hide();
+                logoutService.logout('');
+            },1000);
+
+
+        };
         getUserInfo();
         getSchedules();
         getMeetings();
     };
 
     var app = angular.module('Plunner');
-    app.controller('udashController', ['$scope', 'dataPublisher', 'mixedContentToArray', 'userResources', 'plannerResources', 'configService','objectResetFields', controller]);
+    app.controller('udashController', ['$mdDialog','$scope', 'dataPublisher', 'mixedContentToArray', 'userResources', 'plannerResources', 'configService','objectResetFields','logoutService', controller]);
 }());
