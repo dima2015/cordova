@@ -110,7 +110,8 @@
             }
             if (!computeStatus(c.invalidFlags.member)) {
                 c.invalidFlags.member.problems = false;
-                openDialog(undefined);
+                confirmPopup.message = 'Signin you in';
+                confirmPopup.show();
                 //authorizationPopup.show();
                 dataPublisher.publish(apiDomain + '/employees/auth/login', {
                     company: c.memberInputs.org,
@@ -119,6 +120,7 @@
                     remember: '1'
                 }).then(function () {
                     //authorizationPopup.hide();
+                    confirmPopup.hide();
                     $location.path('/user')
                 }, function (response) {
                     if (response.status === 422) {
@@ -162,6 +164,20 @@
             }
 
 
+        };
+        var confirmPopup = {
+            message: '',
+            show: function () {
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
+            },
+            hide: function () {
+                $mdDialog.cancel();
+            }
         };
         var computeStatus = function(invalidFlags){
             if(!angular.isDefined(invalidFlags.org)){

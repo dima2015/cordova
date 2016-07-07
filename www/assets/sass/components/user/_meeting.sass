@@ -10,13 +10,10 @@
     position: relative
 
     span
-      position: absolute
-      top: 4px
-      right: 0
-      text-transform: uppercase
-      font-size: .9em
-      font-weight: 500
-      color: $errorColor
+      font-size: 110%
+
+    md-checkbox
+      margin-right: 0
 
 
 .plan_meeting__duration__display
@@ -87,34 +84,7 @@
         border: 1px solid $main_blue
         outline: none
 
-    input[type="radio"]
-      display: none
 
-    input[type="radio"] + .label-text:before
-      content: "\f1db"
-      font-family: "FontAwesome"
-      font-style: normal
-      font-weight: normal
-      font-variant: normal
-      font-size: 16px
-      color: $washed_black
-      text-transform: none
-      line-height: 1
-      -webkit-font-smoothing: antialiased
-      margin-top: 10px
-      transition: all 50ms ease-in-out
-
-    input[type="radio"]:checked + .label-text:before
-      content: "\f111"
-      font-family: "FontAwesome"
-      font-style: normal
-      font-weight: normal
-      font-variant: normal
-      font-size: 16px
-      color: $main_blue
-      text-transform: none
-      line-height: 1
-      -webkit-font-smoothing: antialiased
 
   .span
     @media(max-width: 700px)

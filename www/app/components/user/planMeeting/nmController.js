@@ -364,7 +364,7 @@
                 events = [];
             }
             c.invalidFlags.name = c.data.meeting.name === '';
-            c.invalidFlags.description = c.data.meeting.length > 150;
+            c.invalidFlags.description = c.data.meeting.description === '';
             for (var i = 0; i < c.checkedGroups.length; i++) {
                 if (c.checkedGroups[i].selected === true) {
                     c.invalidFlags.groups = false;
@@ -410,7 +410,7 @@
 
         adaptToResolution();
         processUrl();
-        //getGroups();
+        getGroups();
         getMeetingInfo();
 
 
