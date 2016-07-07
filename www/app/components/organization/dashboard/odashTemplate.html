@@ -55,7 +55,7 @@
                 </div>
                 <md-content layout-padding class="aspra"
                             ng-show="odashC.data.users" style="background-color: transparent">
-                    <a href="" ng-repeat="user in odashC.data.users">
+                    <a  ng-href="/#/organization/users/{{user.id}}" ng-repeat="user in odashC.data.users">
                         <div class="general-tile general-tile--org clearfix">
                             <h4>Member</h4>
                             <div class="clearfix">
@@ -81,7 +81,7 @@
                 </div>
                 <md-content class="aspra md-padding" layout-padding
                             ng-show="odashC.data.groups" style="background-color: transparent;">
-                    <a href="" ng-repeat="group in odashC.data.groups">
+                    <a ng-repeat="group in odashC.data.groups">
                         <div class="general-tile general-tile--meeting clearfix">
                             <h4>Team</h4>
                             <div class="clearfix">

@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($scope, $routeParams, $location, mixedContentToArray, orgResources) {
+    var controller = function ($mdDialog,$scope, $routeParams, $location, mixedContentToArray, orgResources) {
         var c = this;
         //user id
         var id = $routeParams.id;
@@ -9,8 +9,37 @@
                 invalidFields[key] = false;
             }
         };
+        var manipulateGroups = function(groups){
+            var tmpGroups = [];
+            for(var i=0; i<groups.length; i++){
+                tmpGroups.push({group: groups[i], selected: true });
+            }
+            return tmpGroups;
+        };
+        var confirmPopup = {
+            message: '',
+            show: function () {
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
+            },
+            hide: function () {
+                $mdDialog.cancel();
+            }
+        };
+        c.edit = false;
+        c.editInfo = function(){
+            c.edit = true;
+        };
         c.data = {};
-        c.dataCopy = {};
+        c.dataCopy = {
+            pwd : '',
+            r_pwd: '',
+            groups : []
+        };
         c.confirmPopup = {
             message: '',
             show: function () {
@@ -26,8 +55,7 @@
             orgResources.orgUser.get({userId: id}).$promise
                 .then(function (response) {
                     c.data = response;
-                    c.dataCopy.name = c.data.name;
-                    c.dataCopy.email = c.data.email;
+                    c.dataCopy.groups = manipulateGroups(response.groups);
                 });
         };
         //Delete an user in the context of an org
@@ -48,36 +76,24 @@
             thereErrors: false,
             invalidFields: {
                 passwordLength: false,
-                passwordMatch: false,
-                nameReq: false,
-                emailReq: false,
-                emailVal: false
+                passwordMatch: false
             },
             errors: [],
             submit: function () {
-                var toSend = {};
-                var form = $scope.editForm;
-                //Checks the validity status of input fields
-                this.invalidFields.emailVal = form.email.$error.email;
-                this.invalidFields.emailReq = form.email.$error.required;
-                this.invalidFields.nameReq = form.name.$error.required;
-                this.invalidFields.passwordLen = form.password.$error.minlength;
+                this.invalidFields.passwordLength = (c.dataCopy.pwd.length < 6);
                 this.invalidFields.passwordMatch = (c.dataCopy.password !== c.dataCopy.password_confirmation);
-                this.thereErrors = (form.$invalid || this.invalidFields.passwordMatch);
-
-                if (!this.thereErrors) {
-                    c.confirmPopup.message = 'Saving changes';
-                    c.confirmPopup.show();
-                    toSend.name = c.dataCopy.name;
-                    toSend.email = c.dataCopy.email;
-                    if (c.dataCopy.password) {
-                        toSend.password = c.dataCopy.password;
-                        toSend.password_confirmation = c.dataCopy.password_confirmation;
-                    }
-                    orgResources.orgUser.update({userId: id}, jQuery.param(toSend)).$promise
+                if (!this.invalidFields.passwordLength && !this.invalidFields.passwordMatch) {
+                    confirmPopup.message = 'Saving changes';
+                    confirmPopup.show();
+                    orgResources.orgUser.update({userId: id}, jQuery.param({
+                        name : c.data.name,
+                        email : c.data.email,
+                        password: c.dataCopy.pwd,
+                        password_confirmation: c.dataCopy.pwd
+                    })).$promise
                         .then(function () {
                             getInfo();
-                            c.editMode.exit();
+                            c.edit = false;
                             c.confirmPopup.hide();
                         }, function (response) {
                             if (response.status === 422) {
@@ -90,15 +106,19 @@
 
             }
         };
-        c.deleteFromGroup = function (id) {
-            c.confirmPopup.message = 'Removing user from group';
-            c.confirmPopup.show();
+        c.removeFromGroup = function (id) {
+            confirmPopup.message = 'Removing member from group';
+            confirmPopup.show();
             orgResources.orgUserInGroup.remove({groupId: id, userId: c.data.id})
                 .$promise.then(function () {
-                    c.editMode.exit();
-                    c.confirmPopup.hide();
+                    for(var i=0; i< c.dataCopy.groups.length; i++){
+                        if(c.dataCopy.groups[i].group.id === id+''){
+                            c.dataCopy.groups.splice(i,1);
+                        }
+                    }
+                    confirmPopup.hide();
                 },function(){
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                 })
         };
         c.editMode = {
@@ -121,5 +141,5 @@
 
 
     var app = angular.module('Plunner');
-    app.controller('userController', ['$scope', '$routeParams', '$location', 'mixedContentToArray', 'orgResources', controller]);
+    app.controller('userController', ['$mdDialog','$scope', '$routeParams', '$location', 'mixedContentToArray', 'orgResources', controller]);
 }());
