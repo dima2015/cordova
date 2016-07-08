@@ -220,8 +220,7 @@ var camera = {
             var uri = encodeURI('http://api.plunner.com/employees/planners/groups/'+groupId+'/meetings/'+meetingId+'/image');
             var _this = this;
             var options = new FileUploadOptions();
-            options.fileKey = "data";
-            console.log(camera.camera.image);
+            options.fileKey = "file";
             options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
 
