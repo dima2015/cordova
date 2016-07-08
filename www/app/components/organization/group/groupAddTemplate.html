@@ -39,7 +39,7 @@
                 <h4>Components <span ng-click="groupAddC.moveItems()"  style="cursor: pointer; outline: none; float: right; color:rgb(3,169,244); font-weight: 400">ADD SELECTED MEMBERS</span></h4>
                 <p class="group-add__error-tile" ng-show="groupAddC.addGroup.invalidFields.membersReq">Insert at least one member</p>
                 <p class="group-add__error-tile" ng-show="groupAddC.addGroup.invalidFields.plannerReq">Select one planner</p>
-                <div class="team-create__tile clearfix animated slideInDown" ng-repeat="member in groupAddC.showMembers" >
+                <div class="team-create__tile clearfix" ng-repeat="member in groupAddC.showMembers" >
                     <div>&nbsp;
                     </div>
                     <div>
@@ -57,7 +57,7 @@
                     <li ng-repeat="member in group" id="{{member.id}}">
                         <div>&nbsp;</div>
                         <p>{{member.name}}</p>
-                        <md-icon class="animated bounceIn">check_circle</md-icon>
+                        <md-icon>check_circle</md-icon>
                     </li>
                 </ul>
             </div>

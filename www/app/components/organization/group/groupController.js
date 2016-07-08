@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($routeParams, $location, mixedContentToArray, orgResources, arrayToUrlParams) {
+    var controller = function ($mdDialog,$routeParams, $location, mixedContentToArray, orgResources, arrayToUrlParams) {
 
         var c = this;
         //group id
@@ -8,8 +8,20 @@
         var getUsers = function () {
             orgResources.orgUserInGroup.query({groupId: id, userId: ''}).$promise
                 .then(function (response) {
-                    c.data.members = response;
+                    c.showMembers = response;
+                    c.data.ownUsers = response;
+                    for(var i=0; i< c.data.ownUsers.length; i++){
+                        c.selectedMembers.push({id : c.data.ownUsers[i].id, name: c.data.ownUsers[i].name});
+                    }
                 })
+        };
+        var getAllpossibleUsers = function(){
+            orgResources.orgUser.query({userId: ''}).$promise
+                .then(function (response) {
+                    c.data.users = response;
+                    c.data.members = elaborateUsers(response);
+                });
+
         };
 
         //Gets user info in the context of an organization
@@ -17,95 +29,106 @@
             //restful show
             orgResources.orgGroup.get({groupId: id}).$promise
                 .then(function (response) {
-                    c.data.group.name = response.name;
-                    c.data.group.description = response.description;
-                    c.data.group.id = response.id;
-                    c.data.group.planner_id = response.planner_id;
-                    c.data.group.planner_name = response.planner_name;
-                    //A copy of the retrieved data
-                    //This copy will be used
-                    c.data.groupCopy.name = response.name;
-                    c.data.groupCopy.description = response.description;
+                    c.data.name = response.name;
+                    c.data.description = response.description;
+                    c.planner.id = response.planner_id;
                 });
         };
         c.data = {
-            group: {
-                name: '',
-                description: '',
-                id: ''
-            },
-            members: [],
-            groupCopy: {
-                name: '',
-                description: ''
-            }
+            name : '',
+            description : '',
+            members : [],
+            users : [],
+            ownUsers : []
         };
         c.errors = {
             planner: [],
             info: []
         };
+        c.showMembers = [];
+        c.planner = {
+            id: '',
+            index: ''
+        };
         c.invalidFields = {
-            nameReq: false
+            nameReq: false,
+            descReq : false,
+            membersReq: false,
+            plannerReq: false
         };
-        c.editMode = {
-            flag: false,
-            enter: function () {
-                this.flag = true;
-            },
-            exit: function () {
-                this.flag = false;
-                c.errors.info = [];
-                c.errors.planner = [];
-                c.data.groupCopy.name = c.data.group.name;
-                c.data.groupCopy.description = c.data.group.description;
-                c.invalidFields.nameReq = false;
+        var selectMemberListener = function(){
+            jQuery(document).on('touchend click','.group__users li', function(){
+                var elem = jQuery(this);
+                var checkmark = elem.find('md-icon');
+                var id = elem.attr('id');
+                var index = -1;
+                for(var i=0; i< c.selectedMembers.length; i++){
+                    if(c.selectedMembers[i].id === id+''){
+                        index = i;
+                        break;
+                    }
+                }
+                var name = elem.find('p').text();
+                if(index !== -1){
+                    checkmark.removeAttr('style');
+                    c.selectedMembers.splice(index,1);
+                }
+                else{
+                    checkmark.css('display','block');
+                    c.selectedMembers.push({id : id, name : name});
+                }
+            })
+        };
+        c.makePlunner = function(index, id){
+            c.planner.index = index;
+            c.planner.id = id
+
+        };
+        c.moveItems = function(){
+            c.showMembers = [];
+            c.showMembers = c.selectedMembers;
+            jQuery('.group__users li').find('md-icon').removeAttr('style');
+        };
+        c.showMembers = [];
+        c.selectedMembers = [];
+        var elaborateUsers = function(urs){
+            var targetArray=[];
+            var tmpArray = [];
+            for(var i=0; i<urs.length; i++){
+                if(i%4 === 0){
+                    targetArray.push(tmpArray);
+                    tmpArray = [];
+                }
+                tmpArray.push(urs[i]);
             }
+            if(tmpArray.length !== 0){
+                targetArray.push(tmpArray);
+            }
+            return targetArray;
         };
-        c.confirmPopup = {
+        var confirmPopup = {
             message: '',
             show: function () {
-                jQuery('#authorizationPopup').modal('show');
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
             },
             hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
-            }
-        };
-        c.inChange = false;
-        c.pagination = {
-            user: {
-                pages: 1,
-                currentPage: 1,
-                utilArray: null,
-                startIndex: 0,
-                endIndex: 9,
-                filterString: '0,9',
-                changePage: function (page) {
-                    if (page > this.currentPage) {
-                        this.currentPage = page;
-                        this.startIndex = this.endIndex + 1;
-                        this.endIndex = this.startIndex + 9;
-                        this.filterString = this.startIndex + ',' + this.endIndex;
-                    }
-                    else if (page < this.currentPage) {
-                        this.currentPage = page;
-                        this.endIndex = this.startIndex - 1;
-                        this.startIndex = this.endIndex - 9;
-                        this.filterString = this.startIndex + ',' + this.endIndex;
-
-                    }
-
-                }
+                $mdDialog.cancel();
             }
         };
 
         //Delete an employee in the context of an org
         c.delete = function () {
             //restful delete
-            c.confirmPopup.message = "Deleting group";
-            c.confirmPopup.show();
+            confirmPopup.message = "Deleting group";
+            confirmPopup.show();
             orgResources.orgGroup.remove({groupId: id}).$promise
                 .then(function () {
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                     $location.path('/organization')
                 }, function(){
                     c.confirmPopup.hide();
@@ -137,31 +160,84 @@
             }
         };
         //Update user info
-        c.updateInfo = function () {
+        c.update = function () {
             //Checks the validity status of input fields
-            c.invalidFields.nameReq = (c.data.groupCopy.name === '');
+            c.invalidFields.nameReq = (c.data.name === '');
+            c.invalidFields.descReq = (c.data.description === '');
+            c.invalidFields.membersReq = (c.showMembers.length === 0);
+            c.invalidFields.plannerReq = c.planner.id === '';
 
-            if (!c.invalidFields.nameReq) {
-                c.confirmPopup.message = "Saving changes";
-                c.confirmPopup.show();
+            if (!c.invalidFields.nameReq && !c.invalidFields.descReq && !c.invalidFields.membersReq && !c.invalidFields.plannerReq) {
+                confirmPopup.message = "Saving changes";
+                confirmPopup.show();
                 orgResources.orgGroup.update({groupId: id}, jQuery.param(
                     {
-                        name: c.data.groupCopy.name,
-                        description: c.data.groupCopy.description,
-                        planner_id: c.data.group.planner_id
+                        name: c.data.name,
+                        description: c.data.description,
+                        planner_id: c.planner.id
                     })).$promise
                     .then(function () {
-                        getGroupInfo();
-                        c.editMode.exit();
-                        c.confirmPopup.hide();
+                        updateMembers();
                     }, function (response) {
                         if (response.status === 422) {
                             mixedContentToArray.process(response.data, c.errors.info, true);
-                            c.confirmPopup.hide();
+                            confirmPopup.hide();
                         }
-                        c.confirmPopup.hide();
+                        confirmPopup.hide();
                     });
             }
+        };
+        var updateMembers = function(){
+            var bool = true;
+            var firstId=[],secondId=[],finalId = [];
+            for(var i=0; i < c.showMembers.length; i++){
+                firstId.push(c.showMembers[i].id);
+            }
+            for(i=0; i<c.data.ownUsers.length; i++){
+                secondId.push(c.data.ownUsers[i].id);
+            }
+            for(i=0; i < firstId.length; i++){
+                for(var j=0; j< secondId.length; j++){
+                    if(firstId[i] === secondId[j]){
+                        bool = false;
+                        break;
+                    }
+                }
+                if(bool){
+                    finalId.push(firstId[i])
+                }
+                bool = true;
+
+            }
+            if(finalId.length !== 0){
+                c.data.name = '';
+                c.data.description = '';
+                c.data.members.length = 0;
+                c.data.users.length = 0;
+                c.data.ownUsers.length = 0;
+                orgResources.orgUserInGroup.save({
+                    groupId: id,
+                    userId: ''
+                }, arrayToUrlParams.process('id', finalId)).$promise
+                    .then(function () {
+                        getGroupInfo()
+                        getUsers();
+                        confirmPopup.hide();
+                    }, function (response) {
+                        //Puts relevant errors in array
+                        if (response.status === 422) {
+                            mixedContentToArray.process(response.data, c.errors.planner, true);
+                            confirmPopup.hide();
+
+                        }
+                        confirmPopup.hide();
+                    })
+            }
+            else{
+                getGroupInfo();
+                confirmPopup.hide();
+            }
+
         };
         c.changePlanner = {
             errors: [],
@@ -230,7 +306,6 @@
             }
 
         };
-        c.allUsers = [];
         c.addToGroup = {
             errors: [],
             members: [],
@@ -313,25 +388,30 @@
 
             }
         };
-        c.deleteFromGroup = function (userId) {
-            c.confirmPopup.message = "Removing user";
-            c.confirmPopup.show();
+        c.removeMember = function (userId) {
+            c.showMembers = [];
+            c.data.ownUsers = [];
+            c.selectedMembers = [];
+            confirmPopup.message = "Removing member";
+            confirmPopup.show();
+
             orgResources.orgUserInGroup.remove({groupId: id, userId: userId}).$promise
                 .then(
                 function () {
                     getUsers();
-                    c.editMode.exit();
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                 }, function(){
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                 }
             )
         };
 
         getGroupInfo();
         getUsers();
+        getAllpossibleUsers();
+        selectMemberListener();
 
     };
     var app = angular.module('Plunner');
-    app.controller('groupController', ['$routeParams', '$location', 'mixedContentToArray', 'orgResources', 'arrayToUrlParams', controller]);
+    app.controller('groupController', ['$mdDialog','$routeParams', '$location', 'mixedContentToArray', 'orgResources', 'arrayToUrlParams', controller]);
 }());
