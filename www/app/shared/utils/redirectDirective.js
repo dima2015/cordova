@@ -8,7 +8,7 @@
                 $scope.reference = '';
                 $scope.advice = 'go back to dashboard';
                 this.decideRedirect = function () {
-                    var token = $cookies.get('auth_token');
+                    var token = window.localStorage['auth_token'];
                     var mode;
 
                     if(token !== undefined){

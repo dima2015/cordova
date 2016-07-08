@@ -65,8 +65,8 @@ var app = {
 
             push.on('error', function (e) {
                 // e.message
-                console.log(e);
-                alert(e);
+                //console.log(e);
+                //alert(e);
             });
 /*
         navigator.camera.getPicture(onSuccess, onFail, {});
@@ -188,7 +188,7 @@ var camera = {
             options.mimeType = "image/jpg";
 
             console.log(getCookie('auth_token'));
-            var headers = { 'Authorization': 'Bearer '+getCookie('auth_token')};
+            var headers = { 'Authorization': 'Bearer '+window.localStorage['auth_token']};
 
             options.headers = headers;
 
