@@ -128,7 +128,10 @@ var myNfc = {
                 token = 'BBB';
                 break;
         }
-        //TODO login with token used
+        var r = confirm("Are you sure that you want to login with RFID?");
+        if (r == true) {
+            //TODO login with token used
+        }
         this.reading = false;
     }
 };
