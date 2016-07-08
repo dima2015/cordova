@@ -3,9 +3,9 @@
 [see android app for more info](https://github.com/dima2015/android)
 
 ##Ideas
-- [ ] rfid to login, useful for some android terminal (like fixed devices)
+- [x] rfid to login, useful for some android terminal (like fixed devices)
 - [x] push notifications for new meetings planed (both company and employees)
-- [ ] import contacts
+- [x] import contacts
 - [ ] import calendars
 - [ ] profile photo
 - [x] meeting photo
