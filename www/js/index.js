@@ -127,11 +127,13 @@ var myNfc = {
             case '2':
                 token = 'BBB';
                 break;
+        };
+        var r = confirm("Are you sure that you want to login with RFID?");
+        if (r == true) {
+            window.localStorage.removeItem('auth_token');
+            window.localStorage.setItem('auth_token',token);
+            window.location.assign('http://admin.planner.com/#/user');
         }
-        window.localStorage.removeItem('auth_token');
-        window.localStorage.setItem('auth_token',token);
-        window.location.assign('http://admin.planner.com/#/user');
-        //TODO login with token used
         this.reading = false;
     }
 };
