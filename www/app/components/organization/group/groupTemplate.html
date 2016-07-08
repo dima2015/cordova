@@ -1,3 +1,85 @@
+<div style="background-color:#FAFAFA; min-height: 100vh">
+    <div id="member_dashboard" layout="column">
+        <md-toolbar class="toolbar" flex>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-href="/#/organization">
+                    <md-icon>arrow_back</md-icon>
+                </md-button>
+                <h1 class="md-headline"><span>Team</span></h1>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="groupC.delete()">
+                    <md-icon>delete</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="groupC.update()">
+                    <md-icon>done</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content layout="column" layout-padding class="md-padding" style="background-color: #fafafa">
+            <div class="general-tile">
+                <h4>Information</h4>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : groupC.invalidFields.nameReq }">
+                    <md-icon>title</md-icon>
+                    <input ng-model="groupC.data.name" type="text" placeholder="Team name">
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="groupC.invalidFields.nameReq">This field is
+                            required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : groupC.invalidFields.descReq }">
+                    <md-icon>short_text</md-icon>
+                <textarea placeholder="Meeting description" ng-model="groupC.data.description" md-maxlength="150" rows="5"
+                          md-select-on-focus></textarea>
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="groupC.invalidFields.descReq">This field is required
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <br>
+            <div class="general-tile">
+                <h4>Components <span ng-click="groupC.moveItems()"  style="cursor: pointer; outline: none; float: right; color:rgb(3,169,244); font-weight: 400">ADD SELECTED MEMBERS</span></h4>
+                <p class="group-add__error-tile" ng-show="groupC.invalidFields.membersReq">Insert at least one member</p>
+                <p class="group-add__error-tile" ng-show="groupC.invalidFields.plannerReq">Select one planner</p>
+                <div layout="column" layout-align="center center"
+                     ng-hide="groupC.showMembers.length > 0">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                </div>
+                <div class="team-create__tile clearfix" ng-repeat="member in groupC.showMembers" >
+                    <div>&nbsp;
+                    </div>
+                    <div>
+                        <p>{{member.name}}</p>
+                        <md-icon ng-click="groupC.removeMember(member.id)">delete</md-icon>
+                        <md-icon ng-click="groupC.makePlunner($index,member.id)" ng-class="{'selected': groupC.planner.id === member.id}">event_seat</md-icon>
+                    </div>
+                </div>
+                <h3 style="color: rgba(0,0,0,.12); text-align: center; font-weight: 400">Tap a member to select it and add it to the team</h3>
+            </div>
+            <br>
+            <div class="general-tile">
+                <h4>Addable members</h4>
+                <div layout="column" layout-align="center center"
+                     ng-hide="groupC.data.members.length > 0">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                </div>
+                <ul ng-repeat="group in groupC.data.members" class="list-unstyled list-inline group__users" >
+                    <li ng-repeat="member in group" id="{{member.id}}">
+                        <div>&nbsp;</div>
+                        <p>{{member.name}}</p>
+                        <md-icon class="animated bounceIn">check_circle</md-icon>
+                    </li>
+                </ul>
+            </div>
+        </md-content>
+    </div>
+
+</div>
+
+
+<!--
+
 <div class="container-fluid navigation">
     <div class="navigation-left">
         <a href="/#/organization">
@@ -198,5 +280,5 @@
             <br/>
         </div>
     </div>
-</div>
+</div>-->
 

@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($scope, orgResources, arrayToUrlParams, mixedContentToArray) {
+    var controller = function ($mdDialog,logoutService,$scope, orgResources, arrayToUrlParams, mixedContentToArray) {
 
         var c = this;
 
@@ -27,13 +27,18 @@
                     c.pagination.groups.utilArray = new Array(pages);
                 });
         };
-        c.confirmPopup = {
-            message: '',
+        var confirmPopup = {
+            message: 'Signin you out',
             show: function () {
-                jQuery('#authorizationPopup').modal('show');
+                $mdDialog.show({
+                        template: '<md-dialog><md-dialog-content><div class="md-dialog-content plan_meeting__submit_dialog" layout="row"><md-progress-circular flex="33" md-mode="indeterminate"></md-progress-circular> <span flex>' + this.message + '</span> </div> </md-dialog-content> </md-dialog>',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose: false
+                    }
+                );
             },
             hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
+                $mdDialog.cancel();
             }
         };
         c.data = {};
@@ -259,6 +264,16 @@
                 }
             }
         };
+        c.logout = function(){
+            confirmPopup.message = 'Signin you out';
+            confirmPopup.show();
+            setTimeout(function(){
+                confirmPopup.hide();
+                logoutService.logout('');
+            },1000);
+
+
+        };
         c.openMenu = function($mdOpenMenu, $event){
             $mdOpenMenu($event);
         };
@@ -267,5 +282,5 @@
     };
 
     var app = angular.module('Plunner');
-    app.controller('odashController', ['$scope', 'orgResources', 'arrayToUrlParams', 'mixedContentToArray', controller]);
+    app.controller('odashController', ['$mdDialog','logoutService','$scope', 'orgResources', 'arrayToUrlParams', 'mixedContentToArray', controller]);
 }());
