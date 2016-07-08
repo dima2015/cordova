@@ -29,7 +29,7 @@
                             }
                             //all requests need to specify a jwt except for the ones in the excludedUrlFromToken array
                             if (excludedUrlFromToken.indexOf(config.url) === -1) {
-                                var token = $cookies.get('auth_token');
+                                var token = window.localStorage['auth_token'];
                                 /*console.log("Url "+config.url);
                                  console.log('Appending token to request '+token);*/
                                 if (token) {
@@ -46,25 +46,21 @@
                             //Gets the refreshed jwt
                             var token, exp;
                             if (response.config.url === apiDomain + '/companies/auth/login' || response.config.url === apiDomain + '/employees/auth/login') {
-                                exp = jwt_decode(response.data.token).exp;
                                 token = 'Bearer ' + response.data.token;
                             }
                             else {
                                 token = response.headers('Authorization');
-                                exp = jwt_decode(token).exp;
                             }
-                            if ($cookies.get('auth_token')) {
-                                $cookies.remove('auth_token');
+                            if (window.localStorage['auth_token']) {
+                                window.localStorage.removeItem('auth_token');
                             }
-                            $cookies.put('auth_token', token, {
-                                expires: new Date(exp * 1000)
-                            });
+                            window.localStorage.setItem('auth_token', token);
                         }
                         return response;
                     },
                     responseError: function (response) {
                         if (response.status === 401) {
-                            $cookies.remove('auth_token');
+                            window.localStorage.removeItem('auth_token');
                             $location.path('/401');
                         }
                         else if (response.status === 403) {

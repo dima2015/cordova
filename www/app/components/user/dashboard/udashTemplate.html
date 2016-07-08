@@ -11,20 +11,20 @@
                     </md-button>
                     <md-menu-content width="2">
                         <md-menu-item ng-if="udashC.userInfo.is_planner">
-                            <md-button ng-href="/#/user/newmeeting/_">
+                            <md-button ng-href="#/user/newmeeting/_">
                                 <md-icon>group_work</md-icon>
                                 <span>Plan meeting</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-divider ng-if="udashC.userInfo.is_planner"></md-menu-divider>
                         <md-menu-item>
-                            <md-button ng-href="/#/user/schedules/compose/_">
+                            <md-button ng-href="#/user/schedules/compose/_">
                                 <md-icon>perm_contact_calendar</md-icon>
                                 <span>Add schedule</span>
                             </md-button>
                         </md-menu-item>
                         <md-menu-item>
-                            <md-button ng-href="/#/member/schedules/import">
+                            <md-button ng-href="#/member/schedules/import">
                                 <md-icon>import_export</md-icon>
                                 Import schedule
                             </md-button>
@@ -38,7 +38,7 @@
                     </md-button>
                     <md-menu-content width="2">
                         <md-menu-item>
-                            <md-button ng-href="/#/user/profile">
+                            <md-button ng-href="#/user/profile">
                                 <md-icon>account_circle</md-icon>
                                 <span>Your settings</span>
                             </md-button>
@@ -77,7 +77,7 @@
 
                 <md-content layout-padding class="udash__content">
                     <div id="udash__to_be_planned-meetings" ng-show="udashC.viewSections.meetings.to_be_planned">
-                        <a ng-href="/#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0"
+                        <a ng-href="#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0"
                            ng-repeat="meeting in udashC.meetings.toBePlanned | filter: {title : filterTBPMeetings}">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     <div id="udash__planned-meetings" ng-show="udashC.viewSections.meetings.planned">
-                        <a ng-href="/#/meeting/{{meeting.groupId}}/{{meeting.id}}"
+                        <a ng-href="#/meeting/{{meeting.groupId}}/{{meeting.id}}"
                            ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div id="udash__managed-meetings" ng-show="udashC.viewSections.meetings.managed">
-                        <a ng-href="/#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
+                        <a ng-href="#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
                            ng-repeat="meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
@@ -190,7 +190,7 @@
                 </div>
                 <md-content class="udash__content md-padding" layout-padding>
                     <div id="udash__composed-schedules" ng-show="udashC.viewSections.schedules.composed">
-                        <a ng-href="/#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}"
+                        <a ng-href="#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}"
                            ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}">
                             <div class="general-tile general-tile--schedule clearfix">
                                 <h4>Schedule</h4>
@@ -217,7 +217,7 @@
 
                     </div>
                     <div id="udash__imported-schedules" ng-show="udashC.viewSections.schedules.imported">
-                        <a ng-href="/#/member/schedule/{{schedule.id}}"
+                        <a ng-href="#/member/schedule/{{schedule.id}}"
                            ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}">
                             <div class="general-tile general-tile--schedule clearfix">
                                 <h4>Schedule</h4>

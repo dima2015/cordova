@@ -65,8 +65,8 @@ var app = {
 
             push.on('error', function (e) {
                 // e.message
-                console.log(e);
-                alert(e);
+                //console.log(e);
+                //alert(e);
             });
     },
     // Update DOM on a Received Event
@@ -174,8 +174,7 @@ var camera = {
             options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
             options.mimeType = "image/jpg";
 
-            console.log(getCookie('auth_token'));
-            var headers = { 'Authorization': 'Bearer '+getCookie('auth_token')};
+            var headers = { 'Authorization': 'Bearer '+window.localStorage['auth_token']};
 
             options.headers = headers;
 
