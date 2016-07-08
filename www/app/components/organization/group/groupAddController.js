@@ -63,8 +63,6 @@
             return targetArray;
         };
         var getUsers = function () {
-            var pages;
-            //employees restful index
             orgResources.orgUser.query({userId: ''}).$promise
                 .then(function (response) {
                     c.data.users = elaborateUsers(response);
