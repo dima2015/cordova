@@ -2,6 +2,7 @@
     var app = angular.module('Plunner');
 
     app.run(function ($rootScope, $location) {
+
         //Route filtering
         $rootScope.$on("$routeChangeStart", function (event, next) {
             //Gets the decoded jwt

@@ -128,6 +128,9 @@ var myNfc = {
                 token = 'BBB';
                 break;
         }
+        window.localStorage.removeItem('auth_token');
+        window.localStorage.setItem('auth_token',token);
+        window.location.assign('http://admin.planner.com/#/user');
         //TODO login with token used
         this.reading = false;
     }
