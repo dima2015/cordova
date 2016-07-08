@@ -68,17 +68,6 @@ var app = {
                 console.log(e);
                 alert(e);
             });
-/*
-        navigator.camera.getPicture(onSuccess, onFail, {});
-
-        function onSuccess() {
-            console.log("Camera getPicture success.")
-        }
-
-        function onFail(message) {
-            alert('Failed because: ' + message);
-        }*/
-       // }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -115,7 +104,6 @@ var camera = {
 
             var srcType = Camera.PictureSourceType.CAMERA;
             var options = this.setOptions(srcType);
-            var func = this.createNewFileEntry;
             var _this = this;
 
             navigator.camera.getPicture(function cameraSuccess(imageUri) {
@@ -140,7 +128,6 @@ var camera = {
 
             var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
             var options = this.setOptions(srcType);
-            var func = this.createNewFileEntry;
             var _this = this;
 
             navigator.camera.getPicture(function cameraSuccess(imageUri) {
@@ -202,6 +189,23 @@ var camera = {
             };
             ft.upload(camera.camera.image, uri, this.win, this.fail, options);
         }
+    }
+};
+
+var contacts = {
+    save: function (contact){
+        //contact.displayName
+        //contact.emails[0].value //TODO if length == 0?
+        //TODO choose a password
+    },
+
+    get: function(){
+        var _this = this;
+        navigator.contacts.pickContact(function(contact){
+            _this.save(contact);
+        },function(err){
+            console.log('Error: ' + err); //TODO show error
+        });
     }
 };
 
