@@ -119,6 +119,7 @@ var myNfc = {
     },
 
     login: function(id){
+        var _this = this;
         var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6InRydWUiLCJzdWIiOiIzNCIsImlzcyI6Imh0dHA6XC9cL2FwaS5wbHVubmVyLmNvbVwvZW1wbG95ZWVzXC9tZWV0aW5ncyIsImlhdCI6IjE0Njc5OTU4MTIiLCJleHAiOiIxNDcwNTk1MTAxIiwibmJmIjoiMTQ2ODAwMzEwMSIsImp0aSI6IjM2MTFiZmU0NjUwNGQ0NTgxYzNlZGUzNTAyNzMwNjgxIn0.FffOTgpiaz_iOtWjbHaYcoFPafQoCsoE0TaA65s15Ac';
         switch(id){
             case '1':
@@ -132,10 +133,10 @@ var myNfc = {
         if (r == true) {
             window.localStorage.removeItem('auth_token');
             window.localStorage.setItem('auth_token',token);
-            window.location.assign('http://admin.plunner.com/#/user');
+            window.location.hash = '#/user';
         }
-        this.reading = false;
-    }
+        setTimeout(function(){_this.reading = false;}, 100); //to avoid a train of requests (there is a queue of requests to discard)
+    },
 };
 
 var camera = {
