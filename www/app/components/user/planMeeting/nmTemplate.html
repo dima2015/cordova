@@ -19,6 +19,20 @@
             <p style="margin: 0" ng-repeat="error in nmC.errors"><i class="material-icons">warning</i>&nbsp;&nbsp;{{error}}
             </p>
         </section>
+        <div>
+            <ul class="list-inline list-unstyled photo_ops" >
+                <li>
+                    <md-icon ng-click="nmC.openCamera()">camera_alt</md-icon>
+                </li>
+                <li>
+                    <md-icon ng-click="nmC.openGallery()">crop_original</md-icon>
+                </li>
+            </ul>
+        </div>
+        <div class="md__img">
+            <img src="img/meetings.jpg" alt="" >
+            <img style="width: 103px; height: 103px" id="altImg"/>
+        </div>
         <section class="plan_meeting__information">
             <div class="general-tile">
                 <h4>Information</h4>

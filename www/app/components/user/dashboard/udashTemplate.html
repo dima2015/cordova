@@ -82,9 +82,9 @@
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
                                 <div class="clearfix">
-                                    <img src="img/meetings.jpg" alt="">
+                                    <img ng-src="http://api.plunner.com/noauth/meetings/{{meeting.id}}/image" alt="">
                                     <div>
-                                        <h1>{{meeting.title}}</h1>
+                                        <h2>{{meeting.title}}</h2>
                                         <p>{{meeting.description}}</p>
                                         <div class="clearfix general-tile__sub-info">
                                             <div>
@@ -115,7 +115,7 @@
                                 <div class="clearfix">
                                     <img src="img/meetings.jpg" alt="">
                                     <div>
-                                        <h1>{{meeting.title}}</h1>
+                                        <h2>{{meeting.title}}</h2>
                                         <p>{{meeting.description}}</p>
                                         <p>{{meeting.start_time}}</p>
                                         <div class="clearfix general-tile__sub-info">
@@ -143,7 +143,7 @@
                         <a ng-href="#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
                            ng-repeat="meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
                             <div class="general-tile general-tile--meeting clearfix">
-                                <h4>Meeting</h4>
+                                <h2>Meeting</h2>
                                 <div class="clearfix">
                                     <img src="img/meetings.jpg" alt="">
                                     <div>

@@ -20,6 +20,7 @@
 
 
 .md__img
+  position: relative
   width: 128px
   height: 128px
   margin: 30px auto
@@ -27,8 +28,15 @@
   background-color: white
   border-radius: 50%
 
+  div
+    position: absolute
+    top: 0
+    right: 0
+
   img
     margin-top: 13px
+    &:last-child
+      border-radius: 50%
 .md__text
   h4
     padding: 0
@@ -64,3 +72,18 @@
 
   h2
     color: $colorPrimary
+
+
+.photo_ops
+  margin: 0
+  float: right
+  li
+    margin-right: 20px
+  md-icon
+    cursor: pointer
+    font-size: 30px
+    color: $grayPrimary
+    outline: none
+
+    &:hover
+      color: $colorPrimary

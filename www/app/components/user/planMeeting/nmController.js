@@ -238,6 +238,114 @@
 
             })
         };
+        var camera = {
+            camera: {
+                image: null,
+                setOptions: function (srcType) {
+                    var options = {
+                        // Some common settings are 20, 50, and 100
+                        quality: 50,
+                        destinationType: Camera.DestinationType.FILE_URI,
+                        // In this app, dynamically set the picture source, Camera or photo gallery
+                        sourceType: srcType,
+                        encodingType: Camera.EncodingType.JPEG,
+                        mediaType: Camera.MediaType.PICTURE,
+                        allowEdit: true,
+                        correctOrientation: true  //Corrects Android orientation quirks
+                    };
+                    return options;
+                },
+
+                openCamera: function () {
+
+                    var srcType = Camera.PictureSourceType.CAMERA;
+                    var options = this.setOptions(srcType);
+                    var _this = this;
+
+                    navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+                        _this.image = imageUri;
+                        _this.displayImage();
+
+                    }, function cameraError(error) {
+                        console.debug("Unable to obtain picture: " + error, "app");
+
+                    }, options);
+                },
+
+                displayImage: function () {
+                    jQuery('.md__img img:first-child').hide();
+                    var elem = document.getElementById('altImg');
+                    elem.src = this.image;
+                    c.changedImg = true;
+                },
+
+                openFilePicker: function (selection) {
+
+                    var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+                    var options = this.setOptions(srcType);
+                    var _this = this;
+
+                    navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+                        _this.image = imageUri;
+                        _this.displayImage();
+
+                    }, function cameraError(error) {
+                        console.debug("Unable to obtain picture: " + error, "app");
+
+                    }, options);
+                },
+            },
+
+            uploader: {
+                loadingStatus:{
+                    percentage: 0.0,
+                    setPercentage: function(percentage){
+                        this.percentage = percentage;
+                    },
+                    increment: function(){
+                        //TODO
+                    }
+
+                },
+                win: function (r) {
+                    console.log("Code = " + r.responseCode);
+                    console.log("Response = " + r.response);
+                    console.log("Sent = " + r.bytesSent);
+                },
+
+                fail: function (error) {
+                    alert("An error has occurred: Code = " + error.code);
+                    console.log("upload error source " + error.source);
+                    console.log("upload error target " + error.target);
+                },
+
+                upload: function (groupId, meetingId) {
+                    var uri = encodeURI('http://api.plunner.com/employees/planners/groups/'+groupId+'/meetings/'+meetingId+'/image');
+                    var _this = this;
+                    var options = new FileUploadOptions();
+                    options.fileKey = "file";
+                    console.log(camera.camera.image);
+                    options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
+                    options.mimeType = "image/jpg";
+
+                    var headers = { 'Authorization': 'Bearer '+window.localStorage['auth_token']};
+
+                    options.headers = headers;
+
+                    var ft = new FileTransfer();
+                    ft.onprogress = function (progressEvent) {
+                        if (progressEvent.lengthComputable) {
+                            _this.loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+                        } else {
+                            _this.loadingStatus.increment();
+                        }
+                    };
+                    ft.upload(camera.camera.image, uri, this.win, this.fail, options);
+                }
+            }
+        };
         var calendarConfig = {
             height: 400,
             firstDay: 1,
@@ -344,6 +452,7 @@
                     confirmPopup.hide();
                 })
         };
+        c.changedImg = false;
         c.errors = [];
         c.data = {
             meeting: {
@@ -396,6 +505,12 @@
                 }
 
             }
+        };
+        c.openCamera = function(){
+            camera.camera.openCamera();
+        };
+        c.openGallery = function(){
+            camera.camera.openFilePicker();
         };
 
         c.checkedGroups = [];
