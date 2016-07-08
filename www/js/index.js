@@ -94,92 +94,128 @@ var app = {
 };
 
 var camera = {
-    setOptions: function(srcType) {
-        var options = {
-            // Some common settings are 20, 50, and 100
-            quality: 50,
-            destinationType: Camera.DestinationType.FILE_URI,
-            // In this app, dynamically set the picture source, Camera or photo gallery
-            sourceType: srcType,
-            encodingType: Camera.EncodingType.JPEG,
-            mediaType: Camera.MediaType.PICTURE,
-            allowEdit: true,
-            correctOrientation: true  //Corrects Android orientation quirks
+    camera: {
+        image: null,
+        setOptions: function (srcType) {
+            var options = {
+                // Some common settings are 20, 50, and 100
+                quality: 50,
+                destinationType: Camera.DestinationType.FILE_URI,
+                // In this app, dynamically set the picture source, Camera or photo gallery
+                sourceType: srcType,
+                encodingType: Camera.EncodingType.JPEG,
+                mediaType: Camera.MediaType.PICTURE,
+                allowEdit: true,
+                correctOrientation: true  //Corrects Android orientation quirks
+            }
+            return options;
+        },
+
+        openCamera: function (selection) {
+
+            var srcType = Camera.PictureSourceType.CAMERA;
+            var options = this.setOptions(srcType);
+            var func = this.createNewFileEntry;
+            var _this = this;
+
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+                _this.image = imageUri;
+                _this.displayImage();
+
+            }, function cameraError(error) {
+                console.debug("Unable to obtain picture: " + error, "app");
+
+            }, options);
+        },
+
+        displayImage: function () {
+
+            var elem = document.getElementById('imageFile');
+            document.getElementById('upload').disabled = false;
+            elem.src = this.image;
+        },
+
+        openFilePicker: function (selection) {
+
+            var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+            var options = this.setOptions(srcType);
+            var func = this.createNewFileEntry;
+            var _this = this;
+
+            navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+                _this.image = imageUri;
+                _this.displayImage();
+
+            }, function cameraError(error) {
+                console.debug("Unable to obtain picture: " + error, "app");
+
+            }, options);
+        },
+    },
+
+    uploader: {
+        loadingStatus:{
+            percentage: 0.0,
+            setPercentage: function(percentage){
+                this.percentage = percentage;
+            },
+            increment: function(){
+                //TODO
+            }
+
+        },
+        win: function (r) {
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+        },
+
+        fail: function (error) {
+            alert("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        },
+
+        upload: function (groupId, meetingId) {
+            var uri = encodeURI('http://api.plunner.com/employees/planners/groups/'+groupId+'/meetings/'+meetingId+'/image');
+            var _this = this;
+            var options = new FileUploadOptions();
+            options.fileKey = "file";
+            console.log(camera.camera.image);
+            options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
+            options.mimeType = "image/jpg";
+
+            console.log(getCookie('auth_token'));
+            var headers = { 'Authorization': 'Bearer '+getCookie('auth_token')};
+
+            options.headers = headers;
+
+            var ft = new FileTransfer();
+            ft.onprogress = function (progressEvent) {
+                if (progressEvent.lengthComputable) {
+                    _this.loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+                } else {
+                    _this.loadingStatus.increment();
+                }
+            };
+            ft.upload(camera.camera.image, uri, this.win, this.fail, options);
         }
-        return options;
-    },
-
-    openCamera: function (selection) {
-
-        var srcType = Camera.PictureSourceType.CAMERA;
-        var options = this.setOptions(srcType);
-        var func = this.createNewFileEntry;
-        var _this = this;
-
-        navigator.camera.getPicture(function cameraSuccess(imageUri) {
-
-            _this.displayImage(imageUri);
-            // You may choose to copy the picture, save it somewhere, or upload.
-            //func(imageUri);
-
-        }, function cameraError(error) {
-            console.debug("Unable to obtain picture: " + error, "app");
-
-        }, options);
-    },
-
-    displayImage: function (imgUri) {
-
-        var elem = document.getElementById('imageFile');
-        elem.src = imgUri;
-    },
-
-    openFilePicker: function(selection) {
-
-        var srcType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
-        var options = this.setOptions(srcType);
-        var func = this.createNewFileEntry;
-        var _this = this;
-
-        navigator.camera.getPicture(function cameraSuccess(imageUri) {
-
-            // Do something
-            _this.displayImage(imageUri);
-
-        }, function cameraError(error) {
-            console.debug("Unable to obtain picture: " + error, "app");
-
-        }, options);
-    },
-
-    getFileEntry: function (imgUri) {
-        window.resolveLocalFileSystemURL(imgUri, function success(fileEntry) {
-
-            // Do something with the FileEntry object, like write to it, upload it, etc.
-            // writeFile(fileEntry, imgUri);
-            console.log("got file: " + fileEntry.fullPath);
-            // displayFileData(fileEntry.nativeURL, "Native URL");
-
-        }, function () {
-            // If don't get the FileEntry (which may happen when testing
-            // on some emulators), copy to a new FileEntry.
-            this.createNewFileEntry(imgUri);
-        });
-    },
-
-    createNewFileEntry: function (imgUri) {
-        window.resolveLocalFileSystemURL(cordova.file.cacheDirectory, function success(dirEntry) {
-
-            // JPEG file
-            dirEntry.getFile("tempFile.jpeg", { create: true, exclusive: false }, function (fileEntry) {
-
-                // Do something with it, like write to it, upload it, etc.
-                // writeFile(fileEntry, imgUri);
-                console.log("got file: " + fileEntry.fullPath);
-                // displayFileData(fileEntry.fullPath, "File copied to");
-
-            }, onErrorCreateFile);
-
-        }, onErrorResolveUrl);
     }
 };
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
