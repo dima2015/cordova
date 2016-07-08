@@ -4,7 +4,7 @@
 
         return {
             restrict: 'A',
-            controller : ['$routeParams', '$scope','$cookies', function ($routeParams, $scope,$cookies) {
+            controller : ['$routeParams', '$scope', function ($routeParams, $scope) {
                 $scope.reference = '';
                 $scope.advice = 'go back to dashboard';
                 this.decideRedirect = function () {

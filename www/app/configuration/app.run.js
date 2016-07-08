@@ -1,9 +1,9 @@
 (function () {
     var app = angular.module('Plunner');
 
-    app.run(function ($rootScope, $location, $cookies) {
+    app.run(function ($rootScope, $location) {
         //Route filtering
-        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        $rootScope.$on("$routeChangeStart", function (event, next) {
             //Gets the decoded jwt
             var mode, token, path;
             token = window.localStorage['auth_token'];

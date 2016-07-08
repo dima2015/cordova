@@ -46,12 +46,10 @@
                             //Gets the refreshed jwt
                             var token, exp;
                             if (response.config.url === apiDomain + '/companies/auth/login' || response.config.url === apiDomain + '/employees/auth/login') {
-                                exp = jwt_decode(response.data.token).exp;
                                 token = 'Bearer ' + response.data.token;
                             }
                             else {
                                 token = response.headers('Authorization');
-                                exp = jwt_decode(token).exp;
                             }
                             if (window.localStorage['auth_token']) {
                                 window.localStorage.removeItem('auth_token');
