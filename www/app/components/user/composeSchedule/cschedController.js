@@ -303,7 +303,7 @@
             events: false
         };
         c.toolbarTitle = 'Add schedule';
-        processUrl();
+        processUrl();s
         getTimeslots();
     };
     var app = angular.module('Plunner');
