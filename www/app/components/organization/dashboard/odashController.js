@@ -10,9 +10,6 @@
             orgResources.orgUser.query({userId: ''}).$promise
                 .then(function (response) {
                     c.data.users = response;
-                    pages = Math.ceil(c.data.users.length / 10);
-                    c.pagination.user.pages = pages;
-                    c.pagination.user.utilArray = new Array(pages);
                 });
         };
         //Gets groups
@@ -22,9 +19,6 @@
             orgResources.orgGroup.query({groupId: ''}).$promise
                 .then(function (response) {
                     c.data.groups = response;
-                    pages = Math.ceil(c.data.groups.length / 10);
-                    c.pagination.groups.pages = pages;
-                    c.pagination.groups.utilArray = new Array(pages);
                 });
         };
         var confirmPopup = {
