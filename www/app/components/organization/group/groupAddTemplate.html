@@ -40,7 +40,8 @@
                 <p class="group-add__error-tile" ng-show="groupAddC.addGroup.invalidFields.membersReq">Insert at least one member</p>
                 <p class="group-add__error-tile" ng-show="groupAddC.addGroup.invalidFields.plannerReq">Select one planner</p>
                 <div class="team-create__tile clearfix" ng-repeat="member in groupAddC.showMembers" >
-                    <div>&nbsp;
+                    <div>
+                        <img src="img/user.jpg" alt="">
                     </div>
                     <div>
                         <p>{{member.name}}</p>
@@ -55,7 +56,9 @@
                 <h4>Addable members</h4>
                 <ul ng-repeat="group in groupAddC.data.users" class="list-unstyled list-inline lapalaa" >
                     <li ng-repeat="member in group" id="{{member.id}}">
-                        <div>&nbsp;</div>
+                        <div>
+                            <img src="img/user.jpg" alt="">
+                        </div>
                         <p>{{member.name}}</p>
                         <md-icon>check_circle</md-icon>
                     </li>
