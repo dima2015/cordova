@@ -1,35 +1,38 @@
 <div style="background-color:#FAFAFA; min-height: 100vh">
-<div id="imported_schedule_detail">
-    <md-toolbar class="toolbar" flex>
-        <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" ng-href="/#/user">
-                <md-icon>arrow_back</md-icon>
-            </md-button>
-            <h1 class="md-headline"><span>Imported Schedule</span></h1>
-            <span flex></span>
-            <md-button class="md-icon-button" ng-click="isdC.deleteSchedule()">
-                <md-icon>delete</md-icon>
-            </md-button>
-            <md-button class="md-icon-button" ng-click="isdC.saveSchedule()">
-                <md-icon>done</md-icon>
-            </md-button>
-        </div>
-    </md-toolbar>
-    <md-content layout="column" class="md-padding" layout-padding style="background-color: transparent">
-        <div class="md__img">
-            <img src="assets/img/schedules.png" alt="">
-        </div>
-        <div class="md__text general-tile" layout-padding>
-            <h4>Information</h4>
-            <h1>{{isdC.data.name}}</h1>
-            <p>Last update: {{isdC.data.updated_at}}</p>
-            <div layout="row" style="margin-top: 15px">
-                <span class="md-body-2" ng-class="{'compose_schedule__content__status__text' : isdC.data.enabled === 'ENABLED', 'compose_schedule__content__status__text--disabled' : isdC.data.enabled === 'DISABLED'}" flex>{{isdC.data.enabled}}</span>
-                <div flex="20">
-                    <md-switch style="margin-top: -5px; margin-bottom: 0" ng-true-value="'ENABLED'" ng-false-value="'DISABLED'" ng-model="isdC.data.enabled"></md-switch>
+    <div id="imported_schedule_detail">
+        <md-toolbar class="toolbar" flex>
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" ng-href="/#/user">
+                    <md-icon>arrow_back</md-icon>
+                </md-button>
+                <h1 class="md-headline"><span>Imported Schedule</span></h1>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="isdC.deleteSchedule()">
+                    <md-icon>delete</md-icon>
+                </md-button>
+                <md-button class="md-icon-button" ng-click="isdC.saveSchedule()">
+                    <md-icon>done</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-content layout="column" class="md-padding" layout-padding style="background-color: transparent">
+            <div class="md__img">
+                <img src="img/schedules.png" alt="">
+            </div>
+            <div class="md__text general-tile" layout-padding>
+                <h4>Information</h4>
+                <h1>{{isdC.data.name}}</h1>
+                <p>Last update: {{isdC.data.updated_at}}</p>
+                <div layout="row" style="margin-top: 15px">
+                    <span class="md-body-2"
+                          ng-class="{'compose_schedule__content__status__text' : isdC.data.enabled === 'ENABLED', 'compose_schedule__content__status__text--disabled' : isdC.data.enabled === 'DISABLED'}"
+                          flex>{{isdC.data.enabled}}</span>
+                    <div flex="20">
+                        <md-switch style="margin-top: -5px; margin-bottom: 0" ng-true-value="'ENABLED'"
+                                   ng-false-value="'DISABLED'" ng-model="isdC.data.enabled"></md-switch>
+                    </div>
                 </div>
             </div>
-        </div>
-    </md-content>
-</div>
+        </md-content>
     </div>
+</div>
