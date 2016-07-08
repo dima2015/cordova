@@ -4,11 +4,11 @@
         var c = this;
         //user id
         var id = $routeParams.id;
-        var emptyInvalidFields = function (invalidFields) {
+        /*var emptyInvalidFields = function (invalidFields) {
             for (var key in invalidFields) {
                 invalidFields[key] = false;
             }
-        };
+        };*/
         var manipulateGroups = function(groups){
             var tmpGroups = [];
             for(var i=0; i<groups.length; i++){
@@ -39,15 +39,6 @@
             pwd : '',
             r_pwd: '',
             groups : []
-        };
-        c.confirmPopup = {
-            message: '',
-            show: function () {
-                jQuery('#authorizationPopup').modal('show');
-            },
-            hide: function () {
-                jQuery('#authorizationPopup').modal('hide');
-            }
         };
         //Get user info in the context of an org
         var getInfo = function () {
@@ -120,21 +111,6 @@
                 },function(){
                     confirmPopup.hide();
                 })
-        };
-        c.editMode = {
-            flag: false,
-            enter: function () {
-                this.flag = true;
-            },
-            exit: function () {
-                this.flag = false;
-                c.dataCopy.name = c.data.name;
-                c.dataCopy.email = c.data.email;
-                c.dataCopy.password = '';
-                c.dataCopy.password_confirmation = '';
-                c.update.errors = [];
-                emptyInvalidFields(c.update.invalidFields);
-            }
         };
         getInfo();
     };
