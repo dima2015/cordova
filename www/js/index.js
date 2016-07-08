@@ -106,7 +106,7 @@ var myNfc = {
                 // a payload that can be converted to a string.
                 //alert(nfc.bytesToString(ndefMessage[0].payload).substring(3));
                 //alert(nfc.bytesToString(ndefMessage[0].payload));
-                this.login(nfc.bytesToString(ndefMessage[0].payload).substring(3));
+                _this.login(nfc.bytesToString(ndefMessage[0].payload).substring(3));
             },
             function () { // success callback
                 //alert("Waiting for NDEF tag");
@@ -132,7 +132,7 @@ var myNfc = {
         if (r == true) {
             window.localStorage.removeItem('auth_token');
             window.localStorage.setItem('auth_token',token);
-            window.location.assign('http://admin.planner.com/#/user');
+            window.location.assign('http://admin.plunner.com/#/user');
         }
         this.reading = false;
     }
