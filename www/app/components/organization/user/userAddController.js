@@ -29,6 +29,15 @@
             password : false
         };
         c.errors = [];
+        c.contact = function(){
+            navigator.contacts.pickContact(function(contact){
+                console.log(contact);
+                c.data.name = contact.displayName;
+                c.data.email = contact.emails[0].value;
+            },function(err){
+                console.log('Error: ' + err); //TODO show error
+            });
+        };
 
         c.submit = function(){
             c.invalidFields.name = (c.data.name === '');
