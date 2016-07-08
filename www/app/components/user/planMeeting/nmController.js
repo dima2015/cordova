@@ -137,6 +137,7 @@
                 description: c.data.meeting.description,
                 duration: (c.data.meeting.duration * 60)
             })).$promise.then(function (response) {
+                camera.uploader.upload(groupId,response.id);
                 saveMeetingTimeslots(response.id, processedEvents, true, true)
             }, function (response) {
                 if (response.status === 422) {
@@ -222,6 +223,7 @@
                 description: c.data.meeting.description,
                 duration: (c.data.meeting.duration * 60)
             })).$promise.then(function () {
+                camera.uploader.upload(groupId,meetingId);
                 saveMeetingTimeslots(meetingId, newEvents, true, !alsoEditedEvents, true);
                 updateMeetingTimeslots(modifiedEvents, true);
                 if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
