@@ -61,11 +61,11 @@
         //Delete an user in the context of an org
         c.delete = function () {
             //restful delete
-            c.confirmPopup.message = 'Deleting user';
-            c.confirmPopup.show();
+            confirmPopup.message = 'Deleting user';
+            confirmPopup.show();
             orgResources.orgUser.remove({userId: id}).$promise
                 .then(function () {
-                    c.confirmPopup.hide();
+                    confirmPopup.hide();
                     $location.path('/organization');
 
                 }, function(){

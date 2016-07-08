@@ -7,7 +7,7 @@
                 </md-button>
                 <h1 class="md-headline"><span>Create team</span></h1>
                 <span flex></span>
-                <md-button class="md-icon-button">
+                <md-button class="md-icon-button" ng-click="groupAddC.addGroup.submit()">
                     <md-icon>done</md-icon>
                 </md-button>
             </div>
@@ -15,40 +15,49 @@
         <md-content layout="column" layout-padding class="md-padding" style="background-color: #fafafa">
             <div class="general-tile">
                 <h4>Information</h4>
-                <md-input-container class="md-block" ng-class="{'md-input-invalid' : cschedC.invalidFlags.schedule }">
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : groupAddC.addGroup.invalidFields.nameReq }">
                     <md-icon>title</md-icon>
-                    <input ng-model="cschedC.data.schedule.name" type="text" placeholder="User name">
+                    <input ng-model="groupAddC.data.name" type="text" placeholder="Team name">
                     <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="cschedC.invalidFlags.schedule">This field is
+                        <div class="input_errors__error md-caption" ng-show="groupAddC.addGroup.invalidFields.nameReq">This field is
                             required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : groupAddC.addGroup.invalidFields.descReq }">
+                    <md-icon>short_text</md-icon>
+                <textarea placeholder="Meeting description" ng-model="groupAddC.data.description" md-maxlength="150" rows="5"
+                          md-select-on-focus></textarea>
+                    <div class="input_errors">
+                        <div class="input_errors__error md-caption" ng-show="groupAddC.addGroup.invalidFields.descReq">This field is required
                         </div>
                     </div>
                 </md-input-container>
             </div>
             <br>
             <div class="general-tile">
-                <h4>Components <span ng-hide="groupAddC.selectedMembers.length > 0" style="float: right; color:rgb(3,169,244); font-weight: 400">ADD SELECTED MEMBERS</span></h4>
+                <h4>Components <span ng-click="groupAddC.moveItems()"  style="cursor: pointer; outline: none; float: right; color:rgb(3,169,244); font-weight: 400">ADD SELECTED MEMBERS</span></h4>
+                <p class="group-add__error-tile" ng-show="groupAddC.addGroup.invalidFields.membersReq">Insert at least one member</p>
+                <p class="group-add__error-tile" ng-show="groupAddC.addGroup.invalidFields.plannerReq">Select one planner</p>
+                <div class="team-create__tile clearfix animated slideInDown" ng-repeat="member in groupAddC.showMembers" >
+                    <div>&nbsp;
+                    </div>
+                    <div>
+                        <p>{{member.name}}</p>
+                        <md-icon ng-click="groupAddC.removeMember($index)">delete</md-icon>
+                        <md-icon ng-click="groupAddC.makePlunner($index,member.id)" ng-class="{'selected': (groupAddC.addGroup.planner.index === $index) }">event_seat</md-icon>
+                    </div>
+                </div>
                 <h3 style="color: rgba(0,0,0,.12); text-align: center; font-weight: 400">Tap a member to select it and add it to the team</h3>
             </div>
             <br>
             <div class="general-tile">
                 <h4>Addable members</h4>
-                <ul class="list-unstyled list-inline lapalaa">
-                    <li id="1">
-                        <div style="width: 70px; height: 70px; background-color: red"></div>
-                        <p>Name</p>
-                        <p>Surname</p>
-                        <md-icon>check_circle</md-icon>
-                    </li>
-                    <li id="2">
-                        <div style="width: 70px; height: 70px; background-color: red"></div>
-                        <p>Name</p>
-                        <p>Surname</p>
-                    </li>
-                    <li id="3">
-                        <div style="width: 70px; height: 70px; background-color: red"></div>
-                        <p>Name</p>
-                        <p>Surname</p>
+                <ul ng-repeat="group in groupAddC.data.users" class="list-unstyled list-inline lapalaa" >
+                    <li ng-repeat="member in group" id="{{member.id}}">
+                        <div>&nbsp;</div>
+                        <p>{{member.name}}</p>
+                        <md-icon class="animated bounceIn">check_circle</md-icon>
                     </li>
                 </ul>
             </div>
