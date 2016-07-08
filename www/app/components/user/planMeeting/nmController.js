@@ -333,7 +333,7 @@
                     options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
                     options.mimeType = "image/jpg";
 
-                    var headers = { 'Authorization': 'Bearer '+window.localStorage['auth_token']};
+                    var headers = { 'Authorization': window.localStorage['auth_token']};
 
                     options.headers = headers;
 

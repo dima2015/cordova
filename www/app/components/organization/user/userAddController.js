@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($mdDialog, $location, orgResources) {
+    var controller = function ($mdDialog,$scope, $location, orgResources) {
 
         var c = this;
         var emailRegex =/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -31,9 +31,14 @@
         c.errors = [];
         c.contact = function(){
             navigator.contacts.pickContact(function(contact){
-                console.log(contact);
-                c.data.name = contact.displayName;
-                c.data.email = contact.emails[0].value;
+                console.log(JSON.stringify(contact));
+                $scope.$apply(function(){
+                    $scope.userAddC.data.name = contact.displayName;
+                    if(contact.emails != null){
+                        c.data.email = contact.emails[0].value;
+                    }
+                });
+
             },function(err){
                 console.log('Error: ' + err); //TODO show error
             });
@@ -67,5 +72,5 @@
     };
 
     var app = angular.module('Plunner');
-    app.controller('userAddController', ['$mdDialog','$location','orgResources', controller]);
+    app.controller('userAddController', ['$mdDialog','$scope','$location','orgResources', controller]);
 }());
