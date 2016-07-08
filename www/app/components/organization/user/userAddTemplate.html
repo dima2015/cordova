@@ -15,28 +15,28 @@
         <md-content layout="column" layout-padding class="md-padding" style="background-color: #fafafa">
             <div class="general-tile">
                 <h4>Information</h4>
-                <md-input-container class="md-block" ng-class="{'md-input-invalid' : userAddC.invalidFlags.name}">
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : userAddC.invalidFields.name}">
                     <md-icon>person</md-icon>
                     <input ng-model="userAddC.data.name" type="text" placeholder="Member name">
                     <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="userAddC.invalidFlags.schedule">This field is
+                        <div class="input_errors__error md-caption" ng-show="userAddC.invalidFields.name">This field is
                             required
                         </div>
                     </div>
                 </md-input-container>
-                <md-input-container class="md-block" ng-class="{'md-input-invalid' : userAddC.invalidFlags.email }">
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : userAddC.invalidFields.email }">
                     <md-icon>email</md-icon>
                     <input ng-model="userAddC.data.email" type="email" placeholder="Member email">
                     <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="userAddC.invalidFlags.email">This field is required or invalid
+                        <div class="input_errors__error md-caption" ng-show="userAddC.invalidFields.email">This field is required or invalid
                         </div>
                     </div>
                 </md-input-container>
-                <md-input-container class="md-block" ng-class="{'md-input-invalid' : userAddC.invalidFlags.password}">
+                <md-input-container class="md-block" ng-class="{'md-input-invalid' : userAddC.invalidFields.password}">
                     <md-icon>lock</md-icon>
                     <input ng-model="userAddC.data.pwd" type="password" placeholder="Member password">
                     <div class="input_errors">
-                        <div class="input_errors__error md-caption" ng-show="userAddC.invalidFlags.password">Insert a password
+                        <div class="input_errors__error md-caption" ng-show="userAddC.invalidFields.password">Insert a password
                             at least 6 chars long
                         </div>
                     </div>
