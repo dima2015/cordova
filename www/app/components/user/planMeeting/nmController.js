@@ -277,6 +277,7 @@
 
                 displayImage: function () {
                     jQuery('.md__img img:first-child').hide();
+                    jQuery('.md__img img:last-child').show();
                     var elem = document.getElementById('altImg');
                     elem.src = this.image;
                     c.changedImg = true;
@@ -332,7 +333,7 @@
                     options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
                     options.mimeType = "image/jpg";
 
-                    var headers = { 'Authorization': 'Bearer '+window.localStorage['auth_token']};
+                    var headers = { 'Authorization': window.localStorage['auth_token']};
 
                     options.headers = headers;
 

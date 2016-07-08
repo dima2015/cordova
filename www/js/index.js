@@ -240,35 +240,3 @@ var camera = {
         }
     }
 };
-
-var contacts = {
-    save: function (contact){
-        //contact.displayName
-        //contact.emails[0].value //TODO if length == 0?
-        //TODO choose a password
-    },
-
-    get: function(){
-        var _this = this;
-        navigator.contacts.pickContact(function(contact){
-            _this.save(contact);
-        },function(err){
-            console.log('Error: ' + err); //TODO show error
-        });
-    }
-};
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length,c.length);
-        }
-    }
-    return "";
-}
