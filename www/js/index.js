@@ -221,7 +221,6 @@ var camera = {
             var _this = this;
             var options = new FileUploadOptions();
             options.fileKey = "data";
-            console.log(camera.camera.image);
             options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
             options.mimeType = "image/jpeg";
 
