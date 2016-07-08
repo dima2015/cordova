@@ -223,7 +223,7 @@ var camera = {
             options.fileKey = "data";
             console.log(camera.camera.image);
             options.fileName = camera.camera.image.substr(camera.camera.image.lastIndexOf('/') + 1);
-            options.mimeType = "image/jpg";
+            options.mimeType = "image/jpeg";
 
             var headers = { 'Authorization': 'Bearer '+window.localStorage['auth_token']};
 
