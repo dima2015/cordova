@@ -67,8 +67,9 @@
                 <p class="event received">Device is Ready</p>
             </div> -->
         <div  class="blink">
-            <button onclick="camera.openCamera()">Take a picture</button>
-            <button onclick="camera.openFilePicker()">Select a picture</button>
+            <button onclick="camera.camera.openCamera()">Take a picture</button>
+            <button onclick="camera.camera.openFilePicker()">Select a picture</button>
+            <button id="upload" onclick="camera.uploader.upload(1,1)" disabled="disabled">Upload</button>
             <img id="imageFile" />
         </div>
             <div class="wrapper">
