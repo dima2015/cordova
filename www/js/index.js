@@ -68,6 +68,8 @@ var app = {
                 //console.log(e);
                 //alert(e);
             });
+
+        myNfc.init();
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -79,6 +81,55 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    }
+};
+
+var myNfc = {
+    reading: false,
+
+    init: function(){
+        var _this = this;
+        nfc.addNdefListener (
+            function (nfcEvent) {
+                if(_this.reading)
+                    return;
+                _this.reading = true;
+                var tag = nfcEvent.tag,
+                    ndefMessage = tag.ndefMessage;
+
+                // dump the raw json of the message
+                // note: real code will need to decode
+                // the payload from each record
+                //alert(JSON.stringify(ndefMessage));
+
+                // assuming the first record in the message has
+                // a payload that can be converted to a string.
+                //alert(nfc.bytesToString(ndefMessage[0].payload).substring(3));
+                //alert(nfc.bytesToString(ndefMessage[0].payload));
+                this.login(nfc.bytesToString(ndefMessage[0].payload).substring(3));
+            },
+            function () { // success callback
+                //alert("Waiting for NDEF tag");
+            },
+            function (error) { // error callback
+                //alert("Error adding NDEF listener " + JSON.stringify(error));
+                console.log("Error adding NDEF listener " + JSON.stringify(error));
+            }
+        );
+    },
+
+    login: function(id){
+        var token = 'AAAA';
+        switch(id){
+            case '1':
+                token = 'AAAA';
+                break;
+            case '2':
+                token = 'BBB';
+                break;
+        }
+        //TODO login with token used
+        this.reading = false;
     }
 };
 

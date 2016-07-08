@@ -92,4 +92,5 @@
     <plugin name="cordova-plugin-file" spec="~4.2.0" />
     <plugin name="cordova-plugin-file-transfer" spec="~1.5.1" />
     <plugin name="cordova-plugin-contacts" spec="~2.0.1" />
+    <plugin name="phonegap-nfc" spec="~0.6.6" />
 </widget>
