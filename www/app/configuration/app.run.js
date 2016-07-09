@@ -16,26 +16,26 @@
             }
             //Mode checking(organizations)
             if (path) {
-                if (path.search('org') !== -1 && path.search('recovery') === -1 && path.search('reset') === -1) {
+                if (path.search('organization') !== -1) {
                     if (mode === undefined || mode !== 'cn') {
                         $location.path('/');
                     }
-                    else if (path.search('orgsignin') !== -1) {
+                    else {
                         $location.path('/organization')
                     }
                 }
                 //Mode checking(employees)
-                else if (path.search('user') !== -1 && path.search('recovery') === -1 && path.search('reset') === -1) {
+                else if (path.search('user') !== -1) {
 
                     if (mode === undefined || mode !== 'en') {
                         $location.path('/');
                     }
-                    else if (path.search('usersignin') !== -1) {
+                    else  {
                         $location.path('/user')
                     }
                 }
                 //Redirect if the user is already logged in
-                else if (path.search('/orgsignin') !== -1) {
+                /*else if (path.search('/orgsignin') !== -1) {
                     if (mode === 'cn') {
                         $location.path('/organization');
                     }
@@ -44,7 +44,7 @@
                     if (mode === 'en') {
                         $location.path('/user');
                     }
-                }
+                }*/
             }
         });
     });
