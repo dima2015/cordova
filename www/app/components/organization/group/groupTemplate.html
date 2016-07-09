@@ -50,7 +50,8 @@
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
                 <div class="team-create__tile clearfix" ng-repeat="member in groupC.showMembers" >
-                    <div>&nbsp;
+                    <div>
+                        <img src="img/user.jpg" alt="">
                     </div>
                     <div>
                         <p>{{member.name}}</p>
@@ -69,7 +70,9 @@
                 </div>
                 <ul ng-repeat="group in groupC.data.members" class="list-unstyled list-inline group__users" >
                     <li ng-repeat="member in group" id="{{member.id}}">
-                        <div>&nbsp;</div>
+                        <div>
+                            <img src="img/user.jpg" alt="">
+                        </div>
                         <p>{{member.name}}</p>
                         <md-icon class="animated bounceIn">check_circle</md-icon>
                     </li>

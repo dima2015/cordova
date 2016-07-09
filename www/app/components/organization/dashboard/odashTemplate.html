@@ -53,9 +53,13 @@
                      ng-hide="odashC.data.users">
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
+                <div class="searchBox">
+                    <input type="text" placeholder="Search member" ng-model="filteredSearch_one">
+                    <md-icon>search</md-icon>
+                </div>
                 <md-content layout-padding class="aspra"
                             ng-show="odashC.data.users" style="background-color: transparent">
-                    <a ng-href="#/organization/users/{{user.id}}" ng-repeat="user in odashC.data.users">
+                    <a ng-href="#/organization/users/{{user.id}}" ng-repeat="user in odashC.data.users | filter: filteredSearch_one">
                         <div class="general-tile general-tile--org clearfix">
                             <h4>Member</h4>
                             <div class="clearfix">
@@ -79,9 +83,13 @@
                      ng-hide="odashC.data.groups">
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
+                <div class="searchBox">
+                    <input type="text" placeholder="Search team" ng-model="filteredSearch_two">
+                    <md-icon>search</md-icon>
+                </div>
                 <md-content class="aspra md-padding" layout-padding
                             ng-show="odashC.data.groups" style="background-color: transparent;">
-                    <a ng-href="#/organization/groups/{{group.id}}" ng-repeat="group in odashC.data.groups">
+                    <a ng-href="#/organization/groups/{{group.id}}" ng-repeat="group in odashC.data.groups | filter : filteredSearch_two">
                         <div class="general-tile general-tile--meeting clearfix">
                             <h4>Team</h4>
                             <div class="clearfix">

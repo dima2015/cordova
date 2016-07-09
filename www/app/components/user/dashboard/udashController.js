@@ -9,7 +9,6 @@
          and contains also the name of the group the meeting refers to
 
          */
-        var apiDomain = configService.apiDomain;
         var processMeetings = function (groups) {
             var meetingsContainer = [];
             var tmp;
@@ -53,16 +52,21 @@
                     var processedSchedules = processSchedules(response);
                     console.log(processedSchedules);
                     c.schedules.imported = processedSchedules.importedSchedules;
+                c.schedules.composed = processedSchedules.composedSchedules;
+                c.finishLoading.imported = true;
+                c.finishLoading.composed = true;
                 });
         };
         var getMeetings = function () {
             userResources.userGroups.query({current : 1})
                 .$promise.then(function (response) {
                     c.meetings.toBePlanned = processMeetings(response);
+                c.finishLoading.to_be_planned = true;
                 });
             userResources.userPlannedMeetings.query({meetingId: '', current: 1})
                 .$promise.then(function (response) {
                     c.meetings.planned = response;
+                c.finishLoading.planned = true;
 
                 });
         };
@@ -70,6 +74,7 @@
             plannerResources.plannerManagedMeetings.query({current: 1})
                 .$promise.then(function (response) {
                     c.meetings.managed = processMeetings(response);
+                c.finishLoading.managed = true;
                 });
 
         };
@@ -81,6 +86,13 @@
                         getManagedMeetings();
                     }
                 })
+        };
+        c.finishLoading = {
+            to_be_planned : false,
+            planned : false,
+            managed : false,
+            composed : false,
+            imported : false
         };
         //Flags for deciding what view show to the user
         c.viewSections = {

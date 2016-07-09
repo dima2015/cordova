@@ -70,15 +70,18 @@
                         <button>Managed</button>
                     </li>
                 </ul>
-                <div layout="column" layout-align="center center"
-                     ng-hide="udashC.meetings.toBePlanned && udashC.meetings.planned && udashC.meetings.managed">
-                    <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
-                </div>
-
                 <md-content layout-padding class="udash__content">
                     <div id="udash__to_be_planned-meetings" ng-show="udashC.viewSections.meetings.to_be_planned">
+                        <div layout="column" layout-align="center center"
+                             ng-hide="udashC.finishLoading.to_be_planned">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                        </div>
+                        <div class="searchBox searchBox--user" ng-show="udashC.finishLoading.to_be_planned">
+                            <input type="text" placeholder="Search to be planned meeting" ng-model="filteredSearch_tbp">
+                            <md-icon>search</md-icon>
+                        </div>
                         <a ng-href="#/member/meeting/{{meeting.group_id}}/{{meeting.id}}/0"
-                           ng-repeat="meeting in udashC.meetings.toBePlanned | filter: {title : filterTBPMeetings}">
+                           ng-repeat="meeting in udashC.meetings.toBePlanned | filter: filteredSearch_tbp">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
                                 <div class="clearfix">
@@ -100,7 +103,7 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="udash__empty-state" ng-if="udashC.meetings.toBePlanned.length === 0">
+                        <div class="udash__empty-state" ng-if="udashC.meetings.toBePlanned.length === 0 && udashC.finishLoading.to_be_planned">
                             <md-icon>sentiment_dissatisfied</md-icon>
                             <h2>
                                 Sorry you have no meeting to be planned
@@ -108,8 +111,16 @@
                         </div>
                     </div>
                     <div id="udash__planned-meetings" ng-show="udashC.viewSections.meetings.planned">
+                        <div layout="column" layout-align="center center"
+                             ng-hide="udashC.finishLoading.planned">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                        </div>
+                        <div class="searchBox searchBox--user" ng-show="udashC.finishLoading.planned">
+                            <input type="text" placeholder="Search planned meeting" ng-model="filteredSearch_planned">
+                            <md-icon>search</md-icon>
+                        </div>
                         <a ng-href="#/meeting/{{meeting.groupId}}/{{meeting.id}}"
-                           ng-repeat="meeting in udashC.meetings.planned | filter: {title : filterTBPMeetings}">
+                           ng-repeat="meeting in udashC.meetings.planned | filter: filteredSearch_planned">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
                                 <div class="clearfix">
@@ -132,7 +143,7 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="udash__empty-state" ng-if="udashC.meetings.planned.length === 0">
+                        <div class="udash__empty-state" ng-if="udashC.meetings.planned.length === 0 && udashC.finishLoading.planned">
                             <md-icon>sentiment_dissatisfied</md-icon>
                             <h2>
                                 Sorry you have no planned meeting
@@ -140,8 +151,16 @@
                         </div>
                     </div>
                     <div id="udash__managed-meetings" ng-show="udashC.viewSections.meetings.managed">
+                        <div layout="column" layout-align="center center"
+                             ng-hide="udashC.finishLoading.managed">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                        </div>
+                        <div class="searchBox searchBox--user" ng-show="udashC.finishLoading.managed">
+                            <input type="text" placeholder="Search managed meeting" ng-model="filteredSearch_managed">
+                            <md-icon>search</md-icon>
+                        </div>
                         <a ng-href="#/user/newmeeting/{{meeting.group_id}}&{{meeting.id}}&w&{{meeting.planned}}"
-                           ng-repeat="meeting in udashC.meetings.managed | filter: {title : filterTBPMeetings}">
+                           ng-repeat="meeting in udashC.meetings.managed | filter: filteredSearch_managed">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
                                 <div class="clearfix">
@@ -164,7 +183,7 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="udash__empty-state" ng-if="udashC.meetings.managed.length === 0">
+                        <div class="udash__empty-state" ng-if="udashC.meetings.managed.length === 0 && udashC.finishLoading.managed">
                             <md-icon>sentiment_dissatisfied</md-icon>
                             <h2>
                                 Sorry you have no managed meeting
@@ -184,14 +203,19 @@
                         <button>Imported</button>
                     </li>
                 </ul>
-                <div layout="column" layout-align="center center"
-                     ng-hide="udashC.schedules.imported && udashC.schedules.composed">
-                    <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
-                </div>
                 <md-content class="udash__content md-padding" layout-padding>
                     <div id="udash__composed-schedules" ng-show="udashC.viewSections.schedules.composed">
+                        <div layout="column" layout-align="center center"
+                             ng-hide="udashC.finishLoading.composed">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                        </div>
+
+                        <div class="searchBox searchBox--user">
+                            <input type="text" placeholder="Search composed schedule" ng-model="filteredSearch_composed">
+                            <md-icon>search</md-icon>
+                        </div>
                         <a ng-href="#/user/schedules/compose/{{schedule.id}}&{{schedule.name}}&{{schedule.enabled}}"
-                           ng-repeat="schedule in udashC.schedules.composed | filter: {name : filterISchedules}">
+                           ng-repeat="schedule in udashC.schedules.composed | filter: filteredSearch_composed">
                             <div class="general-tile general-tile--schedule clearfix">
                                 <h4>Schedule</h4>
                                 <div>
@@ -217,8 +241,16 @@
 
                     </div>
                     <div id="udash__imported-schedules" ng-show="udashC.viewSections.schedules.imported">
+                        <div layout="column" layout-align="center center"
+                             ng-hide="udashC.finishLoading.imported">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
+                        </div>
+                        <div class="searchBox searchBox--user">
+                            <input type="text" placeholder="Search imported schedule" ng-model="filteredSearch_imported">
+                            <md-icon>search</md-icon>
+                        </div>
                         <a ng-href="#/member/schedule/{{schedule.id}}"
-                           ng-repeat="schedule in udashC.schedules.imported | filter: {name : filterISchedules}">
+                           ng-repeat="schedule in udashC.schedules.imported | filter: {name : filteredSearch_imported}">
                             <div class="general-tile general-tile--schedule clearfix">
                                 <h4>Schedule</h4>
                                 <div>

@@ -1,7 +1,7 @@
 (function () {
     var app = angular.module('Plunner');
 
-    app.run(function ($rootScope, $location) {
+    app.run(function ($mdDialog,$rootScope, $location) {
 
         //Route filtering
         $rootScope.$on("$routeChangeStart", function (event, next) {

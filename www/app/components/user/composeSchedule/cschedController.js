@@ -221,7 +221,7 @@
                 calendar.fullCalendar('renderEvent',
                     {
                         start: start,
-                        end: end,
+                        end: end.add('15','m'),
                         new: true
                     },
                     true // make the event "stick"

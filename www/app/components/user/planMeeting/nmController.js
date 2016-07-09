@@ -383,7 +383,7 @@
                 calendar.fullCalendar('renderEvent',
                     {
                         start: start,
-                        end: end,
+                        end: end.add('15','m'),
                         new: true
                     },
                     true // make the event "stick"
@@ -461,7 +461,7 @@
             meeting: {
                 name: '',
                 description: '',
-                duration: 15
+                duration: 30
             }
         };
         c.getMode = function () {
