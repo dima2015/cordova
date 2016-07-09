@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - 5.3
+  - 4.2
+  - 4.1
+  - 4.0
+  - 0.12
+  - 0.11
+  - 0.10
+beforeScript:
+  - npm install
+#script:
+#  - node_modules/.bin/karma start --single--run --browsers PhantomJS
+
+notifications:
+    on_success: never
+    on_failure: always
