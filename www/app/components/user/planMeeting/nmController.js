@@ -137,7 +137,9 @@
                 description: c.data.meeting.description,
                 duration: (c.data.meeting.duration * 60)
             })).$promise.then(function (response) {
-                camera.uploader.upload(groupId,response.id);
+                if(c.changedImg){
+                    camera.uploader.upload(groupId,response.id);
+                }
                 saveMeetingTimeslots(response.id, processedEvents, true, true)
             }, function (response) {
                 if (response.status === 422) {
@@ -223,13 +225,14 @@
                 description: c.data.meeting.description,
                 duration: (c.data.meeting.duration * 60)
             })).$promise.then(function () {
-                camera.uploader.upload(groupId, c.meetingId);
+                if(c.changedImg){
+                    camera.uploader.upload(groupId, c.meetingId);
+                }
                 saveMeetingTimeslots(meetingId, newEvents, true, !alsoEditedEvents, true);
                 updateMeetingTimeslots(modifiedEvents, true);
                 if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
                     confirmPopup.hide();
                     $location.path('/user');
-
                 }
             }, function (response) {
                 if (response.status === 422) {
@@ -315,7 +318,9 @@
                 win: function (r) {
                     console.log("Code = " + r.responseCode);
                     console.log("Response = " + r.response);
-                    console.log("Sent = " + r.bytesSent);
+                    console.log("Sent = " + r.bytesSent)
+                    confirmPopup.hide();
+
                 },
 
                 fail: function (error) {
