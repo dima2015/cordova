@@ -4,12 +4,12 @@
 
 
         var c = this;
-        var isUpdate = false;
+        c.isUpdate = false;
         var changedEvents = [];
         var _evs = [];
         var calendar;
         var groupId;
-        var meetingId;
+        c.meetingId='';
         var selectDay = function () {
             var date = moment();
             date.utc();
@@ -65,7 +65,7 @@
         var getTimeslots = function () {
             plannerResources.plannerManagedMeetingsTimeslots.query({
                     groupId: groupId,
-                    meetingId: meetingId,
+                    meetingId: c.meetingId,
                     timeslotId: ''
                 })
                 .$promise.then(function (response) {
@@ -90,15 +90,15 @@
             if (!($routeParams.type.length === 1 && $routeParams.type === '_')) {
                 urlParams = $routeParams.type.split('&');
                 groupId = urlParams[0];
-                meetingId = urlParams[1];
-                isUpdate = true;
+                c.meetingId = urlParams[1];
+                c.isUpdate = true;
                 c.toolbarTitle = 'Edit meeting'
             }
         };
 
         var getMeetingInfo = function () {
-            if (isUpdate) {
-                plannerResources.plannerMeetings.get({groupId: groupId, meetingId: meetingId})
+            if (c.isUpdate) {
+                plannerResources.plannerMeetings.get({groupId: groupId, meetingId: c.meetingId})
                     .$promise.then(function (response) {
                     c.data.meeting.name = response.title;
                     c.data.meeting.description = response.description;
@@ -117,7 +117,7 @@
             confirmPopup.show();
             plannerResources.plannerManagedMeetingsTimeslots.remove({
                 groupId: groupId,
-                meetingId: meetingId,
+                meetingId: c.meetingId,
                 timeslotId: id
             }).$promise
                 .then(function () {
@@ -153,7 +153,7 @@
             for (var i = 0; i < events[1].length; i++) {
                 plannerResources.plannerManagedMeetingsTimeslots.update({
                         groupId: groupId,
-                        meetingId: meetingId,
+                        meetingId: c.meetingId,
                         timeslotId: events[0][i]
                     },
                     jQuery.param(events[1][i])).$promise.then(function () {
@@ -178,7 +178,7 @@
         var saveMeetingTimeslots = function (meeting_id, events, redirect, showPopupCondition, isUpdate) {
             var counter = 0;
             var group_id;
-            if (isUpdate) {
+            if (c.isUpdate) {
                 group_id = groupId;
             }
             else {
@@ -218,12 +218,12 @@
             confirmPopup.message = "Saving changes";
             confirmPopup.show();
             alsoEditedEvents = modifiedEvents[1].length > 0;
-            plannerResources.plannerMeetings.update({groupId: groupId, meetingId: meetingId}, jQuery.param({
+            plannerResources.plannerMeetings.update({groupId: groupId, meetingId: c.meetingId}, jQuery.param({
                 title: c.data.meeting.name,
                 description: c.data.meeting.description,
                 duration: (c.data.meeting.duration * 60)
             })).$promise.then(function () {
-                camera.uploader.upload(groupId,meetingId);
+                camera.uploader.upload(groupId, c.meetingId);
                 saveMeetingTimeslots(meetingId, newEvents, true, !alsoEditedEvents, true);
                 updateMeetingTimeslots(modifiedEvents, true);
                 if (newEvents.length === 0 && modifiedEvents[1].length === 0) {
@@ -373,7 +373,7 @@
             eventRender: function (event, element) {
                 element.append("<i class='material-icons removeEvent'>close</i>");
                 element.find(".removeEvent").click(function () {
-                    if (isUpdate) {
+                    if (c.isUpdate) {
                         removeTimeslot(event.specificId);
                     }
                     calendar.fullCalendar('removeEvents', event._id);
@@ -447,7 +447,7 @@
         c.deleteMeeting = function () {
             confirmPopup.message = "Deleting meeting";
             confirmPopup.show();
-            plannerResources.plannerMeetings.remove({groupId: groupId, meetingId: meetingId}).$promise
+            plannerResources.plannerMeetings.remove({groupId: groupId, meetingId: c.meetingId}).$promise
                 .then(function () {
                     confirmPopup.hide();
                     $location.path('/user');
@@ -465,7 +465,7 @@
             }
         };
         c.getMode = function () {
-            return isUpdate;
+            return c.isUpdate;
         };
         c.submit = function () {
             var events, areErrors, minEventDuration;
@@ -500,7 +500,7 @@
                 }
             }
             if (!areErrors) {
-                if (!isUpdate) {
+                if (!c.isUpdate) {
                     createMeeting(events);
                 }
                 else {
@@ -509,7 +509,6 @@
 
             }
         };
-        c.meetingId = meetingId;
         c.openCamera = function(){
             camera.camera.openCamera();
         };
