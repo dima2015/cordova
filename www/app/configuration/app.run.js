@@ -16,21 +16,14 @@
             }
             //Mode checking(organizations)
             if (path) {
-                if (path.search('organization') !== -1) {
-                    if (mode === undefined || mode !== 'cn') {
+                if (path==='/') {
+                    if (mode === undefined) {
                         $location.path('/');
                     }
-                    else {
+                    else if(mode === 'cn') {
                         $location.path('/organization')
                     }
-                }
-                //Mode checking(employees)
-                else if (path.search('user') !== -1) {
-
-                    if (mode === undefined || mode !== 'en') {
-                        $location.path('/');
-                    }
-                    else  {
+                    else if(mode === 'en'){
                         $location.path('/user')
                     }
                 }
