@@ -158,6 +158,20 @@
         c.openMenu = function($mdOpenMenu, $event){
           $mdOpenMenu($event);
         };
+        c.refresh = function(){
+           for(var key in c.meetings){
+               c.meetings[key] = [];
+           }
+            for(key in c.schedules){
+                c.schedules[key] = [];
+            }
+            for(key in c.finishLoading){
+                c.finishLoading[key] = false;
+            }
+            getUserInfo();
+            getSchedules();
+            getMeetings();
+        };
         c.logout = function(){
             c.confirmPopup.message = 'Signin you out';
             c.confirmPopup.show();
