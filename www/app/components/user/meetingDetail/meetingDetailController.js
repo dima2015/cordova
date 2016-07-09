@@ -2,6 +2,7 @@
 
     var controller = function($routeParams, userResources){
         var c = this;
+        c.id = $routeParams.id;
         var params = {
             groupId : $routeParams.group_id,
             id : $routeParams.id,
