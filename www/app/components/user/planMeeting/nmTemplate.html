@@ -30,8 +30,8 @@
             </ul>
         </div>
         <div class="md__img">
-            <img src="img/meetings.jpg" alt="" >
-            <img style="display:none" id="altImg"/>
+            <img ng-hide="nmC.isUpdate" src="img/meetings.jpg" alt="" >
+            <img ng-show="nmC.isUpdate" ng-src="http://api.plunner.com/noauth/meetings/{{nmC.meeting.id}}/image" style="display:none" id="altImg"/>
         </div>
         <section class="plan_meeting__information">
             <div class="general-tile">

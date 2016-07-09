@@ -509,6 +509,7 @@
 
             }
         };
+        c.meetingId = meetingId;
         c.openCamera = function(){
             camera.camera.openCamera();
         };
