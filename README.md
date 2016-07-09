@@ -1,5 +1,7 @@
 # Phonegap
 
+Build status: [![Build Status](https://travis-ci.org/dima2015/phonegap.svg?branch=master)](https://travis-ci.org/dima2015/phonegap)
+
 [see android app for more info](https://github.com/dima2015/android)
 
 ##Ideas
