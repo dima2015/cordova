@@ -277,7 +277,7 @@
 
                 displayImage: function () {
                     jQuery('.md__img img:first-child').hide();
-                    jQuery('.md__img img:last-child').show();
+                    jQuery('.md__img img:last-child').removeAttr('style');
                     var elem = document.getElementById('altImg');
                     elem.src = this.image;
                     c.changedImg = true;
