@@ -12,7 +12,7 @@
 
         }
         else{
-          $cookies.remove('auth_token');
+          window.localStorage.removeItem('auth_token');
           $location.path(url);
         }
       }

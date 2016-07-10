@@ -177,7 +177,7 @@
             c.confirmPopup.show();
             setTimeout(function(){
                 c.confirmPopup.hide();
-                logoutService.logout('');
+                logoutService.logout('/');
             },1000);
 
 

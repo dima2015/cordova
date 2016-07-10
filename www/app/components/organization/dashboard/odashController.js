@@ -54,7 +54,7 @@
             confirmPopup.show();
             setTimeout(function(){
                 confirmPopup.hide();
-                logoutService.logout('');
+                logoutService.logout('/');
             },1000);
 
 
