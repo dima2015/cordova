@@ -24,7 +24,7 @@
             c.meeting.title = meetingObj.title;
             c.meeting.desc = meetingObj.description;
             c.meeting.group = meetingObj.group_name;
-            c.meeting.duration = parseInt(meetingObj.duration)/15;
+            c.meeting.duration = parseInt(meetingObj.duration)/60;
             if(meetingObj.start_time != null){
                 c.meeting.starts = moment(meetingObj.start_time).format('llll');
             }
