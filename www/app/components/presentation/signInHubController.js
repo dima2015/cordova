@@ -105,6 +105,7 @@
                 }, function (response) {
                     if (response.status === 422) {
                         mixedContentToArray.process(response.data, c.errors.member, true);
+                        confirmPopup.hide();
                         //authorizationPopup.hide();
                     }
                     //authorizationPopup.hide();
