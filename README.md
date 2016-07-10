@@ -8,9 +8,9 @@ Build status: [![Build Status](https://travis-ci.org/dima2015/phonegap.svg?branc
 - [x] rfid to login, useful for some android terminal (like fixed devices)
 - [x] push notifications for new meetings planed (both company and employees)
 - [x] import contacts
+- [x] meeting photo
 - [ ] import calendars
 - [ ] profile photo
-- [x] meeting photo
 
 ##Todo
 - [ ] tests
