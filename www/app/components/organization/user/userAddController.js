@@ -1,6 +1,6 @@
 (function () {
 
-    var controller = function ($mdDialog,$scope, $location, orgResources) {
+    var controller = function ($mdDialog,$scope, $location, orgResources, mixedContentToArray) {
 
         var c = this;
         var emailRegex =/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
@@ -72,5 +72,5 @@
     };
 
     var app = angular.module('Plunner');
-    app.controller('userAddController', ['$mdDialog','$scope','$location','orgResources', controller]);
+    app.controller('userAddController', ['$mdDialog','$scope','$location','orgResources','mixedContentToArray', controller]);
 }());
