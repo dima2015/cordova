@@ -53,7 +53,7 @@
                      ng-hide="odashC.data.users">
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
-                <div class="searchBox">
+                <div class="searchBox" ng-show="odashC.data.users">
                     <input type="text" placeholder="Search member" ng-model="filteredSearch_one">
                     <md-icon>search</md-icon>
                 </div>
@@ -83,8 +83,7 @@
                      ng-hide="odashC.data.groups">
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
-                <div class="searchBox">
-                    <input type="text" placeholder="Search team" ng-model="filteredSearch_two">
+a                    <input type="text" placeholder="Search team" ng-model="filteredSearch_two">
                     <md-icon>search</md-icon>
                 </div>
                 <md-content class="aspra md-padding" layout-padding
