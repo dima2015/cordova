@@ -46,7 +46,7 @@
                 <p class="group-add__error-tile" ng-show="groupC.invalidFields.membersReq">Insert at least one member</p>
                 <p class="group-add__error-tile" ng-show="groupC.invalidFields.plannerReq">Select one planner</p>
                 <div layout="column" layout-align="center center"
-                     ng-hide="groupC.showMembers.length > 0">
+                     ng-hide="groupC.finishLoading">
                     <md-progress-circular md-mode="indeterminate" md-diameter="80px"></md-progress-circular>
                 </div>
                 <div class="team-create__tile clearfix" ng-repeat="member in groupC.showMembers" >

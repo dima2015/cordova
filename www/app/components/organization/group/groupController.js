@@ -9,6 +9,7 @@
             orgResources.orgUserInGroup.query({groupId: id, userId: ''}).$promise
                 .then(function (response) {
                     c.showMembers = response;
+                    c.finishLoading = true;
                     c.data.ownUsers = response;
                     for(var i=0; i< c.data.ownUsers.length; i++){
                         c.selectedMembers.push({id : c.data.ownUsers[i].id, name: c.data.ownUsers[i].name});
@@ -41,6 +42,7 @@
             users : [],
             ownUsers : []
         };
+        c.finishLoading = false;
         c.errors = {
             planner: [],
             info: []
