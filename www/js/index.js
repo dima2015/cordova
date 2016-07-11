@@ -126,7 +126,7 @@ var myNfc = {
                 token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6InRydWUiLCJzdWIiOiIzNCIsImlzcyI6Imh0dHA6XC9cL2FwaS5wbHVubmVyLmNvbVwvZW1wbG95ZWVzXC9tZWV0aW5ncyIsImlhdCI6IjE0Njc5OTU4MTIiLCJleHAiOiIxNDcwNTk1MTAxIiwibmJmIjoiMTQ2ODAwMzEwMSIsImp0aSI6IjM2MTFiZmU0NjUwNGQ0NTgxYzNlZGUzNTAyNzMwNjgxIn0.FffOTgpiaz_iOtWjbHaYcoFPafQoCsoE0TaA65s15Ac';
                 break;
             case '2':
-                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzQ5IiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2dyb3VwcyIsImlhdCI6IjE0NjgyMjUzMDEiLCJleHAiOiIxNDY4MjI4OTAzIiwibmJmIjoiMTQ2ODIyNTMwMyIsImp0aSI6IjAxZTAxNGQxMjdhNGQ2YWVkZjNkMmI5Yzg4N2U4NWUyIn0.AsKfjhiSFFMU3zhNh16x3xb4L_vUvuF5_IrkGBkeGMo';
+                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzQ5IiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2VtcGxveWVlIiwiaWF0IjoiMTQ2ODIzMDUwNSIsImV4cCI6IjE0NjgyMzQxMDciLCJuYmYiOiIxNDY4MjMwNTA3IiwianRpIjoiOGEyYzVlZDA3Njc4YWE0NWU2NmRjMGNlMmQ3ZjlhOTYifQ.HhLh0IrNZOfIBMdfzu4VZh2cLzr2TkoRyeeGYcWo9TI';
                 break;
         };
         var r = confirm("Are you sure that you want to login with RFID?");
@@ -149,7 +149,7 @@ var camera = {
                 destinationType: Camera.DestinationType.FILE_URI,
                 // In this app, dynamically set the picture source, Camera or photo gallery
                 sourceType: srcType,
-                encodingType: Camera.EncodingType.JPEG,\
+                encodingType: Camera.EncodingType.JPEG,
                 mediaType: Camera.MediaType.PICTURE,
                 allowEdit: true,
                 correctOrientation: true  //Corrects Android orientation quirks
