@@ -125,7 +125,7 @@
                             <input type="text" placeholder="Search planned meeting" ng-model="filteredSearch_planned">
                             <md-icon>search</md-icon>
                         </div>
-                        <a ng-href="#/meeting/{{meeting.groupId}}/{{meeting.id}}"
+                        <a ng-href="#/meeting/{{meeting.group_id}}/{{meeting.id}}"
                            ng-repeat="meeting in udashC.meetings.planned | filter: filteredSearch_planned">
                             <div class="general-tile general-tile--meeting clearfix">
                                 <h4>Meeting</h4>
