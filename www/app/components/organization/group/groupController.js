@@ -59,7 +59,7 @@
             plannerReq: false
         };
         var selectMemberListener = function(){
-            jQuery(document).on('touchend click','.group__users li', function(){
+            jQuery(document).on('click','.group__users li', function(){
                 var elem = jQuery(this);
                 var checkmark = elem.find('md-icon');
                 var id = elem.attr('id');
