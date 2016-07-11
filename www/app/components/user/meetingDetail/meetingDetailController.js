@@ -51,7 +51,7 @@
             });
         };
         var getPlannedMeeting = function(){
-            userResources.userPlannedMeetings.query({meetingId: id, current: 1})
+            userResources.userPlannedMeetings.get({meetingId: c.id, current: 1})
                 .$promise.then(function (response) {
                 fillMeetingFields(response);
             });

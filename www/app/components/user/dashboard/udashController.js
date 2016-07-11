@@ -10,6 +10,7 @@
 
          */
         var processMeetings = function (groups) {
+            c.groups = groups;
             var meetingsContainer = [];
             var tmp;
             for (var i = 0; i < groups.length; i++) {
@@ -158,6 +159,7 @@
         c.openMenu = function($mdOpenMenu, $event){
           $mdOpenMenu($event);
         };
+        c.groups = [];
         c.refresh = function(){
            for(var key in c.meetings){
                c.meetings[key] = [];
