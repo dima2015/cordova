@@ -126,7 +126,7 @@ var myNfc = {
                 token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6InRydWUiLCJzdWIiOiIzNCIsImlzcyI6Imh0dHA6XC9cL2FwaS5wbHVubmVyLmNvbVwvZW1wbG95ZWVzXC9tZWV0aW5ncyIsImlhdCI6IjE0Njc5OTU4MTIiLCJleHAiOiIxNDcwNTk1MTAxIiwibmJmIjoiMTQ2ODAwMzEwMSIsImp0aSI6IjM2MTFiZmU0NjUwNGQ0NTgxYzNlZGUzNTAyNzMwNjgxIn0.FffOTgpiaz_iOtWjbHaYcoFPafQoCsoE0TaA65s15Ac';
                 break;
             case '2':
-                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzQ5IiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2dyb3VwcyIsImlhdCI6IjE0NjgyMzU4ODIiLCJleHAiOiIxNDY4MjM5NDgzIiwibmJmIjoiMTQ2ODIzNTg4MyIsImp0aSI6IjlhNTg1NjBjY2JmZDViNGQ5Yjc0MmQyNjg1ZDFmMDMyIn0.kwNhu5A4Xx-r3AEvJIXJhhib0ilPfMALtABLWMOLph8';
+                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzQ5IiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2dyb3VwcyIsImlhdCI6IjE0NjgyMzcwNzUiLCJleHAiOiIxNDY4MjQwNjc2IiwibmJmIjoiMTQ2ODIzNzA3NiIsImp0aSI6IjJiNmUwYTFjYTRjOGM2MTI5MTcxMWM4YWRjOGQzZmQzIn0.DnGe9CYltbC4YuTLReSZ2oJ2FWBI7TxHku6rtvFlMzg';
                 break;
         };
         var r = confirm("Are you sure that you want to login with RFID?");
