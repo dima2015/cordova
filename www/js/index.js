@@ -120,13 +120,13 @@ var myNfc = {
 
     login: function(id){
         var _this = this;
-        var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6InRydWUiLCJzdWIiOiIzNCIsImlzcyI6Imh0dHA6XC9cL2FwaS5wbHVubmVyLmNvbVwvZW1wbG95ZWVzXC9tZWV0aW5ncyIsImlhdCI6IjE0Njc5OTU4MTIiLCJleHAiOiIxNDcwNTk1MTAxIiwibmJmIjoiMTQ2ODAwMzEwMSIsImp0aSI6IjM2MTFiZmU0NjUwNGQ0NTgxYzNlZGUzNTAyNzMwNjgxIn0.FffOTgpiaz_iOtWjbHaYcoFPafQoCsoE0TaA65s15Ac';
+        var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiMzQiLCJpc3MiOiJodHRwOlwvXC9hcGkucGx1bm5lci5jb21cL2VtcGxveWVlc1wvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDc1MDAzMDE5IiwiZXhwIjoiMTQ3NTAwNjYxOSIsIm5iZiI6IjE0NzUwMDMwMTkiLCJqdGkiOiJkNmUwNzM0NmEyYTI1NzM4MjlhMjMwNWIyM2U5MjE3MiJ9.c5Rc7-0pGC5_UfjNjAf05MwF6xHVlpHeQsxPEmZfpic';
         switch(id){
             case '1':
-                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6InRydWUiLCJzdWIiOiIzNCIsImlzcyI6Imh0dHA6XC9cL2FwaS5wbHVubmVyLmNvbVwvZW1wbG95ZWVzXC9tZWV0aW5ncyIsImlhdCI6IjE0Njc5OTU4MTIiLCJleHAiOiIxNDcwNTk1MTAxIiwibmJmIjoiMTQ2ODAwMzEwMSIsImp0aSI6IjM2MTFiZmU0NjUwNGQ0NTgxYzNlZGUzNTAyNzMwNjgxIn0.FffOTgpiaz_iOtWjbHaYcoFPafQoCsoE0TaA65s15Ac';
+                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiMzQiLCJpc3MiOiJodHRwOlwvXC9hcGkucGx1bm5lci5jb21cL2VtcGxveWVlc1wvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDc1MDAzMDE5IiwiZXhwIjoiMTQ3NTAwNjYxOSIsIm5iZiI6IjE0NzUwMDMwMTkiLCJqdGkiOiJkNmUwNzM0NmEyYTI1NzM4MjlhMjMwNWIyM2U5MjE3MiJ9.c5Rc7-0pGC5_UfjNjAf05MwF6xHVlpHeQsxPEmZfpic';
                 break;
             case '2':
-                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzQ5IiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2dyb3VwcyIsImlhdCI6IjE0NjgyMzgyNjciLCJleHAiOiIxNDY4MjQxODY5IiwibmJmIjoiMTQ2ODIzODI2OSIsImp0aSI6IjBmMDdmY2VkNTQyNjE4NjM4ZjRjYjdkOTI5MGJmOTg4In0.7FB1awtp4hAPkaAdgCUELI-eTGm4xJzKnb4h25wSuxU';
+                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzYzIiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2F1dGhcL2xvZ2luIiwiaWF0IjoiMTQ3NTAwMjg4MiIsImV4cCI6IjE0NzUwMDY0ODIiLCJuYmYiOiIxNDc1MDAyODgyIiwianRpIjoiYTJkZDFhYTM0ZmM5YTgwYzhlODhkMzkxMmE1OTliODEifQ.ydERTG6C7ny-Zu6YPeyjCKkkVdks40UMifcesQ3dsPg';
                 break;
         };
         var r = confirm("Are you sure that you want to login with RFID?");
