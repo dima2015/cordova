@@ -120,10 +120,10 @@ var myNfc = {
 
     login: function(id){
         var _this = this;
-        var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiMzQiLCJpc3MiOiJodHRwOlwvXC9hcGkucGx1bm5lci5jb21cL2VtcGxveWVlc1wvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDc1MDAzMDE5IiwiZXhwIjoiMTQ3NTAwNjYxOSIsIm5iZiI6IjE0NzUwMDMwMTkiLCJqdGkiOiJkNmUwNzM0NmEyYTI1NzM4MjlhMjMwNWIyM2U5MjE3MiJ9.c5Rc7-0pGC5_UfjNjAf05MwF6xHVlpHeQsxPEmZfpic';
+        var token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiMzQiLCJpc3MiOiJodHRwOlwvXC9hcGkucGx1bm5lci5jb21cL2VtcGxveWVlc1wvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDc1MDY2OTA5IiwiZXhwIjoiMTQ3NTA3MDUwOSIsIm5iZiI6IjE0NzUwNjY5MDkiLCJqdGkiOiI1ZDczYTVlYjhhZWY5ZmI4NDY0MTRmZTNiNjdiM2M3NSJ9.iM5c_tffkIZkQ9zHS1XRIejZA2jfOIRZKU53RjL1zuo';
         switch(id){
             case '1':
-                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiMzQiLCJpc3MiOiJodHRwOlwvXC9hcGkucGx1bm5lci5jb21cL2VtcGxveWVlc1wvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDc1MDAzMDE5IiwiZXhwIjoiMTQ3NTAwNjYxOSIsIm5iZiI6IjE0NzUwMDMwMTkiLCJqdGkiOiJkNmUwNzM0NmEyYTI1NzM4MjlhMjMwNWIyM2U5MjE3MiJ9.c5Rc7-0pGC5_UfjNjAf05MwF6xHVlpHeQsxPEmZfpic';
+                token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiMzQiLCJpc3MiOiJodHRwOlwvXC9hcGkucGx1bm5lci5jb21cL2VtcGxveWVlc1wvYXV0aFwvbG9naW4iLCJpYXQiOiIxNDc1MDY2OTA5IiwiZXhwIjoiMTQ3NTA3MDUwOSIsIm5iZiI6IjE0NzUwNjY5MDkiLCJqdGkiOiI1ZDczYTVlYjhhZWY5ZmI4NDY0MTRmZTNiNjdiM2M3NSJ9.iM5c_tffkIZkQ9zHS1XRIejZA2jfOIRZKU53RjL1zuo';
                 break;
             case '2':
                 token = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtb2RlIjoiZW4iLCJyZW1lbWJlciI6ImZhbHNlIiwic3ViIjoiNzYzIiwiaXNzIjoiaHR0cDpcL1wvYXBpLnBsdW5uZXIuY29tXC9lbXBsb3llZXNcL2F1dGhcL2xvZ2luIiwiaWF0IjoiMTQ3NTAwMjg4MiIsImV4cCI6IjE0NzUwMDY0ODIiLCJuYmYiOiIxNDc1MDAyODgyIiwianRpIjoiYTJkZDFhYTM0ZmM5YTgwYzhlODhkMzkxMmE1OTliODEifQ.ydERTG6C7ny-Zu6YPeyjCKkkVdks40UMifcesQ3dsPg';
